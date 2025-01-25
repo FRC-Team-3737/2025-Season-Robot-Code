@@ -71,9 +71,9 @@ public class PID {
         double pidValue = pid.calculate(currentPosition, desiredPosition);
 
         if (desiredPosition >= currentPosition) {
-            return -Math.abs(pidValue);
-        } else {
             return Math.abs(pidValue);
+        } else {
+            return -Math.abs(pidValue);
         }
 
     }
