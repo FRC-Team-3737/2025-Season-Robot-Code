@@ -42,6 +42,10 @@ public final class Constants {
     public static final int FrontLeftDriveID = 4;
     public static final int FrontLeftSteerID = 5;
     public static final int GrabberID = 11;
+  public static final int GrabberArmID = 11;
+  public static final int GrabberArmExtID = 12;
+  public static final int ClawArmExtID = 10;
+  public static final int ClawArmID = 9;
 
     // Swerve
     public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.MAX, 3.371094, 360, 82.5, -1, -1);
@@ -51,6 +55,10 @@ public final class Constants {
 
     // Robot
     public static final MotorInfo Grabber = new MotorInfo(GrabberID, controllerType.MAX);
+  public static final MotorInfo CLAW_ARM = new MotorInfo(ClawArmID, controllerType.MAX, 0, 0);
+  public static final MotorInfo CLAW_ARM_EXT = new MotorInfo(ClawArmExtID, controllerType.MAX, 0, 0);
+  public static final MotorInfo GRABBER_ARM = new MotorInfo(GrabberArmID, controllerType.MAX, 0, 0);
+  public static final MotorInfo GRABBER_ARM_EXT = new MotorInfo(GrabberArmExtID, controllerType.MAX, 0, 0);
 
     public static final class Swerve {
 
