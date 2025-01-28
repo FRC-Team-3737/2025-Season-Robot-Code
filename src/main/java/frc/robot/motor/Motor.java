@@ -16,7 +16,7 @@ import com.revrobotics.spark.config.AnalogSensorConfig;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import frc.robot.motor.MotorInfo.controllerType;
+import frc.robot.Constants.controllerType;
 
 public class Motor {
     

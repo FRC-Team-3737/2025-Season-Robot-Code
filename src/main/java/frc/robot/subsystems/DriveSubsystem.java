@@ -21,12 +21,16 @@ public class DriveSubsystem extends SubsystemBase {
   private static double yawOffsetDegrees = 0;
 
   public DriveSubsystem() {
+
+    setName("drive");
+
     modules = new SwerveModules(
         new SwerveModule(Constants.FRONT_RIGHT), new SwerveModule(Constants.FRONT_LEFT),
         new SwerveModule(Constants.BACK_RIGHT), new SwerveModule(Constants.BACK_LEFT));
 
     gyro = new AHRS(AHRS.NavXComType.kI2C);
     gyro.reset();
+    
   }
 
   /*

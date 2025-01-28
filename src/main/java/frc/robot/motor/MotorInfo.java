@@ -1,17 +1,13 @@
 package frc.robot.motor;
 
+import frc.robot.Constants.controllerType;
+
 public class MotorInfo {
     
     public final int ID;
     public final controllerType CONTROLLER;
     public final double MAX_ENCODER_VALUE;
     public final double REFERENCE_ANGLE;
-
-    public enum controllerType {
-
-        MAX, FLEX;
-
-    }
 
     public MotorInfo(int MOTOR_CAN_ID, controllerType CONTROLLER, double MAX_ENCODER_VALUE, double REFERENCE_ANGLE) {
         

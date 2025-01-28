@@ -76,7 +76,7 @@ public class AutoMoveCommand extends Command {
     }
 
     private double drivePosition() {
-        return drive.modules.backRight.driveMotor.getEncoder().getPosition();
+        return drive.modules.frontRight.driveMotor.getEncoder().getPosition();
     }
 
 }

@@ -4,14 +4,15 @@
 
 package frc.robot.swervemodule;
 
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.SparkAnalogSensor;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants;
@@ -26,7 +27,6 @@ public class SwerveModule {
   public final SparkBase driveMotor;
   public final SparkBaseConfig angleMotorConfig;
   public final SparkBaseConfig driveMotorConfig;
-  public final SparkAnalogSensor orientationEncoder;
 
   // INFORMATION
   private final double defensiveAngleDeg;
@@ -47,7 +47,6 @@ public class SwerveModule {
     driveMotorConfig.closedLoopRampRate(0.5);
     driveMotor.configure(driveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
-    this.orientationEncoder = angleMotor.getAnalog();
     this.defensiveAngleDeg = VectorR.fromCartesian(info.X, info.Y).getAngle();
     
   }
@@ -63,7 +62,7 @@ public class SwerveModule {
     double degreesPerVolt;
 
     degreesPerVolt = 360/info.MAX_ENCODER_VOLTAGE;
-    encoderVoltage = orientationEncoder.getVoltage();
+    encoderVoltage = angleMotor.getAnalog().getVoltage();
     
     return encoderVoltage * degreesPerVolt;
 
