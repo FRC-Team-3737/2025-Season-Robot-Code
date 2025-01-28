@@ -13,8 +13,8 @@ public class ArmSubsystem extends SubsystemBase {
     protected final PID pivotPID;
     protected double desiredAngle;
     protected boolean pivotActive;
-    protected double minAngle;
-    protected double maxAngle;
+    protected double minAngle; // currently 0 or -129 from vertical for both arms
+    protected double maxAngle; // currently 160 or 31 from vertical for both arms
 
     protected final Motors extensionMotor;
     protected final PID extensionPID;
@@ -22,6 +22,9 @@ public class ArmSubsystem extends SubsystemBase {
     protected double extensionLimit;
     protected double minExtension;
     protected double maxExtension;
+
+    protected double upperMechanismLength;
+    protected double lowerMechanismLength;
 
     public ArmSubsystem(MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_extensionPID) {
 
@@ -34,18 +37,26 @@ public class ArmSubsystem extends SubsystemBase {
 
     protected double GetTrueLength() {
 
-        // Modify to include mechanism on end of arm calculations
-        
-        return extensionMotor.motor.inBuiltEncoder.getPosition();
+        if (pivotMotor.motor.getAbsoluteAngle() > 90) {
+            return (Math.sqrt(Math.pow(extensionMotor.motor.inBuiltEncoder.getPosition(), 2) + Math.pow(lowerMechanismLength, 2)));
+        } else if (pivotMotor.motor.getAbsoluteAngle() < 90) {
+            return (Math.sqrt(Math.pow(extensionMotor.motor.inBuiltEncoder.getPosition(), 2) + Math.pow(upperMechanismLength, 2)));
+        } else {
+            return extensionMotor.motor.inBuiltEncoder.getPosition() + lowerMechanismLength;
+        }
 
     }
 
     protected double GetExtensionLimit() {
 
-        // Modify to include mechanism on end of arm calculations
+        // The entire system is currently represented in inches, not the value of the extension motor.
+
+        double a = Math.tan(pivotMotor.motor.getAbsoluteAngle()) * 18;
 
         if (GetCurrentAngle() < 30) {
             extensionLimit = 0;
+        } else if (GetCurrentAngle() < 135) {
+            extensionLimit = Math.sqrt(Math.pow(a, 2) + Math.pow(18, 2));
         } else {
             extensionLimit = maxExtension;
         }
