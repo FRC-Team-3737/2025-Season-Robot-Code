@@ -13,6 +13,7 @@ public class ClawArmSubsystem extends ArmSubsystem {
     public ClawArmSubsystem() {
 
         super(Constants.CLAW_ARM, Constants.CLAW_ARM_EXT, encoderType.Absolute, false, pivotPID, extensionPID);
+        setName("clawArm");
 
     }
     
