@@ -20,6 +20,8 @@ import frc.robot.commands.DriveCommands.TeleopMoveCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ClawArmSubsystem;
+import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 
 // Utility Imports
@@ -34,10 +36,14 @@ public class RobotContainer {
 
     /*  Subsystem and SubsystemList Declarations  */
 
-    DriveSubsystem drive = new DriveSubsystem();
+  DriveSubsystem drive = new DriveSubsystem();
+  ClawArmSubsystem clawArm = new ClawArmSubsystem();
+  GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
+
+  SubsystemBase[] subsystems = { drive, clawArm, grabberArm };
+  SubsystemList subsystemList = new SubsystemList(subsystems);
+  
     GrabberSubsystem grabber = new GrabberSubsystem();
-    SubsystemBase[] subsystems = { drive, grabber };
-    SubsystemList subsystemList = new SubsystemList(subsystems);
     
     /*  Controller Declarations  */
 
