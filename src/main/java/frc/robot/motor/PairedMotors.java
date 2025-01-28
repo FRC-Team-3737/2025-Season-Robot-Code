@@ -42,7 +42,7 @@ public class PairedMotors {
 
     public double GetVelocity() {
 
-        return (mainMotor.inBuiltEncoder.getVelocity() + slaveMotor.inBuiltEncoder.getVelocity())/2;
+        return (mainMotor.motor.getEncoder().getVelocity() + slaveMotor.motor.getEncoder().getVelocity())/2;
 
     }
 

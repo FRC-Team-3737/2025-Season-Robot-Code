@@ -5,17 +5,19 @@
 package frc.robot.swervemodule;
 
 import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants;
+import frc.robot.Constants.controllerType;
 import frc.robot.utils.MathR;
 import frc.robot.utils.VectorR;
 
@@ -36,16 +38,30 @@ public class SwerveModule {
   public SwerveModule(SwerveModuleInfo info) {
     
     this.info = info;
-    this.angleMotor = new SparkMax(info.TURN_ID, MotorType.kBrushless);
-    this.angleMotorConfig = new SparkMaxConfig();
-    angleMotorConfig.idleMode(IdleMode.kCoast);
-    angleMotor.configure(angleMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
-    this.driveMotor = new SparkMax(info.DRIVE_ID, MotorType.kBrushless);
-    this.driveMotorConfig = new SparkMaxConfig();
-    driveMotorConfig.idleMode(IdleMode.kBrake);
-    driveMotorConfig.closedLoopRampRate(0.5);
-    driveMotor.configure(driveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    if (info.CONTROLLER == controllerType.MAX) {
+      this.angleMotor = new SparkMax(info.TURN_ID, MotorType.kBrushless);
+      this.angleMotorConfig = new SparkMaxConfig();
+      angleMotorConfig.idleMode(IdleMode.kCoast);
+      angleMotor.configure(angleMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+  
+      this.driveMotor = new SparkMax(info.DRIVE_ID, MotorType.kBrushless);
+      this.driveMotorConfig = new SparkMaxConfig();
+      driveMotorConfig.idleMode(IdleMode.kBrake);
+      driveMotorConfig.closedLoopRampRate(0.5);
+      driveMotor.configure(driveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    } else {
+      this.angleMotor = new SparkFlex(info.TURN_ID, MotorType.kBrushless);
+      this.angleMotorConfig = new SparkFlexConfig();
+      angleMotorConfig.idleMode(IdleMode.kCoast);
+      angleMotor.configure(angleMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+
+      this.driveMotor = new SparkFlex(info.DRIVE_ID, MotorType.kBrushless);
+      this.driveMotorConfig = new SparkFlexConfig();
+      driveMotorConfig.idleMode(IdleMode.kBrake);
+      driveMotorConfig.closedLoopRampRate(0.5);
+      driveMotor.configure(driveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
 
     this.defensiveAngleDeg = VectorR.fromCartesian(info.X, info.Y).getAngle();
     

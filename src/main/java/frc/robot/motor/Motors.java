@@ -40,7 +40,7 @@ public class Motors {
 
     public double GetVelocity() {
 
-        return motor.inBuiltEncoder.getVelocity();
+        return motor.motor.getEncoder().getVelocity();
 
     }
 
