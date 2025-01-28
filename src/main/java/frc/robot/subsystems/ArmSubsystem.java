@@ -35,6 +35,12 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    public void setName(String name) {
+
+        setName(name);
+
+    }
+
     protected double GetTrueLength() {
 
         if (pivotMotor.motor.getAbsoluteAngle() > 90) {

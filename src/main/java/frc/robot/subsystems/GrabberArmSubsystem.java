@@ -13,6 +13,7 @@ public class GrabberArmSubsystem extends ArmSubsystem {
     public GrabberArmSubsystem() {
 
         super(Constants.GRABBER_ARM, Constants.GRABBER_ARM_EXT, encoderType.Absolute, false, pivotPID, extensionPID);
+        setName("grabberArm");
 
     }
     
