@@ -4,20 +4,22 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.utils.SubsystemList;
 import frc.robot.subsystems.GrabberSubsystem;
 
-public class GrabberSwitchOutCommand extends Command {
+public class AlgeaDetectionCommand extends Command {
     
     final GrabberSubsystem grabber;
 
-    public GrabberSwitchOutCommand(SubsystemList subsystems) {
+    public AlgeaDetectionCommand(SubsystemList subsystems) {
 
         grabber = (GrabberSubsystem) subsystems.getSubsystem("grabber");
+
+        addRequirements(grabber);
         
     }
 
     @Override
     public boolean isFinished() {
 
-        return grabber.SwitchObjectOut();
+        return grabber.GetAlgeaIn();
 
     }
 

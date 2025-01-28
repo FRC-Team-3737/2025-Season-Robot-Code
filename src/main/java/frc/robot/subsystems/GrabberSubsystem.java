@@ -1,3 +1,5 @@
+package frc.robot.subsystems;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -9,55 +11,50 @@ public class GrabberSubsystem extends SubsystemBase {
 
     private final Motors motor;
     private final DigitalInput microswitch;
-    
-    protected double motorSpeed;
 
     public GrabberSubsystem() {
 
-        setName("Grabber");
+        setName("grabber");
         
-        motor = new Motors(Constants.EXAMPLE_INFO); //example_info placeholder
+        motor = new Motors(Constants.GRABBER);
 
         microswitch = new DigitalInput(0);
 
     }
 
-    public void SetSpeed(double speed) {
-        
-        motorSpeed = Math.abs(speed);
-
-    }
-
-    public Boolean SwitchObjectIn() {
+    public Boolean GetAlgeaIn() {
 
         return !microswitch.get();
 
     }
 
-    public Boolean SwitchObjectOut() {
+    public Boolean GetAlgeaOut() {
 
         return microswitch.get();
 
     }
     
-    public void PositiveMove() {
+    public void Shoot(double speed) {
         
-        motor.Spin(motorSpeed);
+        motor.Spin(Math.abs(speed));
 
     }
-    public void NegativeMove() {
+
+    public void Intake(double speed) {
         
-        motor.Spin(-motorSpeed);
+        motor.Spin(-Math.abs(speed));
 
     }
+
     public void Stop() {
         
         motor.Spin(0);
 
     }
+    
     public String[] GetDebuggingInfo() {
 
-        return motor.GetDebuggingInformation("Grabber");
+        return motor.GetDebuggingInformation("grabber");
 
     }
 }

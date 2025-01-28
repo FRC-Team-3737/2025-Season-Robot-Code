@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.utils.SubsystemList;
 import frc.robot.subsystems.GrabberSubsystem;
 
-public class GrabberMoveNegativeCommand extends Command{
+public class GrabberShootCommand extends Command{
     
     final GrabberSubsystem grabber;
     private final double motorSpeed;
 
-    public GrabberMoveNegativeCommand(SubsystemList subsystems, double speed) {
+    public GrabberShootCommand(SubsystemList subsystems, double speed) {
 
         grabber = (GrabberSubsystem) subsystems.getSubsystem("grabber");
         motorSpeed = speed;
@@ -22,8 +22,7 @@ public class GrabberMoveNegativeCommand extends Command{
     @Override
     public void initialize() {
 
-        grabber.SetSpeed(motorSpeed);
-        grabber.PositiveMove();
+        grabber.Shoot(motorSpeed);
 
     }
 
