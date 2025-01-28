@@ -9,51 +9,50 @@ import frc.robot.utils.PID;
 
 public class ArmSubsystem extends SubsystemBase {
 
-    protected final Motors pivotMotor;
-    protected final PID pivotPID;
-    protected double desiredAngle;
-    protected boolean pivotActive;
-    protected double minAngle; // currently 0 or -129 from vertical for both arms
-    protected double maxAngle; // currently 160 or 31 from vertical for both arms
+    private final Motors pivotMotor;
+    private final PID pivotPID;
+    private double desiredAngle;
+    private boolean pivotActive;
+    protected double minAngle; // Set per arm
+    protected double maxAngle; // Set per arm
 
-    protected final Motors extensionMotor;
-    protected final PID extensionPID;
-    protected double desiredExtension;
-    protected double extensionLimit;
-    protected double minExtension;
-    protected double maxExtension;
+    private final Motors extensionMotor;
+    private final PID extensionPID;
+    private double desiredExtension;
+    private double extensionLimit;
+    protected double minExtension; // Set per arm
+    protected double maxExtension; // Set per arm
 
-    protected double upperMechanismLength;
-    protected double lowerMechanismLength;
+    protected double upperMechanismLength; // Set per arm
+    protected double lowerMechanismLength; // Set per arm
 
     public ArmSubsystem(MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_extensionPID) {
 
-        pivotMotor = new Motors(pivotID, encoder, inverted);
+        pivotMotor = new Motors(pivotID, encoder, inverted); // Both pivot motors have a through bore encoder on it. One, both or none could be inverted.
         extensionMotor = new Motors(extensionID);
-        pivotPID = new PID(m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]);
-        extensionPID = new PID(m_extensionPID[0], m_extensionPID[1], m_extensionPID[2]);
+        pivotPID = new PID(m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
+        extensionPID = new PID(m_extensionPID[0], m_extensionPID[1], m_extensionPID[2]); // For part of the safety check. PID will only run on retracting the arm during rotation when above limit.
 
     }
 
-    public void setName(String name) {
+    private double GetTrueLength() {
 
-        setName(name);
-
-    }
-
-    protected double GetTrueLength() {
+        /*  The true length of the arm is determined by the length of the mechanism and the arm. As the arm rotates, a different part is the outer most part.
+            Because the ends of the mechanism is offset from the arm center, we require this code, in order to prevent fouls.  */
 
         if (pivotMotor.motor.getAbsoluteAngle() > 90) {
-            return (Math.sqrt(Math.pow(extensionMotor.motor.inBuiltEncoder.getPosition(), 2) + Math.pow(lowerMechanismLength, 2)));
+            return (Math.sqrt(Math.pow(extensionMotor.motor.getPosition(), 2) + Math.pow(lowerMechanismLength, 2)));
         } else if (pivotMotor.motor.getAbsoluteAngle() < 90) {
-            return (Math.sqrt(Math.pow(extensionMotor.motor.inBuiltEncoder.getPosition(), 2) + Math.pow(upperMechanismLength, 2)));
+            return (Math.sqrt(Math.pow(extensionMotor.motor.getPosition(), 2) + Math.pow(upperMechanismLength, 2)));
         } else {
-            return extensionMotor.motor.inBuiltEncoder.getPosition() + lowerMechanismLength;
+            return extensionMotor.motor.getPosition() + lowerMechanismLength;
         }
 
     }
 
-    protected double GetExtensionLimit() {
+    private double GetExtensionLimit() {
+
+        /*  Because the pivot point, the point we can't exceed and the end of the mechanism are three points that make a triangle, we use trigonometry.  */
 
         // The entire system is currently represented in inches, not the value of the extension motor.
 
@@ -71,31 +70,33 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
-    protected double GetCurrentAngle() {
+    private double GetCurrentAngle() {
         
         return pivotMotor.motor.getAbsoluteAngle();
 
     }
 
-    protected void SetDesiredAngle(double angle) {
+    public void SetDesiredAngle(double angle) {
 
         desiredAngle = angle;
 
     }
 
-    protected void SetDesiredExtension(double extension) {
+    public void SetDesiredExtension(double extension) {
 
         desiredExtension = extension;
 
     }
 
-    protected void ActivatePivot() {
+    public void ActivatePivot() {
+
+        /*  This is needed as a safe measure so that our arm doesn't break itself.  */
 
         pivotActive = true;
 
     }
 
-    protected void Pivot() {
+    public void Pivot() {
 
         if (!pivotActive) return;
 
@@ -105,35 +106,39 @@ public class ArmSubsystem extends SubsystemBase {
         
     }
 
-    protected void PivotStop() {
+    public void PivotStop() {
 
         pivotActive = false;
         pivotMotor.Spin(0);
 
     }
 
-    protected void Extend(double speed) {
+    public void Extend(double speed) {
 
         if (GetTrueLength() >= GetExtensionLimit()) Retract(0.05);
 
-        extensionMotor.Spin(Math.abs(speed));
-
-    }
-
-    protected void Retract(double speed) {
-
-        if (GetTrueLength() <= minExtension) extensionMotor.Spin(0);
-
-        extensionMotor.Spin(-Math.abs(speed));
-
-    }
-
-    protected void ExtensionStop() {
+        if (extensionMotor.motor.getPosition() < desiredExtension) extensionMotor.Spin(Math.abs(speed));
 
         extensionMotor.Spin(0);
 
     }
 
-    protected void DebuggingInfo() {/*return String[]*/}
+    public void Retract(double speed) {
+
+        if (GetTrueLength() <= minExtension) extensionMotor.Spin(0);
+
+        if (extensionMotor.motor.getPosition() > desiredExtension) extensionMotor.Spin(-Math.abs(speed));
+
+        extensionMotor.Spin(0);
+
+    }
+
+    public void ExtensionStop() {
+
+        extensionMotor.Spin(0);
+
+    }
+
+    public void DebuggingInfo() {/*return String[]*/}
 
 }
