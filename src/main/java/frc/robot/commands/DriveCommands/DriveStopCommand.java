@@ -2,8 +2,8 @@ package frc.robot.commands.DriveCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.utils.SubsystemList;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.utils.SubsystemList;
 
 public class DriveStopCommand extends Command {
     
