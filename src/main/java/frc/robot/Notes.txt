@@ -83,3 +83,11 @@ Coral
 Climb
     -93 degrees to capture
     10 degrees to climb
+
+LED Subsystem
+    The following two linkes are just in case they are needed.
+    Link for REV Blinkin values:
+        https://1166281274-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-ME3KPEhFI6-MDoP9nZD%2Fuploads%2FMOYJvZmWgxCVKJhcV5fn%2FREV-11-1105-LED-Patterns.pdf?alt=media&token=e8227890-6dd3-498d-834a-752fa43413fe
+
+    Link for RIO Programming:
+        https://docs.wpilib.org/en/stable/docs/software/hardware-apis/misc/addressable-leds.html
