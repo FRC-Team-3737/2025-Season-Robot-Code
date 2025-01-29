@@ -5,15 +5,30 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.utils.SubsystemList;
 
-public class ClawArmExtensionStopCommand extends Command {
+public class ClawArmFullStopCommand extends Command {
 
     final ClawArmSubsystem clawArm;
 
-    public ClawArmExtensionStopCommand(SubsystemList subsystems) {
+    public ClawArmFullStopCommand(SubsystemList subsystems) {
 
         clawArm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
 
         addRequirements(clawArm);
+
+    }
+
+    @Override
+    public void initialize() {
+
+        clawArm.PivotStop();
+        clawArm.ExtensionStop();
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return true;
 
     }
     
