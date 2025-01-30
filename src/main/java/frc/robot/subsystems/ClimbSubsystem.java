@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.motor.Motors;
 import frc.robot.Constants;
@@ -14,7 +14,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public ClimbSubsystem() {
 
-        motor = new Motors(Constants.CLIMB, encodertype.Absolute, true);
+        motor = new Motors(Constants.CLIMB, encoderType.Absolute, true);
         rotationActive = false;
 
         desiredAngle = 0;
@@ -22,15 +22,15 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
-    public getCurrentAngle() {
+    public double GetCurrentAngle() {
 
-        return motor.mainMotor.getAbsoluteAngle();
+        return motor.motor.getAbsoluteAngle();
 
     }
 
     private boolean IsInDesiredZone (double deadzone) {
 
-        return desiredAngle > this.GetCurrentPosition() - deadzone && desiredAngle < this.GetCurrentPosition() + deadzone;
+        return desiredAngle > this.GetCurrentAngle() - deadzone && desiredAngle < this.GetCurrentAngle() + deadzone;
 
     }
 
@@ -42,7 +42,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public boolean IsReady(double deadzone) {
 
-        return IsInDeadzone(deadzone) && motor.GetVelocity() < 100;
+        return IsInDesiredZone(deadzone) && motor.GetVelocity() < 100;
 
     }
 
@@ -52,7 +52,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
-    public void Rotate() {
+    public void Rotate(double speed) {
 
         if (!rotationActive) return;
 

@@ -7,8 +7,6 @@ package frc.robot;
 import frc.robot.motor.MotorInfo;
 import frc.robot.swervemodule.SwerveModuleInfo;
 
-import java.lang.management.MonitorInfo;
-
 import edu.wpi.first.math.geometry.Translation2d;
 
 /**
