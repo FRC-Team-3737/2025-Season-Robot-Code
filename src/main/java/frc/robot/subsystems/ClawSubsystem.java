@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.hal.simulation.DIODataJNI;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -56,17 +55,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    private void WristRotateUp(double speed) {
 
-        wristMotor.Spin(Math.abs(speed));
-
-    }
-
-    private void WristRotateDown(double speed) {
-
-        wristMotor.Spin(-Math.abs(speed));
-
-    }
 
     private void WristStop() {
 
@@ -88,7 +77,7 @@ public class ClawSubsystem extends SubsystemBase {
             return;
         }
 
-        WristRotateUp(speed);
+        wristMotor.Spin(speed);
 
     }
 
@@ -96,7 +85,7 @@ public class ClawSubsystem extends SubsystemBase {
     public double GetClawPosition() {
 
         return clawMotor.motor.getPosition();
-        
+
     }
 
     public void ClawSpinPositive(double speed) {
