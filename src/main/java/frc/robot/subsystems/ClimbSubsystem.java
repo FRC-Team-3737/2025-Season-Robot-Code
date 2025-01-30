@@ -1,3 +1,5 @@
+package frc.robot.subsystems;
+
 import edu.wpi.first.wpilibj2.SubsystemBase;
 
 import frc.robot.motor.Motors;
@@ -12,7 +14,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public ClimbSubsystem() {
 
-        motor = new Motors(Constants.EXAMPLE_INFO, encodertype.Absolute, true);
+        motor = new Motors(Constants.CLIMB, encodertype.Absolute, true);
         rotationActive = false;
 
         desiredAngle = 0;
