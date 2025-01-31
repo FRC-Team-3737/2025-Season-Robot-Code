@@ -94,8 +94,8 @@ public class RobotContainer {
     buttonBoard.button(6).onTrue(new ClawArmPivotRetractCommand(subsystemList, 0, 0, 0.1));
     buttonBoard.button(5).onTrue(new ClawArmFullStopCommand(subsystemList));
 
-
     displayDashboard();
+
   }
 
   public Command getAutonomousCommand() {
@@ -103,13 +103,9 @@ public class RobotContainer {
   }
 
   public void displayDashboard() {
-    // SMART DASHBOARD
-    // import.method();
-    
-    // SHUFFLEBOARD
-    // Shuffleboard.getTab("TabName").addDouble("DisplayName", () -> import.method())
-    //   .withWidget("Widget")
-    //   .withPosition(x, y);
+
+    clawArm.DisplayDebuggingInfo();
+    grabberArm.DisplayDebuggingInfo();
 
   }
 }

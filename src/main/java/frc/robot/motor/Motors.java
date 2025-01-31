@@ -59,6 +59,7 @@ public class Motors {
             motorName + " Motor Type: " + String.valueOf(motor.motor.getMotorType()), 
             motorName + " Firmware Version: " + String.valueOf(motor.motor.getFirmwareVersion()), 
             motorName + " Bus Voltage: " + String.valueOf(motor.motor.getBusVoltage()), 
+            motorName + " Relative Encoder: " + String.valueOf(motor.motor.getEncoder()), 
             motorName + " Absolute Encoder: " + String.valueOf(motor.motor.getAbsoluteEncoder()), 
             motorName + " Analog Encoder: " + String.valueOf(motor.motor.getAnalog()), 
             motorName + " Sticky Faults: " + String.valueOf(motor.motor.getStickyFaults()), 
