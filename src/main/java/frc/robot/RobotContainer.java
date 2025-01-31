@@ -17,6 +17,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
+import frc.robot.commands.ClawArmCommands.ClawArmExtendCommand;
+import frc.robot.commands.ClawArmCommands.ClawArmRetractCommand;
+import frc.robot.commands.ClawArmCommands.ClawArmExtensionStopCommand;
+import frc.robot.commands.ClawArmCommands.ClawArmPivotCommand;
+import frc.robot.commands.ClawArmCommands.ClawArmPivotStopCommand;
+import frc.robot.commands.ClawArmCommands.ClawArmPivotExtendCommand;
+import frc.robot.commands.ClawArmCommands.ClawArmPivotRetractCommand;
+import frc.robot.commands.ClawArmCommands.ClawArmFullStopCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
@@ -39,7 +47,6 @@ public class RobotContainer {
   DriveSubsystem drive = new DriveSubsystem();
   ClawArmSubsystem clawArm = new ClawArmSubsystem();
   GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
-
   SubsystemBase[] subsystems = { drive, clawArm, grabberArm };
   SubsystemList subsystemList = new SubsystemList(subsystems);
   
