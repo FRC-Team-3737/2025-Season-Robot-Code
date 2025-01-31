@@ -40,10 +40,10 @@ public final class Constants {
   public static final int FrontRightSteerID = 3;
   public static final int FrontLeftDriveID = 4;
   public static final int FrontLeftSteerID = 5;
-  public static final int GrabberArmID = 11;
-  public static final int GrabberArmExtID = 12;
-  public static final int ClawArmExtID = 10;
-  public static final int ClawArmID = 9;
+  public static final int GrabberArmID = 12;
+  public static final int GrabberArmExtID = 14;
+  public static final int ClawArmExtID = 11;
+  public static final int ClawArmID = 10;
 
   // Swerve
   public static final SwerveModuleInfo FRONT_RIGHT = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.MAX, 3.371094, 360, 82.5, -1, -1);

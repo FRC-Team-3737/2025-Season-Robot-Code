@@ -6,6 +6,7 @@ import frc.robot.motor.MotorInfo;
 import frc.robot.motor.Motors;
 import frc.robot.motor.Motor.encoderType;
 import frc.robot.utils.PID;
+import frc.robot.utils.SubsystemList;
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -30,8 +31,8 @@ public class ArmSubsystem extends SubsystemBase {
 
         pivotMotor = new Motors(pivotID, encoder, inverted); // Both pivot motors have a through bore encoder on it. One, both or none could be inverted.
         extensionMotor = new Motors(extensionID);
-        pivotPID = new PID(m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
-        extensionPID = new PID(m_extensionPID[0], m_extensionPID[1], m_extensionPID[2]); // For part of the safety check. PID will only run on retracting the arm during rotation when above limit.
+        pivotPID = new PID(getName(), m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
+        extensionPID = new PID(getName() + "Extenstion", m_extensionPID[0], m_extensionPID[1], m_extensionPID[2]); // For part of the safety check. PID will only run on retracting the arm during rotation when above limit.
 
     }
 
