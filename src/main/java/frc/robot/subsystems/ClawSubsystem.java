@@ -43,13 +43,13 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    private boolean IsReady(double deadzone) {
+    public boolean IsReady(double deadzone) {
 
         return IsInDeadzone(deadzone) && wristMotor.GetVelocity() < 100;
 
     }
 
-    private void ActivateRotation() {
+    public void ActivateRotation() {
 
         rotationActive = true;
 
@@ -57,7 +57,7 @@ public class ClawSubsystem extends SubsystemBase {
 
 
 
-    private void WristStop() {
+    public void WristStop() {
 
         wristMotor.Spin(0);
         rotationActive = false;
