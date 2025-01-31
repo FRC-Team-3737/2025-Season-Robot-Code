@@ -40,7 +40,7 @@ public final class Constants {
   public static final int FrontRightSteerID = 3;
   public static final int FrontLeftDriveID = 4;
   public static final int FrontLeftSteerID = 5;
-  public static final int GrabberID = 10;
+  public static final int GrabberID = 11;
 
   // Swerve
   public static final SwerveModuleInfo FRONT_RIGHT = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.MAX, 3.371094, 360, 82.5, -1, -1);

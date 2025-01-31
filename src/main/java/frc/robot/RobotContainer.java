@@ -17,6 +17,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
+import frc.robot.commands.GrabberCommands.GrabberShootCommand;
+import frc.robot.commands.GrabberCommands.GrabberIntakeCommand;
+import frc.robot.commands.GrabberCommands.GrabberStopCommand;
+import frc.robot.commands.GrabberCommands.AlgeaDetectionCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
@@ -75,6 +79,10 @@ public class RobotContainer {
       .onTrue(new TeleopMoveCommand(subsystemList, driverController));
 
     // Operator Triggers
+    buttonBoard.button(4).onTrue(new GrabberIntakeCommand(subsystemList, .5)); // Works
+    buttonBoard.button(3).onTrue(new GrabberShootCommand(subsystemList, .5)); // Works
+    buttonBoard.button(2).onTrue(new GrabberStopCommand(subsystemList)); // Works
+    buttonBoard.button(1).onTrue(new AlgeaDetectionCommand(subsystemList)); // Works
 
     displayDashboard();
   }
