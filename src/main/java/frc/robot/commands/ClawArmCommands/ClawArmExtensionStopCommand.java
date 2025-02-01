@@ -16,5 +16,19 @@ public class ClawArmExtensionStopCommand extends Command {
         addRequirements(clawArm);
 
     }
+
+    @Override
+    public void initialize() {
+
+        clawArm.ExtensionStop();
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return true;
+
+    }
     
 }

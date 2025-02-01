@@ -129,7 +129,10 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void Extend(double speed) {
 
-        if (GetTrueLength() >= GetExtensionLimit()) Retract(0.05);
+        if (GetTrueLength() >= GetExtensionLimit()) {
+            Retract(0.05);
+            return;
+        }
 
         if (extensionMotor.motor.getPosition() < desiredExtension) {
             extensionMotor.Spin(Math.abs(speed)); 
@@ -141,7 +144,10 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void Retract(double speed) {
 
-        if (GetTrueLength() <= minExtension) extensionMotor.Spin(0);
+        if (GetTrueLength() <= minExtension) {
+            extensionMotor.Spin(0);
+            return;
+        }
 
         if (extensionMotor.motor.getPosition() > desiredExtension) {
             extensionMotor.Spin(-Math.abs(speed)); 
