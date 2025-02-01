@@ -53,32 +53,40 @@ public class PairedMotors {
 
     }
 
-    public String[] GetDebuggingInformation(String motorName) {
+    /** 
+     * Grabs all the debugging information from the motor. 
+     * 
+     * <p>Keep all motor name inputs capitalized and spaced out for best visibility.
+     * 
+     * @param motorName name to be displayed on the dashboard.
+     */
+    public String[][] GetDebuggingInformation(String motorName) {
 
-        /*  Please keep motor name spaced out and all words start capitalized.  */
-
-        String[] info = {
-            "Main " + motorName + " ID: " + String.valueOf(mainMotor.motor.getDeviceId()), 
-            "Main " + motorName + " Motor Type: " + String.valueOf(mainMotor.motor.getMotorType()), 
-            "Main " + motorName + " Firmware Version: " + String.valueOf(mainMotor.motor.getFirmwareVersion()), 
-            "Main " + motorName + " Bus Voltage: " + String.valueOf(mainMotor.motor.getBusVoltage()), 
-            "Main " + motorName + " Absolute Encoder: " + String.valueOf(mainMotor.motor.getAbsoluteEncoder()), 
-            "Main " + motorName + " Analog Encoder: " + String.valueOf(mainMotor.motor.getAnalog()), 
-            "Main " + motorName + " Sticky Faults: " + String.valueOf(mainMotor.motor.getStickyFaults()), 
-            "Main " + motorName + " Faults: " + String.valueOf(mainMotor.motor.getFaults()), 
-            "Main " + motorName + " Sticky Warnings: " + String.valueOf(mainMotor.motor.getStickyWarnings()), 
-            "Main " + motorName + " Warnings: " + String.valueOf(mainMotor.motor.getWarnings()),
-
-            "Slave " + motorName + " ID: " + String.valueOf(mainMotor.motor.getDeviceId()), 
-            "Slave " + motorName + " Motor Type: " + String.valueOf(mainMotor.motor.getMotorType()), 
-            "Slave " + motorName + " Firmware Version: " + String.valueOf(mainMotor.motor.getFirmwareVersion()), 
-            "Slave " + motorName + " Bus Voltage: " + String.valueOf(mainMotor.motor.getBusVoltage()), 
-            "Slave " + motorName + " Absolute Encoder: " + String.valueOf(mainMotor.motor.getAbsoluteEncoder()), 
-            "Slave " + motorName + " Analog Encoder: " + String.valueOf(mainMotor.motor.getAnalog()), 
-            "Slave " + motorName + " Sticky Faults: " + String.valueOf(mainMotor.motor.getStickyFaults()), 
-            "Slave " + motorName + " Faults: " + String.valueOf(mainMotor.motor.getFaults()), 
-            "Slave " + motorName + " Sticky Warnings: " + String.valueOf(mainMotor.motor.getStickyWarnings()), 
-            "Slave " + motorName + " Warnings: " + String.valueOf(mainMotor.motor.getWarnings())
+        String[][] info = {
+            {
+                "Main " + motorName + " ID: " + String.valueOf(mainMotor.motor.getDeviceId()) + "\n", 
+                "Main " + motorName + " Motor Type: " + String.valueOf(mainMotor.motor.getMotorType()) + "\n", 
+                "Main " + motorName + " Firmware Version: " + String.valueOf(mainMotor.motor.getFirmwareVersion()) + "\n", 
+                "Main " + motorName + " Bus Voltage: " + String.valueOf(mainMotor.motor.getBusVoltage()) + "\n", 
+                "Main " + motorName + " Absolute Encoder: " + String.valueOf(mainMotor.motor.getAbsoluteEncoder()) + "\n", 
+                "Main " + motorName + " Analog Encoder: " + String.valueOf(mainMotor.motor.getAnalog()) + "\n", 
+                "Main " + motorName + " Sticky Faults: " + String.valueOf(mainMotor.motor.getStickyFaults()) + "\n", 
+                "Main " + motorName + " Faults: " + String.valueOf(mainMotor.motor.getFaults()) + "\n", 
+                "Main " + motorName + " Sticky Warnings: " + String.valueOf(mainMotor.motor.getStickyWarnings()) + "\n", 
+                "Main " + motorName + " Warnings: " + String.valueOf(mainMotor.motor.getWarnings()) + "\n"
+            },
+            {
+                "Slave " + motorName + " ID: " + String.valueOf(mainMotor.motor.getDeviceId()) + "\n", 
+                "Slave " + motorName + " Motor Type: " + String.valueOf(mainMotor.motor.getMotorType()) + "\n", 
+                "Slave " + motorName + " Firmware Version: " + String.valueOf(mainMotor.motor.getFirmwareVersion()) + "\n", 
+                "Slave " + motorName + " Bus Voltage: " + String.valueOf(mainMotor.motor.getBusVoltage()) + "\n", 
+                "Slave " + motorName + " Absolute Encoder: " + String.valueOf(mainMotor.motor.getAbsoluteEncoder()) + "\n", 
+                "Slave " + motorName + " Analog Encoder: " + String.valueOf(mainMotor.motor.getAnalog()) + "\n", 
+                "Slave " + motorName + " Sticky Faults: " + String.valueOf(mainMotor.motor.getStickyFaults()) + "\n", 
+                "Slave " + motorName + " Faults: " + String.valueOf(mainMotor.motor.getFaults()) + "\n", 
+                "Slave " + motorName + " Sticky Warnings: " + String.valueOf(mainMotor.motor.getStickyWarnings()) + "\n", 
+                "Slave " + motorName + " Warnings: " + String.valueOf(mainMotor.motor.getWarnings()) + "\n"
+            }
         };
 
         return info;
