@@ -36,7 +36,8 @@ import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.ClimbSubsytem;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -63,6 +64,7 @@ public class RobotContainer {
     GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
     SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber, claw };
     SubsystemList subsystemList = new SubsystemList(subsystems);
+  LEDSubsystem led = new LEDSubsystem(60, 10); // 60 and 10 are placeholders
   
     /*  Controller Declarations  */
 
