@@ -16,5 +16,19 @@ public class GrabberArmExtensionStopCommand extends Command {
         addRequirements(grabberArm);
 
     }
+
+    @Override
+    public void initialize() {
+
+        grabberArm.ExtensionStop();
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return true;
+
+    }
     
 }
