@@ -28,6 +28,7 @@ import frc.robot.commands.ClawCommands.WristStopCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ClimbSubsytem;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.subsystems.GrabberArmSubsystem;
@@ -54,6 +55,7 @@ public class RobotContainer {
     SubsystemList subsystemList = new SubsystemList(subsystems);
   ClimbSubsystem climb = new ClimbSubsystem();
   ClawSubsystem claw = new ClawSubsystem();
+  LEDSubsystem led = new LEDSubsystem(60, 10); // 60 and 10 are placeholders
   
     /*  Controller Declarations  */
 
