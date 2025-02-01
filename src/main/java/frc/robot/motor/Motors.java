@@ -55,17 +55,17 @@ public class Motors {
         /*  Please keep motor name spaced out and all words start capitalized.  */
 
         String[] info = {
-            motorName + " ID: " + String.valueOf(motor.motor.getDeviceId()), 
-            motorName + " Motor Type: " + String.valueOf(motor.motor.getMotorType()), 
-            motorName + " Firmware Version: " + String.valueOf(motor.motor.getFirmwareVersion()), 
-            motorName + " Bus Voltage: " + String.valueOf(motor.motor.getBusVoltage()), 
-            motorName + " Relative Encoder: " + String.valueOf(motor.motor.getEncoder()), 
-            motorName + " Absolute Encoder: " + String.valueOf(motor.motor.getAbsoluteEncoder()), 
-            motorName + " Analog Encoder: " + String.valueOf(motor.motor.getAnalog()), 
-            motorName + " Sticky Faults: " + String.valueOf(motor.motor.getStickyFaults()), 
-            motorName + " Faults: " + String.valueOf(motor.motor.getFaults()), 
-            motorName + " Sticky Warnings: " + String.valueOf(motor.motor.getStickyWarnings()), 
-            motorName + " Warnings: " + String.valueOf(motor.motor.getWarnings())
+            motorName + " ID: " + String.valueOf(motor.motor.getDeviceId()) + "\n", 
+            motorName + " Motor Type: " + String.valueOf(motor.motor.getMotorType()) + "\n", 
+            motorName + " Firmware Version: " + String.valueOf(motor.motor.getFirmwareVersion()) + "\n", 
+            motorName + " Bus Voltage: " + String.valueOf(motor.motor.getBusVoltage()) + "\n", 
+            motorName + " Relative Encoder: " + String.valueOf(motor.motor.getEncoder().getPosition()) + "\n", 
+            motorName + " Absolute Encoder: " + String.valueOf(motor.motor.getAbsoluteEncoder().getPosition()) + "\n", 
+            motorName + " Analog Encoder: " + String.valueOf(motor.motor.getAnalog().getVoltage()) + "\n", 
+            motorName + " Sticky Faults: " + String.valueOf(motor.motor.getStickyFaults()) + "\n", 
+            motorName + " Faults: " + String.valueOf(motor.motor.getFaults()) + "\n", 
+            motorName + " Sticky Warnings: " + String.valueOf(motor.motor.getStickyWarnings()) + "\n", 
+            motorName + " Warnings: " + String.valueOf(motor.motor.getWarnings()) + "\n"
         };
 
         return info;

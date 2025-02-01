@@ -144,9 +144,9 @@ public class ArmSubsystem extends SubsystemBase {
     public void DisplayDebuggingInfo() {
 
         Shuffleboard.getTab(getName() + "Pivot Motor").addStringArray("Debugging Information", () -> pivotMotor.GetDebuggingInformation("Pivot Motor"))
-            .withSize(3, 3). withPosition(0, 0);
+            .withSize(5, 3). withPosition(0, 0);
         Shuffleboard.getTab(getName() + "Extension Motor").addStringArray("Debugging Information", () -> extensionMotor.GetDebuggingInformation("Extension Motor"))
-            .withSize(3, 3). withPosition(0, 0);
+            .withSize(5, 3). withPosition(0, 0);
 
     }
 
