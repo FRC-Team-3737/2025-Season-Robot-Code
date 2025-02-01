@@ -21,8 +21,8 @@ public class ClawArmSubsystem extends ArmSubsystem {
         minAngle = 0; // Resting position | 130.5 degrees from vertical
         maxAngle = 150.5; // Max rotation needed | -20 degrees from vertical
 
-        minExtension = 0.25; // Prevents slamming
-        maxExtension = 23.5; // Prevents overextending
+        minExtension = 0; // Prevents slamming 0.25 norm
+        maxExtension = 100000; // Prevents overextending 23.5 norm
 
         upperMechanismLength = 1; // Unknown length
         lowerMechanismLength = 1; // Unknown length

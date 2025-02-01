@@ -72,12 +72,6 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
-    private double GetCurrentAngle() {
-        
-        return pivotMotor.motor.getAbsoluteAngle();
-
-    }
-
     public void SetDesiredAngle(double angle) {
 
         desiredAngle = angle;
@@ -87,6 +81,24 @@ public class ArmSubsystem extends SubsystemBase {
     public void SetDesiredExtension(double extension) {
 
         desiredExtension = extension;
+
+    }
+
+    public double GetCurrentAngle() {
+        
+        return pivotMotor.motor.getAbsoluteAngle();
+
+    }
+
+    public double GetCurrentExtension() {
+
+        return extensionMotor.motor.getPosition();
+
+    }
+
+    public double GetDesiredExtension() {
+
+        return desiredExtension;
 
     }
 
@@ -119,9 +131,11 @@ public class ArmSubsystem extends SubsystemBase {
 
         if (GetTrueLength() >= GetExtensionLimit()) Retract(0.05);
 
-        if (extensionMotor.motor.getPosition() < desiredExtension) extensionMotor.Spin(Math.abs(speed));
-
-        extensionMotor.Spin(0);
+        if (extensionMotor.motor.getPosition() < desiredExtension) {
+            extensionMotor.Spin(Math.abs(speed)); 
+        } else {
+            extensionMotor.Spin(0);
+        }
 
     }
 
@@ -129,9 +143,11 @@ public class ArmSubsystem extends SubsystemBase {
 
         if (GetTrueLength() <= minExtension) extensionMotor.Spin(0);
 
-        if (extensionMotor.motor.getPosition() > desiredExtension) extensionMotor.Spin(-Math.abs(speed));
-
-        extensionMotor.Spin(0);
+        if (extensionMotor.motor.getPosition() > desiredExtension) {
+            extensionMotor.Spin(-Math.abs(speed)); 
+        } else {
+            extensionMotor.Spin(0);
+        }
 
     }
 
@@ -143,10 +159,8 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void DisplayDebuggingInfo() {
 
-        Shuffleboard.getTab(getName() + "Pivot Motor").addStringArray("Debugging Information", () -> pivotMotor.GetDebuggingInformation("Pivot Motor"))
-            .withSize(5, 3). withPosition(0, 0);
-        Shuffleboard.getTab(getName() + "Extension Motor").addStringArray("Debugging Information", () -> extensionMotor.GetDebuggingInformation("Extension Motor"))
-            .withSize(5, 3). withPosition(0, 0);
+        Shuffleboard.getTab(getName()).addDouble("desired extension", () -> desiredExtension);
+        Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition());
 
     }
 
