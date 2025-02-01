@@ -17,17 +17,10 @@ public class ClawSubsystem extends SubsystemBase {
     
     public ClawSubsystem() {
 
+        setName("claw");
+
         wristMotor = new Motors(Constants.CLAW_PIVOT_MOTOR, encoderType.Absolute, false);
         clawMotor = new Motors(Constants.CLAW_MOTOR);
-
-    }
-
-    // Wrist section
-
-
-    public void SetDesiredAngle(double angle) {
-
-        desiredAngle = angle;
 
     }
 
@@ -43,6 +36,18 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
+    public void SetDesiredAngle(double angle) {
+
+        desiredAngle = angle;
+
+    }
+
+    public double GetClawPosition() {
+
+        return clawMotor.motor.getPosition();
+
+    }
+
     public boolean IsReady(double deadzone) {
 
         return IsInDeadzone(deadzone) && wristMotor.GetVelocity() < 100;
@@ -55,7 +60,25 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
+    public void PivotToTarget(double speed) {
 
+        if (!rotationActive) return;
+
+        double minAngle = 5;
+        double maxAngle = 175;
+
+        if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
+            WristStop();
+            return;
+        }
+
+        if (wristMotor.motor.getAnalogAngle() <= desiredAngle) {
+            wristMotor.Spin(Math.abs(speed));
+        } else {
+            wristMotor.Spin(-Math.abs(speed));
+        }
+
+    }
 
     public void WristStop() {
 
@@ -64,37 +87,13 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    public void PivotToTarget(double speed) {
-
-        if (!rotationActive) return;
-
-        double angle = GetCurrentAngle();
-        double minAngle = 5;
-        double maxAngle = 175;
-
-        if (angle < minAngle || angle > maxAngle) {
-            WristStop();
-            return;
-        }
-
-        wristMotor.Spin(speed);
-
-    }
-
-    // Claw section
-    public double GetClawPosition() {
-
-        return clawMotor.motor.getPosition();
-
-    }
-
-    public void ClawSpinPositive(double speed) {
+    public void ClawOpen(double speed) {
 
         clawMotor.Spin(Math.abs(speed));
 
     }
 
-    public void ClawSpinNegative(double speed) {
+    public void ClawClose(double speed) {
 
         clawMotor.Spin(-Math.abs(speed));
 
@@ -105,4 +104,11 @@ public class ClawSubsystem extends SubsystemBase {
         clawMotor.Spin(0);
 
     }
+
+    public void DisplayDebuggingInfo() {
+
+        // No debugging info to display yet
+
+    }
+
 }

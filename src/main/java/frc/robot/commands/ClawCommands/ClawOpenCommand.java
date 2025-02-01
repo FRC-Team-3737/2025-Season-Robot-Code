@@ -2,14 +2,14 @@ package frc.robot.commands.ClawCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.utils.SubsystemList;
+import frc.robot.subsystems.ClawSubsystem;
 
-public class WristPivotCommand extends Command {
+public class ClawOpenCommand extends Command {
     final ClawSubsystem claw;
     private final double motorSpeed;
 
-    public WristPivotCommand(SubsystemList subsystems, double speed) {
+    public ClawOpenCommand(SubsystemList subsystems, double speed) {
 
         claw = (ClawSubsystem) subsystems.getSubsystem("claw");
         motorSpeed = speed;
@@ -21,14 +21,21 @@ public class WristPivotCommand extends Command {
     @Override
     public void initialize() {
 
-        claw.PivotToTarget(motorSpeed);
+        claw.ClawOpen(motorSpeed);
 
     }
 
     @Override
+    public boolean isFinished() {
+
+        return claw.GetClawPosition() >= 500;
+        
+    }
+
+    @Override 
     public void end(boolean interrupted) {
 
-        claw.WristStop();
+        claw.ClawStop();
 
     }
 }

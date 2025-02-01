@@ -6,19 +6,19 @@ import frc.robot.utils.SubsystemList;
 import frc.robot.subsystems.ClawSubsystem;
 
 public class ClawStopCommand extends Command {
-    final ClawSubsystem clawSubsystem;
+    final ClawSubsystem claw;
 
     public ClawStopCommand(SubsystemList subsystems) {
 
-        clawSubsystem = (ClawSubsystem) subsystems.getSubsystem("claw");
+        claw = (ClawSubsystem) subsystems.getSubsystem("claw");
 
-        addRequirements(clawSubsystem);
+        addRequirements(claw);
     }
 
     @Override
     public void initialize() {
 
-        clawSubsystem.ClawStop();
+        claw.ClawStop();
 
     }
 

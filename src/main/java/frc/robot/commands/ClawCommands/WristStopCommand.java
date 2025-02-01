@@ -7,20 +7,20 @@ import frc.robot.utils.SubsystemList;
 
 public class WristStopCommand extends Command {
 
-    final ClawSubsystem clawSubsystem;
+    final ClawSubsystem claw;
 
     public WristStopCommand(SubsystemList subsystems) {
 
-        clawSubsystem = (ClawSubsystem) subsystems.getSubsystem("claw");
+        claw = (ClawSubsystem) subsystems.getSubsystem("claw");
 
-        addRequirements(clawSubsystem);
+        addRequirements(claw);
 
     }
 
     @Override
     public void initialize() {
 
-        clawSubsystem.WristStop();
+        claw.WristStop();
 
     }
 

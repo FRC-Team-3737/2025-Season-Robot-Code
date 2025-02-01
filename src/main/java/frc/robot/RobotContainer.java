@@ -26,6 +26,7 @@ import frc.robot.subsystems.ClimbSubsytem;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 
 // Utility Imports
 import frc.robot.utils.AutoPicker;
@@ -46,6 +47,7 @@ public class RobotContainer {
     SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber };
     SubsystemList subsystemList = new SubsystemList(subsystems);
   ClimbSubsystem climb = new ClimbSubsystem();
+  ClawSubsystem claw = new ClawSubsystem();
   
     /*  Controller Declarations  */
 
