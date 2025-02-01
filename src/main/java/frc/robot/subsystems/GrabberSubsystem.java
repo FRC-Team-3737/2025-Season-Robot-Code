@@ -52,9 +52,9 @@ public class GrabberSubsystem extends SubsystemBase {
 
     }
     
-    public String[] GetDebuggingInfo() {
+    public void GetDebuggingInfo() {
 
-        return motor.GetDebuggingInformation("grabber");
+        // No debugging info to provide
 
     }
 }
