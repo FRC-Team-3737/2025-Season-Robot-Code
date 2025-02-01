@@ -17,14 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
-import frc.robot.commands.ClawArmCommands.ClawArmExtendCommand;
-import frc.robot.commands.ClawArmCommands.ClawArmRetractCommand;
-import frc.robot.commands.ClawArmCommands.ClawArmExtensionStopCommand;
-import frc.robot.commands.ClawArmCommands.ClawArmPivotCommand;
-import frc.robot.commands.ClawArmCommands.ClawArmPivotStopCommand;
-import frc.robot.commands.ClawArmCommands.ClawArmPivotExtendCommand;
-import frc.robot.commands.ClawArmCommands.ClawArmPivotRetractCommand;
-import frc.robot.commands.ClawArmCommands.ClawArmFullStopCommand;
+import frc.robot.commands.ClawArmCommands.ClawArmTestCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
@@ -85,14 +78,7 @@ public class RobotContainer {
       .onTrue(new TeleopMoveCommand(subsystemList, driverController));
 
     // Operator Triggers
-    buttonBoard.button(4).onTrue(new ClawArmExtendCommand(subsystemList, 1000, 0.1));
-    buttonBoard.button(3).onTrue(new ClawArmRetractCommand(subsystemList, 0, 0.1));
-    buttonBoard.button(2).onTrue(new ClawArmExtensionStopCommand(subsystemList));
-    buttonBoard.button(1).onTrue(new ClawArmPivotCommand(subsystemList, 180));
-    buttonBoard.button(8).onTrue(new ClawArmPivotStopCommand(subsystemList));
-    buttonBoard.button(7).onTrue(new ClawArmPivotExtendCommand(subsystemList, 90, 500, 0.1));
-    buttonBoard.button(6).onTrue(new ClawArmPivotRetractCommand(subsystemList, 0, 0, 0.1));
-    buttonBoard.button(5).onTrue(new ClawArmFullStopCommand(subsystemList));
+    buttonBoard.button(4).onTrue(new ClawArmTestCommand(subsystemList));
 
     displayDashboard();
 
@@ -105,7 +91,6 @@ public class RobotContainer {
   public void displayDashboard() {
 
     clawArm.DisplayDebuggingInfo();
-    grabberArm.DisplayDebuggingInfo();
 
   }
 }
