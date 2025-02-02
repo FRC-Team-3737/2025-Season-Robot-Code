@@ -12,6 +12,7 @@ public class PID {
     private GenericEntry kI;
     private GenericEntry kD;
     
+    
     public PID(double p, double i, double d) {
 
         /*  The PID formula is: u(t) = Kp * e(t)  +  Ki * ∫ e(t) dt  +  Kd * de(t)/dt but has multiple variations possible.
@@ -25,7 +26,7 @@ public class PID {
 
     public void PIDTuning(double p, double i, double d) {
 
-        /*  The below section is no needed for PID, but helps with PID tuning, allowing us to set values in the dashboard.  */
+        /*  The below section is not needed for PID, but helps with PID tuning, allowing us to set values in the dashboard.  */
 
         ShuffleboardTab tab = Shuffleboard.getTab("PivotInfo");
         kP = tab.add("Proportional", 0.013)

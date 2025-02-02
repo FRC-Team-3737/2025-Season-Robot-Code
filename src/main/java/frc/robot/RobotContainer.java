@@ -32,65 +32,65 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class RobotContainer {
 
-  /*  Subsystem and SubsystemList Declarations  */
+    /*  Subsystem and SubsystemList Declarations  */
 
-  DriveSubsystem drive = new DriveSubsystem();
-  GrabberSubsystem grabber = new GrabberSubsystem();
-  SubsystemBase[] subsystems = { drive, grabber };
-  SubsystemList subsystemList = new SubsystemList(subsystems);
-  
-  /*  Controller Declarations  */
-
-  CommandXboxController commandDriverController = new CommandXboxController(Constants.DRIVE_CONTROL_PORT);
-  XboxController driverController = new XboxController(Constants.DRIVE_CONTROL_PORT);
-
-  CommandXboxController commandOperatorController = new CommandXboxController(Constants.OPERATOR_CONTROL_PORT);
-  XboxController operatorController = new XboxController(Constants.OPERATOR_CONTROL_PORT);
-
-  CommandGenericHID buttonBoard = new CommandGenericHID(Constants.BUTTON_BOARD_PORT);
-
-  AutoPicker autoPicker = new AutoPicker(subsystemList);
-
-  public RobotContainer() {
-    drive.setDefaultCommand(new DriveStopCommand(subsystemList));
-
-    configureBindings();
-  }
-
-  
-  private void configureBindings() {
-
-    SmartDashboard.putData("Reset Gyro", new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
-
-    // Driver Triggers
-
-    commandDriverController.axisGreaterThan(0, 0.1)
-      .or(commandDriverController.axisLessThan(0, -0.1))
-      .or(commandDriverController.axisGreaterThan(1, 0.1))
-      .or(commandDriverController.axisLessThan(1, -0.1))
-      .or(commandDriverController.axisGreaterThan(2, 0.1))
-      .or(commandDriverController.axisGreaterThan(3, 0.1))
-      .or(commandDriverController.leftBumper())
-      .or(commandDriverController.rightBumper())
-      .onTrue(new TeleopMoveCommand(subsystemList, driverController));
-
-    // Operator Triggers
-
-    displayDashboard();
-  }
-
-  public Command getAutonomousCommand() {
-    return autoPicker.GetAuto();
-  }
-
-  public void displayDashboard() {
-    // SMART DASHBOARD
-    // import.method();
+    DriveSubsystem drive = new DriveSubsystem();
+    GrabberSubsystem grabber = new GrabberSubsystem();
+    SubsystemBase[] subsystems = { drive, grabber };
+    SubsystemList subsystemList = new SubsystemList(subsystems);
     
-    // SHUFFLEBOARD
-    // Shuffleboard.getTab("TabName").addDouble("DisplayName", () -> import.method())
-    //   .withWidget("Widget")
-    //   .withPosition(x, y);
+    /*  Controller Declarations  */
 
-  }
+    CommandXboxController commandDriverController = new CommandXboxController(Constants.DriveControllerPort);
+    XboxController driverController = new XboxController(Constants.DriveControllerPort);
+
+    CommandXboxController commandOperatorController = new CommandXboxController(Constants.OperatorControllerPort);
+    XboxController operatorController = new XboxController(Constants.OperatorControllerPort);
+
+    CommandGenericHID buttonBoard = new CommandGenericHID(Constants.ButtonBoardPort);
+
+    AutoPicker autoPicker = new AutoPicker(subsystemList);
+
+    public RobotContainer() {
+
+        drive.setDefaultCommand(new DriveStopCommand(subsystemList));
+
+        configureBindings();
+
+    }
+
+    private void configureBindings() {
+
+        SmartDashboard.putData("Reset Gyro", new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
+
+        // Driver Triggers
+
+        commandDriverController.axisGreaterThan(0, 0.1)
+            .or(commandDriverController.axisLessThan(0, -0.1))
+            .or(commandDriverController.axisGreaterThan(1, 0.1))
+            .or(commandDriverController.axisLessThan(1, -0.1))
+            .or(commandDriverController.axisGreaterThan(2, 0.1))
+            .or(commandDriverController.axisGreaterThan(3, 0.1))
+            .or(commandDriverController.leftBumper())
+            .or(commandDriverController.rightBumper())
+            .onTrue(new TeleopMoveCommand(subsystemList, driverController));
+
+        // Operator Triggers
+
+        displayDashboard();
+
+    }
+
+    public Command getAutonomousCommand() {
+
+        return autoPicker.GetAuto();
+
+    }
+
+    public void displayDashboard() {
+
+        // No current dashboard information to display
+
+    }
+
 }

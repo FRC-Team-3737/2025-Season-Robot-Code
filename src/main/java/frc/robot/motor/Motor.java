@@ -24,11 +24,18 @@ public class Motor {
         None, Analog, Absolute;
     }
 
+    /**
+     * Creates a new Spark controller object for the code to use and control.
+     * 
+     * @param info The MotorInfo for the motor
+     * @param encoder The encoder for the motor
+     * @param inverted Whether the encoder is inverted
+     */
     public Motor(MotorInfo info, encoderType encoder, boolean inverted) {
 
         this.info = info;
 
-        if (info.CONTROLLER == controllerType.MAX) {
+        if (info.Controller == controllerType.MAX) {
             this.motor = new SparkMax(info.ID, MotorType.kBrushless);
             this.motorConfig = new SparkMaxConfig();
             motorConfig.idleMode(IdleMode.kBrake);
@@ -48,15 +55,25 @@ public class Motor {
 
     }
 
+    /**
+     * Gets the number of rotations the motor has made since start in revolutions.
+     * 
+     * @return The amount of rotations the motor has made
+     */
     public double getPosition() {
 
         return motor.getEncoder().getPosition();
 
     }
 
+    /**
+     * Gets the voltage of the analog encoder and modifies it to return a number in degrees.
+     * 
+     * @return The raw angle of an analog encoder
+     */
     public double getAnalogRawAngle() {
         
-        double degreesPerVolt = 360/info.MAX_ENCODER_VALUE;
+        double degreesPerVolt = 360/info.MaxEncoderValue;
         double encoderVoltage = motor.getAnalog().getVoltage();
 
         double rawAngle = degreesPerVolt * encoderVoltage;
@@ -65,21 +82,36 @@ public class Motor {
 
     }
 
+    /**
+     * Gets the raw analog angle and adds an offset for the code.
+     * 
+     * @return The modified angle of an analog encoder
+     */
     public double getAnalogAngle() {
         
-        return getAnalogRawAngle() + info.REFERENCE_ANGLE;
+        return getAnalogRawAngle() + info.ReferenceAngle;
 
     }
 
+    /**
+     * Gets the angle of the absolute encoder directly.
+     * 
+     * @return The raw angle of an absolute encoder
+     */
     public double getAbsoluteRawAngle() {
 
         return motor.getAbsoluteEncoder().getPosition();
 
     }
 
+    /**
+     * Gets the raw absolute angle and adds an offset for the code.
+     * 
+     * @return The modified angle of an analog encoder
+     */
     public double getAbsoluteAngle() {
 
-        return getAbsoluteRawAngle() + info.REFERENCE_ANGLE;
+        return getAbsoluteRawAngle() + info.ReferenceAngle;
 
     }
 

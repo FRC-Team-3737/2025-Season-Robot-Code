@@ -19,46 +19,48 @@ import edu.wpi.first.math.geometry.Translation2d;
  */
 public final class Constants {
 
-  public enum controllerType {
+    public enum controllerType {
 
-    MAX, FLEX;
+      MAX, FLEX;
 
-  }
+    }
 
-  public static final double MODULE_ANGLE_KP = -0.00524;
+    public static final double ModuleAngleKP = -0.00524;
 
-  public static final int DRIVE_CONTROL_PORT = 0;
-  public static final int OPERATOR_CONTROL_PORT = 1;
-  public static final int BUTTON_BOARD_PORT = 2;
+    // Controller Port
+    public static final int DriveControllerPort = 0;
+    public static final int OperatorControllerPort = 1;
+    public static final int ButtonBoardPort = 2;
 
-  //Center triangle is ID 15, Left triangle is ID 9
-  public static final int BackRightDriveID = 6;
-  public static final int BackRightSteerID = 7;
-  public static final int BackLeftDriveID = 8;
-  public static final int BackLeftSteerID = 9;
-  public static final int FrontRightDriveID = 2;
-  public static final int FrontRightSteerID = 3;
-  public static final int FrontLeftDriveID = 4;
-  public static final int FrontLeftSteerID = 5;
-  public static final int GrabberID = 11;
+    // Motor ID
+    public static final int BackRightDriveID = 6;
+    public static final int BackRightSteerID = 7;
+    public static final int BackLeftDriveID = 8;
+    public static final int BackLeftSteerID = 9;
+    public static final int FrontRightDriveID = 2;
+    public static final int FrontRightSteerID = 3;
+    public static final int FrontLeftDriveID = 4;
+    public static final int FrontLeftSteerID = 5;
+    public static final int GrabberID = 11;
 
-  // Swerve
-  public static final SwerveModuleInfo FRONT_RIGHT = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.MAX, 3.371094, 360, 82.5, -1, -1);
-  public static final SwerveModuleInfo FRONT_LEFT = new SwerveModuleInfo(FrontLeftDriveID, FrontLeftSteerID, controllerType.MAX, 3.410156, 360, 113, -1, 1);
-  public static final SwerveModuleInfo BACK_RIGHT = new SwerveModuleInfo(BackRightDriveID, BackRightSteerID, controllerType.MAX, 3.433594, 360, 88.25, 1, -1);
-  public static final SwerveModuleInfo BACK_LEFT = new SwerveModuleInfo(BackLeftDriveID, BackLeftSteerID, controllerType.MAX, 3.496094, 360, 98.5, 1, 1);
+    // Swerve
+    public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.MAX, 3.371094, 360, 82.5, -1, -1);
+    public static final SwerveModuleInfo FrontLeftSwerve = new SwerveModuleInfo(FrontLeftDriveID, FrontLeftSteerID, controllerType.MAX, 3.410156, 360, 113, -1, 1);
+    public static final SwerveModuleInfo BackRightSwerve = new SwerveModuleInfo(BackRightDriveID, BackRightSteerID, controllerType.MAX, 3.433594, 360, 88.25, 1, -1);
+    public static final SwerveModuleInfo BackLeftSwerve = new SwerveModuleInfo(BackLeftDriveID, BackLeftSteerID, controllerType.MAX, 3.496094, 360, 98.5, 1, 1);
 
-  // Robot
-  // The MAX_ENCODER_VALUE is used to say what the max encoder value is, while REFERENCE_ANGLE is the starting angle. Both are currently unused, and are most likely going to get depracated.
-  public static final MotorInfo GRABBER = new MotorInfo(GrabberID, controllerType.MAX, 0, 0);
+    // Robot
+    public static final MotorInfo Grabber = new MotorInfo(GrabberID, controllerType.MAX);
 
-  public static final class Swerve {
-    public static final Translation2d flModuleOffset = new Translation2d(0.28, 0.28);
-    public static final Translation2d frModuleOffset = new Translation2d(0.28, -0.28);
-    public static final Translation2d blModuleOffset = new Translation2d(-0.28, 0.28);
-    public static final Translation2d brModuleOffset = new Translation2d(-0.28, -0.28);
+    public static final class Swerve {
 
-    public static final double maxModuleSpeed = 4.5; // M/S
-  }
+        public static final Translation2d flModuleOffset = new Translation2d(0.28, 0.28);
+        public static final Translation2d frModuleOffset = new Translation2d(0.28, -0.28);
+        public static final Translation2d blModuleOffset = new Translation2d(-0.28, 0.28);
+        public static final Translation2d brModuleOffset = new Translation2d(-0.28, -0.28);
+
+        public static final double maxModuleSpeed = 4.5; // M/S
+
+    }
 
 }

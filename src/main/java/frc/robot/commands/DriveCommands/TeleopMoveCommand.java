@@ -24,6 +24,7 @@ public class TeleopMoveCommand extends Command {
 
     @Override
     public void execute() {
+
         VectorR leftJoystick = VectorR.fromCartesian(controller.getLeftX()*0.5, controller.getLeftY()*0.5);
         double turnSpeed;
 
@@ -40,6 +41,7 @@ public class TeleopMoveCommand extends Command {
         }
 
         drive.move(leftJoystick, turnSpeed, controller.getAButton(), controller.getStartButton());
+        
     }
 
 }
