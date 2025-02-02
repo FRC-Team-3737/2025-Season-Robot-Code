@@ -4,13 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.LEDPattern.GradientType;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.AddressableLEDBufferView;
 import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.util.Color;
 
@@ -18,12 +16,18 @@ import static edu.wpi.first.units.Units.Feet;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Seconds;
 
+import java.util.Map;
+
 public class LEDSubsystem extends SubsystemBase {
 
     private PWM blinkinled;
     private AddressableLED led;
     private AddressableLEDBuffer ledBuffer;
     private Distance ledSpacing;
+
+    public enum patternType {
+        solid, gradient, discontgradient, steps
+    }
 
     public LEDSubsystem() {
 
@@ -62,31 +66,53 @@ public class LEDSubsystem extends SubsystemBase {
     }
 
     /**
-     * Set the color to be used on the LED.
+     * Set the color(s) to be used on the LED.
      * 
-     * @param r Red value
-     * @param g Green value
-     * @param b Blue value
-     * @return The color to be used
+     * @param color The RGB value
+     * @return The colors to be used
      */
-    public Color SetColor(int r, int g, int b) {
+    public Color[] SetColors(int[]... color) {
 
-        return new Color(r, g, b);
+        Color[] colors = {};
+
+        for (int i = 0; i < color.length; i++) {
+
+            int r = color[i][0];
+            int g = color[i][1];
+            int b = color[i][2];
+            colors[i] = new Color(r, g, b);
+
+        }
+
+        return colors;
 
     }
 
     /**
-     * <b> WORK IN PROGRESS </b>
+     * Sets the pattern to be used on the LEDs.
      * 
      * <p>{@link} https://docs.wpilib.org/en/stable/docs/software/hardware-apis/misc/addressable-leds.html
      * 
+     * @param colors The colors to be used
      * @return The LED Pattern to use
      */
-    public LEDPattern SetPattern() {
+    public LEDPattern SetPattern(Color[] colors, patternType pattern) {
 
-        LEDPattern pattern = LEDPattern.solid(null);
+        LEDPattern selectedPattern;
 
-        return pattern;
+        if (pattern == patternType.solid) {
+            selectedPattern = LEDPattern.solid(colors[0]);
+        } else if (pattern == patternType.gradient) {
+            selectedPattern = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, colors[0]);
+        } else if (pattern == patternType.discontgradient) {
+            selectedPattern = LEDPattern.gradient(LEDPattern.GradientType.kDiscontinuous, colors[0]);
+        } else if (pattern == patternType.steps) {
+            selectedPattern = LEDPattern.steps(Map.of(0.5, colors[0]));
+        } else {
+            selectedPattern = LEDPattern.solid(new Color(0, 0, 0));
+        }
+
+        return selectedPattern;
 
     }
 
