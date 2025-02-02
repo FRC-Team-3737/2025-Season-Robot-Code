@@ -14,10 +14,9 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public ClimbSubsystem() {
 
-        motor = new Motors(Constants.CLIMB, encoderType.Absolute, true);
-        rotationActive = false;
+        setName("climb");
 
-        desiredAngle = 0;
+        motor = new Motors(Constants.CLIMB, encoderType.Absolute, true);
         rotationActive = false;
 
     }
@@ -52,15 +51,14 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
-    public void Rotate(double speed) {
+    public void Pivot(double speed) {
 
         if (!rotationActive) return;
 
-        double angle = GetCurrentAngle();
-        double minAngle = 20;
-        double maxAngle = 120;
+        double minAngle = 0;
+        double maxAngle = 180;
 
-        if (angle < minAngle || angle > maxAngle) {
+        if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
             Stop();
             return;
         }
@@ -75,4 +73,5 @@ public class ClimbSubsystem extends SubsystemBase {
         rotationActive = false;
 
     }
+    
 }
