@@ -16,6 +16,7 @@ import static edu.wpi.first.units.Units.Feet;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Seconds;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class LEDSubsystem extends SubsystemBase {
@@ -68,20 +69,15 @@ public class LEDSubsystem extends SubsystemBase {
     /**
      * Set the color(s) to be used on the LED.
      * 
-     * @param color The RGB value
+     * @param color The hex value
      * @return The colors to be used
      */
-    public Color[] SetColors(int[]... color) {
+    public Color[] SetColors(String... color) {
 
         Color[] colors = {};
 
         for (int i = 0; i < color.length; i++) {
-
-            int r = color[i][0];
-            int g = color[i][1];
-            int b = color[i][2];
-            colors[i] = new Color(r, g, b);
-
+            colors[i] = new Color(color[i]);
         }
 
         return colors;
@@ -89,7 +85,7 @@ public class LEDSubsystem extends SubsystemBase {
     }
 
     /**
-     * Sets the pattern to be used on the LEDs.
+     * Sets the pattern to be used on the LEDs. If you add an array for the solid pattern, it selects the first color.
      * 
      * <p>{@link} https://docs.wpilib.org/en/stable/docs/software/hardware-apis/misc/addressable-leds.html
      * 
@@ -103,11 +99,16 @@ public class LEDSubsystem extends SubsystemBase {
         if (pattern == patternType.solid) {
             selectedPattern = LEDPattern.solid(colors[0]);
         } else if (pattern == patternType.gradient) {
-            selectedPattern = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, colors[0]);
+            selectedPattern = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, colors);
         } else if (pattern == patternType.discontgradient) {
-            selectedPattern = LEDPattern.gradient(LEDPattern.GradientType.kDiscontinuous, colors[0]);
+            selectedPattern = LEDPattern.gradient(LEDPattern.GradientType.kDiscontinuous, colors);
         } else if (pattern == patternType.steps) {
-            selectedPattern = LEDPattern.steps(Map.of(0.5, colors[0]));
+            double section = 1/colors.length;
+            Map<Number, Color> data = new HashMap<Number, Color>();
+            for (int i = 0; i < colors.length; i++) {
+                data.put(section*(i+1), colors[i]);
+            }
+            selectedPattern = LEDPattern.steps(data);
         } else {
             selectedPattern = LEDPattern.solid(new Color(0, 0, 0));
         }
