@@ -82,6 +82,7 @@ public class RobotContainer {
         SmartDashboard.putData("Reset Gyro", new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
 
         // Driver Triggers
+    // LED Triggers
 
         commandDriverController.axisGreaterThan(0, 0.1)
             .or(commandDriverController.axisLessThan(0, -0.1))
