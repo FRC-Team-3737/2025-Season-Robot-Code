@@ -30,6 +30,9 @@ public class LEDSubsystem extends SubsystemBase {
         solid, gradient, discontgradient, steps
     }
 
+    /**
+     * Defines the LED object when plugged into the Blinkin.
+     */
     public LEDSubsystem() {
 
         setName("led");
@@ -38,6 +41,13 @@ public class LEDSubsystem extends SubsystemBase {
 
     }
 
+    /**
+     * Sets the color of the LED based on a value.
+     * 
+     * <p>{@link https://1166281274-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-ME3KPEhFI6-MDoP9nZD%2Fuploads%2FMOYJvZmWgxCVKJhcV5fn%2FREV-11-1105-LED-Patterns.pdf?alt=media&token=e8227890-6dd3-498d-834a-752fa43413fe}
+     * 
+     * @param speed
+     */
     public void BlinkinSetLED(double speed) {
 
         blinkinled.setSpeed(speed);
@@ -87,7 +97,7 @@ public class LEDSubsystem extends SubsystemBase {
     /**
      * Sets the pattern to be used on the LEDs. If you add an array for the solid pattern, it selects the first color.
      * 
-     * <p>{@link} https://docs.wpilib.org/en/stable/docs/software/hardware-apis/misc/addressable-leds.html
+     * <p>{@link https://docs.wpilib.org/en/stable/docs/software/hardware-apis/misc/addressable-leds.html}
      * 
      * @param colors The colors to be used
      * @return The LED Pattern to use
