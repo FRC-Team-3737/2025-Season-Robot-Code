@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.utils.SubsystemList;
 
-public class ClawArmExtendCommand extends Command {
+public class ClawArmMoveCommand extends Command {
 
     final ClawArmSubsystem clawArm;
     double desiredExtension;
     double extensionSpeed;
 
-    public ClawArmExtendCommand(SubsystemList subsystems, double extension, double speed) {
+    public ClawArmMoveCommand(SubsystemList subsystems, double extension, double speed) {
 
         clawArm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
         desiredExtension = extension;
@@ -31,7 +31,14 @@ public class ClawArmExtendCommand extends Command {
     @Override
     public void execute() {
 
-        clawArm.Extend(extensionSpeed);
+        clawArm.Move(extensionSpeed);
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return Math.abs(clawArm.GetCurrentExtension() - clawArm.GetDesiredExtension()) < 0.5;
 
     }
 

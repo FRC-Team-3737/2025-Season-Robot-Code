@@ -5,19 +5,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.utils.SubsystemList;
 
-public class GrabberArmPivotRetractCommand extends Command {
+public class GrabberArmPivotMoveCommand extends Command {
 
     final GrabberArmSubsystem grabberArm;
-    double desiredAngle;
-    double desiredExtension;
-    double extensionSpeed;
 
-    public GrabberArmPivotRetractCommand(SubsystemList subsystems, double angle, double extension, double speed) {
+    public GrabberArmPivotMoveCommand(SubsystemList subsystems) {
 
         grabberArm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
-        desiredAngle = angle;
-        desiredExtension = extension;
-        extensionSpeed = speed;
 
         addRequirements(grabberArm);
 
@@ -27,16 +21,7 @@ public class GrabberArmPivotRetractCommand extends Command {
     public void initialize() {
 
         grabberArm.ActivatePivot();
-        grabberArm.SetDesiredAngle(desiredAngle);
-        grabberArm.SetDesiredExtension(desiredExtension);
-
-    }
-
-    @Override
-    public void execute() {
-
         grabberArm.Pivot();
-        grabberArm.Retract(extensionSpeed);
 
     }
 

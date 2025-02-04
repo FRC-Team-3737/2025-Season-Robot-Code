@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.utils.SubsystemList;
 
-public class GrabberArmRetractCommand extends Command {
+public class GrabberArmMoveCommand extends Command {
 
     final GrabberArmSubsystem grabberArm;
     double desiredExtension;
     double extensionSpeed;
 
-    public GrabberArmRetractCommand(SubsystemList subsystems, double extension, double speed) {
+    public GrabberArmMoveCommand(SubsystemList subsystems, double extension, double speed) {
 
         grabberArm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
         desiredExtension = extension;
@@ -31,7 +31,7 @@ public class GrabberArmRetractCommand extends Command {
     @Override
     public void execute() {
 
-        grabberArm.Retract(extensionSpeed);
+        grabberArm.Move(extensionSpeed);
 
     }
 

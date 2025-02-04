@@ -14,6 +14,7 @@ public class ArmSubsystem extends SubsystemBase {
     private final Motors pivotMotor;
     private final PID pivotPID;
     private double desiredAngle;
+    private double tolerance;
     private boolean pivotActive;
     protected double minAngle; // Set per arm
     protected double maxAngle; // Set per arm
@@ -33,6 +34,7 @@ public class ArmSubsystem extends SubsystemBase {
         pivotMotor = new Motors(pivotID, encoder, inverted); // Both pivot motors have a through bore encoder on it. One, both or none could be inverted.
         extensionMotor = new Motors(extensionID);
         pivotPID = new PID(getName(), m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
+        pivotPID.ContinuousInput(0, 360);
         extensionPID = new PID(getName() + "Extenstion", m_extensionPID[0], m_extensionPID[1], m_extensionPID[2]); // For part of the safety check. PID will only run on retracting the arm during rotation when above limit.
 
     }
@@ -72,6 +74,12 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    public void SetTolerance(double m_tolerance) {
+
+        tolerance = m_tolerance;
+
+    }
+
     public void SetDesiredAngle(double angle) {
 
         desiredAngle = angle;
@@ -102,6 +110,12 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    public boolean GetIsReady() {
+
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 100;
+
+    }
+
     public void ActivatePivot() {
 
         /*  This is needed as a safe measure so that our arm doesn't break itself.  */
@@ -127,32 +141,22 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
-    public void Extend(double speed) {
+    public void Move(double speed) {
 
         // if (GetTrueLength() >= GetExtensionLimit()) {
-        //     Retract(0.05);
+        //     extensionMotor.Spin(-0.05);
+        //     return;
+        // } else if (GetTrueLength() <= minExtension) {
+        //     extensionMotor.Spin(0.05);
         //     return;
         // }
 
-        if (extensionMotor.motor.getPosition() < desiredExtension) {
+        if (extensionMotor.motor.getPosition() < desiredExtension - 0.5) {
             extensionMotor.Spin(Math.abs(speed)); 
+        } else if (extensionMotor.motor.getPosition() > desiredExtension + 0.5) {
+            extensionMotor.Spin(-Math.abs(speed));
         } else {
-            extensionMotor.Spin(0);
-        }
-
-    }
-
-    public void Retract(double speed) {
-
-        // if (GetTrueLength() <= minExtension) {
-        //     extensionMotor.Spin(0);
-        //     return;
-        // }
-
-        if (extensionMotor.motor.getPosition() > desiredExtension) {
-            extensionMotor.Spin(-Math.abs(speed)); 
-        } else {
-            extensionMotor.Spin(0);
+            ExtensionStop();
         }
 
     }
@@ -169,6 +173,8 @@ public class ArmSubsystem extends SubsystemBase {
         Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition());
         Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
         Shuffleboard.getTab(getName()).addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
+        Shuffleboard.getTab(getName()).addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 0.5);
+        Shuffleboard.getTab(getName()).addBoolean("reached angle", () -> GetIsReady());
 
     }
 

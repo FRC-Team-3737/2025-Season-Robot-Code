@@ -9,11 +9,13 @@ public class ClawArmPivotCommand extends Command {
 
     final ClawArmSubsystem clawArm;
     double desiredAngle;
+    double deadzone;
 
-    public ClawArmPivotCommand(SubsystemList subsystems, double angle) {
+    public ClawArmPivotCommand(SubsystemList subsystems, double angle, double tolerance) {
 
         clawArm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
         desiredAngle = angle;
+        deadzone = tolerance;
 
         addRequirements(clawArm);
 
@@ -23,6 +25,7 @@ public class ClawArmPivotCommand extends Command {
     public void initialize() {
 
         clawArm.ActivatePivot();
+        clawArm.SetTolerance(deadzone);
         clawArm.SetDesiredAngle(desiredAngle);
 
     }
@@ -31,6 +34,13 @@ public class ClawArmPivotCommand extends Command {
     public void execute() {
 
         clawArm.Pivot();
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return clawArm.GetIsReady();
 
     }
 

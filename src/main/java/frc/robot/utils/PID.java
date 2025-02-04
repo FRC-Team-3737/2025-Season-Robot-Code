@@ -32,13 +32,13 @@ public class PID {
         /*  The below section is not needed for PID, but helps with PID tuning, allowing us to set values in the dashboard.  */
 
         ShuffleboardTab tab = Shuffleboard.getTab("PivotInfo");
-        kP = tab.add(subsystemName + "Proportional", 1/360)
+        kP = tab.add(subsystemName + "Proportional", p)
             .withPosition(3, 0)
             .getEntry();
-        kI = tab.add(subsystemName + "Integral", 1/360)
+        kI = tab.add(subsystemName + "Integral", i)
             .withPosition(3, 1)
             .getEntry();
-        kD = tab.add(subsystemName + "Derivative", 1/360)
+        kD = tab.add(subsystemName + "Derivative", d)
             .withPosition(3, 2)
             .getEntry();
 
