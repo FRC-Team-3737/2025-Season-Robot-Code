@@ -7,7 +7,6 @@ import frc.robot.motor.MotorInfo;
 import frc.robot.motor.Motors;
 import frc.robot.motor.Motor.encoderType;
 import frc.robot.utils.PID;
-import frc.robot.utils.SubsystemList;
 
 public class ArmSubsystem extends SubsystemBase {
 
@@ -103,7 +102,7 @@ public class ArmSubsystem extends SubsystemBase {
         return extensionMotor.motor.getPosition();
 
     }
-
+    
     public double GetDesiredExtension() {
 
         return desiredExtension;
