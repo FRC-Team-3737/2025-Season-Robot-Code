@@ -31,7 +31,7 @@ public class ClawArmRetractCommand extends Command {
     @Override
     public void execute() {
 
-        clawArm.Extend(extensionSpeed);
+        clawArm.Retract(extensionSpeed);
 
     }
 

@@ -114,9 +114,9 @@ public class ArmSubsystem extends SubsystemBase {
 
         if (!pivotActive) return;
 
-        if (GetCurrentAngle() <= minAngle || GetCurrentAngle() >= maxAngle) pivotMotor.Spin(0);
+        // if (GetCurrentAngle() <= minAngle || GetCurrentAngle() >= maxAngle) pivotMotor.Spin(0);
 
-        pivotMotor.Spin(pivotPID.GetPIDValue(GetCurrentAngle(), desiredAngle));
+        pivotMotor.Spin(pivotPID.GetPIDValue(GetCurrentAngle(), desiredAngle, true));
         
     }
 
@@ -129,10 +129,10 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void Extend(double speed) {
 
-        if (GetTrueLength() >= GetExtensionLimit()) {
-            Retract(0.05);
-            return;
-        }
+        // if (GetTrueLength() >= GetExtensionLimit()) {
+        //     Retract(0.05);
+        //     return;
+        // }
 
         if (extensionMotor.motor.getPosition() < desiredExtension) {
             extensionMotor.Spin(Math.abs(speed)); 
@@ -144,10 +144,10 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void Retract(double speed) {
 
-        if (GetTrueLength() <= minExtension) {
-            extensionMotor.Spin(0);
-            return;
-        }
+        // if (GetTrueLength() <= minExtension) {
+        //     extensionMotor.Spin(0);
+        //     return;
+        // }
 
         if (extensionMotor.motor.getPosition() > desiredExtension) {
             extensionMotor.Spin(-Math.abs(speed)); 
@@ -167,6 +167,8 @@ public class ArmSubsystem extends SubsystemBase {
 
         Shuffleboard.getTab(getName()).addDouble("desired extension", () -> desiredExtension);
         Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition());
+        Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
+        Shuffleboard.getTab(getName()).addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
 
     }
 

@@ -31,7 +31,7 @@ public class GrabberArmRetractCommand extends Command {
     @Override
     public void execute() {
 
-        grabberArm.Extend(extensionSpeed);
+        grabberArm.Retract(extensionSpeed);
 
     }
 

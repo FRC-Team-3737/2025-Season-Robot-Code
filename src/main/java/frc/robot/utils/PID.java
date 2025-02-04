@@ -32,13 +32,13 @@ public class PID {
         /*  The below section is not needed for PID, but helps with PID tuning, allowing us to set values in the dashboard.  */
 
         ShuffleboardTab tab = Shuffleboard.getTab("PivotInfo");
-        kP = tab.add(subsystemName + "Proportional", 0.013)
+        kP = tab.add(subsystemName + "Proportional", 1/360)
             .withPosition(3, 0)
             .getEntry();
-        kI = tab.add(subsystemName + "Integral", 0.002)
+        kI = tab.add(subsystemName + "Integral", 1/360)
             .withPosition(3, 1)
             .getEntry();
-        kD = tab.add(subsystemName + "Derivative", 0.0003)
+        kD = tab.add(subsystemName + "Derivative", 1/360)
             .withPosition(3, 2)
             .getEntry();
 
@@ -68,16 +68,23 @@ public class PID {
 
     }
 
-    public double GetPIDValue(double currentPosition, double desiredPosition) {
+    public double GetPIDValue(double currentPosition, double desiredPosition, boolean inverted) {
 
         /*  Calculates the PID value needed and then gets absoluted and given a sign based on the direction we need it to go.  */
 
         double pidValue = pid.calculate(currentPosition, desiredPosition);
+        double speed;
 
         if (desiredPosition >= currentPosition) {
-            return Math.abs(pidValue);
+            speed = Math.abs(pidValue);
         } else {
-            return -Math.abs(pidValue);
+            speed = -Math.abs(pidValue);
+        }
+
+        if (inverted) {
+            return -speed;
+        } else {
+            return speed;
         }
 
     }
