@@ -10,7 +10,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     private final Motors wristMotor;
     private final Motors clawMotor;
-
+    private double tolerance;
     private double desiredAngle;
     private boolean rotationActive;
 
@@ -30,9 +30,9 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    private boolean IsInDeadzone(double deadzone) {
+    public void SetTolerance(double m_tolerance) {
 
-        return desiredAngle > GetCurrentAngle() - deadzone && desiredAngle < GetCurrentAngle() + deadzone;
+        tolerance = m_tolerance;
 
     }
 
@@ -48,9 +48,9 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    public boolean IsReady(double deadzone) {
+    public boolean GetIsReady() {
 
-        return IsInDeadzone(deadzone) && wristMotor.GetVelocity() < 100;
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && wristMotor.GetVelocity() < 100;
 
     }
 
@@ -60,7 +60,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    public void PivotToTarget(double speed) {
+    public void Pivot(double speed) {
 
         if (!rotationActive) return;
 
@@ -72,10 +72,12 @@ public class ClawSubsystem extends SubsystemBase {
             return;
         }
 
-        if (wristMotor.motor.getAnalogAngle() <= desiredAngle) {
+        if (wristMotor.motor.getAnalogAngle() < desiredAngle - 0.5) {
             wristMotor.Spin(Math.abs(speed));
-        } else {
+        } else if (wristMotor.motor.getAnalogAngle() > desiredAngle + 0.5) {
             wristMotor.Spin(-Math.abs(speed));
+        } else {
+            WristStop();
         }
 
     }
@@ -87,13 +89,13 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    public void ClawOpen(double speed) {
+    public void Open(double speed) {
 
         clawMotor.Spin(Math.abs(speed));
 
     }
 
-    public void ClawClose(double speed) {
+    public void Close(double speed) {
 
         clawMotor.Spin(-Math.abs(speed));
 
