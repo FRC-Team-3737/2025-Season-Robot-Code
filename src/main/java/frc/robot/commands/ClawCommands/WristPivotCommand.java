@@ -21,6 +21,7 @@ public class WristPivotCommand extends Command {
     @Override
     public void initialize() {
 
+        claw.ActivateRotation();
         claw.PivotToTarget(motorSpeed);
 
     }
