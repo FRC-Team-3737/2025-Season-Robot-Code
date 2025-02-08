@@ -28,6 +28,10 @@ public class ArmSubsystem extends SubsystemBase {
     protected double upperMechanismLength; // Set per arm
     protected double lowerMechanismLength; // Set per arm
 
+    public enum armType {
+        claw, grabber;
+    }
+
     public ArmSubsystem(MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_extensionPID) {
 
         pivotMotor = new Motors(pivotID, encoder, inverted); // Both pivot motors have a through bore encoder on it. One, both or none could be inverted.
