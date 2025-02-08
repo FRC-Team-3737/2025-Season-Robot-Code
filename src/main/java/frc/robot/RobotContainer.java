@@ -21,6 +21,7 @@ import frc.robot.commands.ClimbCommands.ClimbRotateCommand;
 import frc.robot.commands.ClimbCommands.ClimbStopCommand;
 import frc.robot.commands.ClawCommands.ClawStopCommand;
 import frc.robot.commands.ClawCommands.ClawOpenCommand;
+import frc.robot.commands.ButtonCommands.WristRightPivotCommand;
 import frc.robot.commands.ClawCommands.ClawCloseCommand;
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;

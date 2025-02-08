@@ -1,14 +1,17 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 import frc.robot.motor.Motors;
 import frc.robot.motor.Motor.encoderType;
+import frc.robot.utils.PID;
 
 public class ClawSubsystem extends SubsystemBase {
 
     private final Motors wristMotor;
+    private final PID wristPID;
     private final Motors clawMotor;
     private double tolerance;
     private double desiredAngle;
@@ -20,7 +23,10 @@ public class ClawSubsystem extends SubsystemBase {
         setName("claw");
 
         wristMotor = new Motors(Constants.CLAW_PIVOT_MOTOR, encoderType.Absolute, false);
+        wristMotor.motor.motorConfig.absoluteEncoder.positionConversionFactor(360);
         clawMotor = new Motors(Constants.CLAW_MOTOR);
+        wristPID = new PID(.001, .001, 0);
+        wristPID.ContinuousInput(0, 360);
 
     }
 
@@ -60,32 +66,26 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    public void Pivot(double speed) {
+    public void Pivot() {
 
-        if (!rotationActive) return;
+        //if (!rotationActive) return;
 
         double minAngle = 5;
         double maxAngle = 175;
 
-        if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
-            WristStop();
-            return;
-        }
+        // if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
+        //     WristStop();
+        //     return;
+        // }
 
-        if (wristMotor.motor.getAnalogAngle() < desiredAngle - 0.5) {
-            wristMotor.Spin(Math.abs(speed));
-        } else if (wristMotor.motor.getAnalogAngle() > desiredAngle + 0.5) {
-            wristMotor.Spin(-Math.abs(speed));
-        } else {
-            WristStop();
-        }
+        double pidVal = wristPID.GetPIDValue(GetCurrentAngle(), desiredAngle);
+        wristMotor.Spin(pidVal);
 
     }
 
     public void WristStop() {
 
         wristMotor.Spin(0);
-        rotationActive = false;
 
     }
 
@@ -109,7 +109,10 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void DisplayDebuggingInfo() {
 
-        // No debugging info to display yet
+       Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
+       Shuffleboard.getTab(getName()).addDouble("current angle", () -> GetCurrentAngle());
+       Shuffleboard.getTab(getName()).addDouble("set speed", () -> wristMotor.motor.motor.get());
+
 
     }
 

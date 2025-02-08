@@ -7,14 +7,12 @@ import frc.robot.utils.SubsystemList;
 
 public class WristPivotCommand extends Command {
     final ClawSubsystem claw;
-    private final double motorSpeed;
     double desiredAngle;
     double deadzone;
 
-    public WristPivotCommand(SubsystemList subsystems, double speed, double angle, double tolerance) {
+    public WristPivotCommand(SubsystemList subsystems, double angle, double tolerance) {
 
         claw = (ClawSubsystem) subsystems.getSubsystem("claw");
-        motorSpeed = speed;
         deadzone = tolerance;
         desiredAngle = angle;
 
@@ -28,7 +26,7 @@ public class WristPivotCommand extends Command {
         claw.ActivateRotation();
         claw.SetDesiredAngle(desiredAngle);
         claw.SetTolerance(deadzone);
-        claw.Pivot(motorSpeed);
+        claw.Pivot();
 
     }
 
