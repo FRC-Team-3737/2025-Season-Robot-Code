@@ -34,12 +34,7 @@ import frc.robot.commands.ClawCommands.WristStopCommand;
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
-import frc.robot.subsystems.ClimbSubsytem;
-import frc.robot.subsystems.ClawArmSubsystem;
-import frc.robot.subsystems.GrabberArmSubsystem;
-import frc.robot.subsystems.GrabberSubsystem;
-import frc.robot.subsystems.ClawSubsystem;
-
+import frc.robot.subsystems.LEDSubsystem.patternType;
 // Utility Imports
 import frc.robot.utils.AutoPicker;
 import frc.robot.utils.SubsystemList;

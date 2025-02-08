@@ -69,6 +69,8 @@ public class LEDSubsystem extends SubsystemBase {
         ledBuffer = new AddressableLEDBuffer(leds);
         led.setLength(ledBuffer.getLength());
 
+        LEDPattern.solid(new Color("00ff00")).applyTo(ledBuffer);
+
         led.setData(ledBuffer);
         led.start();
 
