@@ -23,6 +23,12 @@ public class ClimbRotateCommand extends Command {
     public void initialize() {
         
         climbSubsystem.ActivateRotation();
+
+    }
+
+    @Override
+    public void execute() {
+
         climbSubsystem.Pivot(motorspeed);
 
     }
