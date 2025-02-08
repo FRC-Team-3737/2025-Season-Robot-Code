@@ -36,6 +36,13 @@ public class GrabberArmMoveCommand extends Command {
     }
 
     @Override
+    public boolean isFinished() {
+
+        return Math.abs(grabberArm.GetCurrentExtension() - grabberArm.GetDesiredExtension()) < 3;
+
+    }
+
+    @Override
     public void end(boolean interrupted) {
 
         grabberArm.ExtensionStop();

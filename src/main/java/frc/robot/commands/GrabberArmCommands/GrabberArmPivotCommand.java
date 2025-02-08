@@ -9,11 +9,13 @@ public class GrabberArmPivotCommand extends Command {
 
     final GrabberArmSubsystem grabberArm;
     double desiredAngle;
+    double deadzone;
 
-    public GrabberArmPivotCommand(SubsystemList subsystems, double angle) {
+    public GrabberArmPivotCommand(SubsystemList subsystems, double angle, double tolerance) {
 
         grabberArm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
         desiredAngle = angle;
+        deadzone = tolerance;
 
         addRequirements(grabberArm);
 
@@ -23,6 +25,7 @@ public class GrabberArmPivotCommand extends Command {
     public void initialize() {
 
         grabberArm.ActivatePivot();
+        grabberArm.SetTolerance(deadzone);
         grabberArm.SetDesiredAngle(desiredAngle);
 
     }
@@ -31,6 +34,13 @@ public class GrabberArmPivotCommand extends Command {
     public void execute() {
 
         grabberArm.Pivot();
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return grabberArm.GetIsReady();
 
     }
 
