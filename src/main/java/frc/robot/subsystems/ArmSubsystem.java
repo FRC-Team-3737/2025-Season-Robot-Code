@@ -125,11 +125,12 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void Pivot() {
 
-        if (!pivotActive) return;
+        // if (!pivotActive) return;
 
         // if (GetCurrentAngle() <= minAngle || GetCurrentAngle() >= maxAngle) pivotMotor.Spin(0);
 
-        pivotMotor.Spin(pivotPID.GetPIDValue(GetCurrentAngle(), desiredAngle, true));
+        double pidVal = pivotPID.GetPIDValue(GetCurrentAngle(), desiredAngle);
+        pivotMotor.Spin(pidVal);
         
     }
 
@@ -172,7 +173,7 @@ public class ArmSubsystem extends SubsystemBase {
         Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition());
         Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
         Shuffleboard.getTab(getName()).addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
-        Shuffleboard.getTab(getName()).addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 0.5);
+        Shuffleboard.getTab(getName()).addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 3);
         Shuffleboard.getTab(getName()).addBoolean("reached angle", () -> GetIsReady());
 
     }

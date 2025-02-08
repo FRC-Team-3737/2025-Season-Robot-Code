@@ -38,7 +38,7 @@ public class ClawArmMoveCommand extends Command {
     @Override
     public boolean isFinished() {
 
-        return Math.abs(clawArm.GetCurrentExtension() - clawArm.GetDesiredExtension()) < 0.5;
+        return Math.abs(clawArm.GetCurrentExtension() - clawArm.GetDesiredExtension()) < 3;
 
     }
 

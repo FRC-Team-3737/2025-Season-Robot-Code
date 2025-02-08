@@ -68,23 +68,16 @@ public class PID {
 
     }
 
-    public double GetPIDValue(double currentPosition, double desiredPosition, boolean inverted) {
+    public double GetPIDValue(double currentPosition, double desiredPosition) {
 
         /*  Calculates the PID value needed and then gets absoluted and given a sign based on the direction we need it to go.  */
 
         double pidValue = pid.calculate(currentPosition, desiredPosition);
-        double speed;
 
         if (desiredPosition >= currentPosition) {
-            speed = Math.abs(pidValue);
+            return Math.abs(pidValue);
         } else {
-            speed = -Math.abs(pidValue);
-        }
-
-        if (inverted) {
-            return -speed;
-        } else {
-            return speed;
+            return -Math.abs(pidValue);
         }
 
     }
