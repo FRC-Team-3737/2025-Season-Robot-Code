@@ -26,6 +26,12 @@ public class WristPivotCommand extends Command {
         claw.ActivateRotation();
         claw.SetDesiredAngle(desiredAngle);
         claw.SetTolerance(deadzone);
+
+    }
+
+    @Override
+    public void execute() {
+
         claw.Pivot();
 
     }
