@@ -32,6 +32,16 @@ public class ArmSubsystem extends SubsystemBase {
         claw, grabber;
     }
 
+    /** 
+     * Set the motors and PIDs for the arm.
+     * 
+     * @param pivotID The ID of the pivot motor
+     * @param extensionID The ID of the extension motor
+     * @param encoder The encoder type used
+     * @param inverted Whether the encoder is inverted
+     * @param m_pivotPID The PID values for the pivot
+     * @param m_extensionPID The PID values for the extension
+     */
     public ArmSubsystem(MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_extensionPID) {
 
         pivotMotor = new Motors(pivotID, encoder, inverted); // Both pivot motors have a through bore encoder on it. One, both or none could be inverted.
@@ -42,6 +52,11 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    /**
+     * Gets the true length of the arm and mechanism relative to its rotation.
+     * 
+     * @return The true length of the arm and mechanism
+     */
     private double GetTrueLength() {
 
         /*  The true length of the arm is determined by the length of the mechanism and the arm. As the arm rotates, a different part is the outer most part.
@@ -57,6 +72,11 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    /**
+     * Gets the limit of the extension via the angle and the max limit we can extend.
+     * 
+     * @return The extension limit
+     */
     private double GetExtensionLimit() {
 
         /*  Because the pivot point, the point we can't exceed and the end of the mechanism are three points that make a triangle, we use trigonometry.  */
@@ -77,48 +97,86 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    /**
+     * Sets the tolerance of the pivot around it's desired angle.
+     * 
+     * @param m_tolerance The tolerance in degrees
+     */
     public void SetTolerance(double m_tolerance) {
 
         tolerance = m_tolerance;
 
     }
 
+    /**
+     * Sets the target angle for the arm.
+     *
+     * @param angle The target angle for the arm in degrees
+     */
     public void SetDesiredAngle(double angle) {
 
         desiredAngle = angle;
 
     }
 
+    /**
+     * Sets the target extension for the arm.
+     * 
+     * @param extension The target extension for the arm in inches
+     */    
     public void SetDesiredExtension(double extension) {
 
         desiredExtension = extension;
 
     }
 
+    /**
+     * Gets the current angle of the pivot in degrees.
+     * 
+     * @return The current angle in degrees
+     */
     public double GetCurrentAngle() {
         
         return pivotMotor.motor.getAbsoluteAngle();
 
     }
 
+    /**
+     * Gets the current extension of the arm.
+     * 
+     * @return The current extension in inches
+     */
     public double GetCurrentExtension() {
 
         return extensionMotor.motor.getPosition();
 
     }
     
+    /**
+     * Gets the set desired extension of the arm.
+     *
+     * @return The desired extension in inches
+     */
     public double GetDesiredExtension() {
 
         return desiredExtension;
 
     }
 
+    /**
+     * Gets if the pivot is in a deadzone where based on a set tolerance. Also checks if the speed is slow enough to stop it.
+     * 
+     * @return Whether the arm meets the conditions
+     */
     public boolean GetIsReady() {
 
         return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 100;
 
     }
 
+    /**
+     * Activates the pivot in order for it to move. Is a safe measure to make sure it doesn't move when not supposed to.
+     */
     public void ActivatePivot() {
 
         /*  This is needed as a safe measure so that our arm doesn't break itself.  */
@@ -127,6 +185,9 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    /**
+     * Pivots the arm to the set desired angle.
+     */
     public void Pivot() {
 
         // if (!pivotActive) return;
@@ -141,6 +202,9 @@ public class ArmSubsystem extends SubsystemBase {
         
     }
 
+    /**
+     * Stops the pivot and deactivates it.
+     */
     public void PivotStop() {
 
         pivotActive = false;
@@ -148,6 +212,11 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    /**
+     * Extends the arm to its set desired position.
+     * 
+     * @param speed The speed the arm will move at
+     */
     public void Move(double speed) {
 
         // if (GetTrueLength() >= GetExtensionLimit()) {
@@ -168,12 +237,18 @@ public class ArmSubsystem extends SubsystemBase {
 
     }
 
+    /**
+     * Stops arm extension.
+     */
     public void ExtensionStop() {
 
         extensionMotor.Spin(0);
 
     }
 
+    /**
+     * Displays variable values for debugging.
+     */
     public void DisplayDebuggingInfo() {
 
         Shuffleboard.getTab(getName()).addDouble("desired extension", () -> desiredExtension);
