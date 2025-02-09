@@ -19,7 +19,7 @@ public class ClawCloseCommand extends Command {
     }
 
     @Override
-    public void initialize() {
+    public void execute() {
 
         claw.Close(motorSpeed);
 

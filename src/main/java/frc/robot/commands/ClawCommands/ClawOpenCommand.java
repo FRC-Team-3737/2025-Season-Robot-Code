@@ -19,7 +19,7 @@ public class ClawOpenCommand extends Command {
     }
 
     @Override
-    public void initialize() {
+    public void execute() {
 
         claw.Open(motorSpeed);
 

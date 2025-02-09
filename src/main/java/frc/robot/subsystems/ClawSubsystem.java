@@ -16,7 +16,6 @@ public class ClawSubsystem extends SubsystemBase {
     private double tolerance;
     private double desiredAngle;
     private boolean rotationActive;
-
     
     public ClawSubsystem() {
 
@@ -33,6 +32,12 @@ public class ClawSubsystem extends SubsystemBase {
     private double GetCurrentAngle() {
 
         return wristMotor.motor.getAbsoluteAngle();
+
+    }
+
+    private double GetCurrentPosition() {
+        
+        return clawMotor.motor.getPosition();
 
     }
 
@@ -90,6 +95,13 @@ public class ClawSubsystem extends SubsystemBase {
     }
 
     public void Open(double speed) {
+
+        double maxPull = 500;
+
+        if (GetCurrentPosition() >= maxPull) {
+            clawMotor.Spin(-0.03);
+            return;
+        }
 
         clawMotor.Spin(Math.abs(speed));
 
