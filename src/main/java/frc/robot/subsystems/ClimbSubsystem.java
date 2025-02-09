@@ -63,7 +63,13 @@ public class ClimbSubsystem extends SubsystemBase {
             return;
         }
 
-        motor.Spin(speed);
+        if (GetCurrentAngle() < desiredAngle - 0.5) {
+            motor.Spin(Math.abs(speed));
+        } else if (GetCurrentAngle() > desiredAngle + 0.5) {
+            motor.Spin(-Math.abs(speed));
+        } else { 
+            Stop();
+        }
 
     }
 
