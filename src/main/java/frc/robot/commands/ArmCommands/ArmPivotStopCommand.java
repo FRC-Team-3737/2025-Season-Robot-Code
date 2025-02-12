@@ -12,6 +12,12 @@ public class ArmPivotStopCommand extends Command {
 
     final ArmSubsystem arm;
 
+    /**
+     * Stops the arm's roatation.
+     * 
+     * @param subsystems The SubsystemList
+     * @param type The armType
+     */
     public ArmPivotStopCommand(SubsystemList subsystems, armType type) {
 
         if (type == armType.claw) {

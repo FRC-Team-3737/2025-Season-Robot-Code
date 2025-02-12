@@ -16,7 +16,17 @@ public class ArmPivotMoveCommand extends Command {
     double extensionSpeed;
     double deadzone;
 
-    public ArmPivotMoveCommand(SubsystemList subsystems, armType type, double angle, double deadzone, double extension, double speed) {
+    /**
+     * Roatates and extends/retracts the arm based on all inputted variables.
+     * 
+     * @param subsystems The SubsystemList
+     * @param type The armType
+     * @param angle The angle setpoint of the arm
+     * @param tolerance The angle tolerance of the arm
+     * @param extension The extension setpoint of the arm
+     * @param speed The extension speed of the arm
+     */
+    public ArmPivotMoveCommand(SubsystemList subsystems, armType type, double angle, double tolerance, double extension, double speed) {
 
         if (type == armType.claw) {
             arm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
@@ -27,6 +37,7 @@ public class ArmPivotMoveCommand extends Command {
         desiredAngle = angle;
         desiredExtension = extension;
         extensionSpeed = speed;
+        deadzone = tolerance;
 
         addRequirements(arm);
 

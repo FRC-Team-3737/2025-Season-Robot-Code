@@ -12,6 +12,12 @@ public class ArmFullStopCommand extends Command {
 
     final ArmSubsystem arm;
 
+    /**
+     * Stops the arm's rotation and extension.
+     * 
+     * @param subsystems The SubsystemList
+     * @param type The armType
+     */
     public ArmFullStopCommand(SubsystemList subsystems, armType type) {
 
         if (type == armType.claw) {

@@ -3,18 +3,15 @@ package frc.robot.commands.ArmCommands;
 import frc.robot.utils.SubsystemList;
 import frc.robot.subsystems.ArmSubsystem.armType;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.ArmCommands.ArmMoveCommand;
-import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
-import frc.robot.commands.ArmCommands.ArmPivotCommand;
-import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
-import frc.robot.commands.ArmCommands.ArmPivotMoveCommand;
-import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 
-@SuppressWarnings("unused")
 public class ClawArmTestCommand extends SequentialCommandGroup {
 
+    /**
+     * This is a test command to run through every base command and make sure everything is running as it should.
+     * 
+     * @param subsystems The SubsystemList
+     */
     public ClawArmTestCommand(SubsystemList subsystems) {
 
         addCommands(

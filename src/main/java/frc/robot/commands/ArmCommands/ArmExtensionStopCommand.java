@@ -12,6 +12,12 @@ public class ArmExtensionStopCommand extends Command {
 
     final ArmSubsystem arm;
 
+    /**
+     * Stops the arm's extension.
+     * 
+     * @param subsystems The SubsystemList
+     * @param type The armType
+     */
     public ArmExtensionStopCommand(SubsystemList subsystems, armType type) {
 
         if (type == armType.claw) {

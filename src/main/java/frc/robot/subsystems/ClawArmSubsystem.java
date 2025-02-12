@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 
-import frc.robot.subsystems.ArmSubsystem;
-
 import frc.robot.motor.Motor.encoderType;
 import frc.robot.Constants;
 
-@SuppressWarnings("unused")
 public class ClawArmSubsystem extends ArmSubsystem {
 
     private static final double[] pivotPID = {.001, 0.001, 0};
     private static final double[] extensionPID = {1/360, 1/360, 1/3600};
 
+    /**
+     * Sets the claw arm up with all the safety variables necessary.
+     */
     public ClawArmSubsystem() {
 
         super(Constants.CLAW_ARM, Constants.CLAW_ARM_EXT, encoderType.Absolute, false, pivotPID, extensionPID);

@@ -14,6 +14,14 @@ public class ArmPivotCommand extends Command {
     double desiredAngle;
     double deadzone;
 
+    /**
+     * Makes the arm pivot through a PID.
+     * 
+     * @param subsystems The SubsystemList
+     * @param type The armType
+     * @param angle The angle setpoint
+     * @param tolerance The tolerance the pivot
+     */
     public ArmPivotCommand(SubsystemList subsystems, armType type, double angle, double tolerance) {
 
         if (type == armType.claw) {

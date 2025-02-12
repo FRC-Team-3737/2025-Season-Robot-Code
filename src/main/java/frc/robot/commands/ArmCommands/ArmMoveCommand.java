@@ -14,6 +14,14 @@ public class ArmMoveCommand extends Command {
     double desiredExtension;
     double extensionSpeed;
 
+    /**
+     * Makes the arm extend/retract based on values inputted.
+     * 
+     * @param subsystems The SubsystemList
+     * @param type The armType
+     * @param extension The extension setpoint in inches
+     * @param speed The speed of the extension
+     */
     public ArmMoveCommand(SubsystemList subsystems, armType type, double extension, double speed) {
 
         if (type == armType.claw) {

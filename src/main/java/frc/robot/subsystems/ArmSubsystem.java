@@ -190,12 +190,12 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void Pivot() {
 
-        // if (!pivotActive) return;
+        if (!pivotActive) return;
 
-        // if (GetCurrentAngle() <= minAngle || GetCurrentAngle() >= maxAngle) {
-        //     pivotMotor.Spin(0);
-        //     return;
-        // }
+        if (GetCurrentAngle() <= minAngle || GetCurrentAngle() >= maxAngle) {
+            pivotMotor.Spin(0);
+            return;
+        }
 
         double pidVal = pivotPID.GetPIDValue(GetCurrentAngle(), desiredAngle);
         pivotMotor.Spin(pidVal);
@@ -219,13 +219,13 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void Move(double speed) {
 
-        // if (GetTrueLength() >= GetExtensionLimit()) {
-        //     extensionMotor.Spin(-0.05);
-        //     return;
-        // } else if (GetTrueLength() <= minExtension) {
-        //     extensionMotor.Spin(0.05);
-        //     return;
-        // }
+        if (GetTrueLength() >= GetExtensionLimit()) {
+            extensionMotor.Spin(-0.05);
+            return;
+        } else if (GetTrueLength() <= minExtension) {
+            extensionMotor.Spin(0.05);
+            return;
+        }
 
         if (extensionMotor.motor.getPosition() < desiredExtension - 0.5) {
             extensionMotor.Spin(Math.abs(speed)); 

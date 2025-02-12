@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 
-import frc.robot.subsystems.ArmSubsystem;
-
 import frc.robot.motor.Motor.encoderType;
 import frc.robot.Constants;
 
-@SuppressWarnings("unused")
 public class GrabberArmSubsystem extends ArmSubsystem {
 
     private static final double[] pivotPID = {1/360, 1/360, 1/3600};
     private static final double[] extensionPID = {1/360, 1/360, 1/3600};
 
+    /**
+     * Sets the grabber arm up with all the safety variables necessary.
+     */
     public GrabberArmSubsystem() {
 
         super(Constants.GRABBER_ARM, Constants.GRABBER_ARM_EXT, encoderType.Absolute, false, pivotPID, extensionPID);
