@@ -7,20 +7,20 @@ import frc.robot.subsystems.ClimbSubsystem;
 
 public class ClimbStopCommand extends Command {
 
-    final ClimbSubsystem climbSubsystem;
+    final ClimbSubsystem climb;
 
     public ClimbStopCommand(SubsystemList subsystems) {
 
-        climbSubsystem = (ClimbSubsystem) subsystems.getSubsystem("climb");
+        climb = (ClimbSubsystem) subsystems.getSubsystem("climb");
 
-        addRequirements(climbSubsystem);
+        addRequirements(climb);
 
     }
 
     @Override
     public void initialize() {
 
-        climbSubsystem.Stop();
+        climb.Stop();
 
     }
 

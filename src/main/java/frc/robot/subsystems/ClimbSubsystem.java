@@ -5,31 +5,29 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.motor.Motors;
 import frc.robot.Constants;
 import frc.robot.motor.Motor.encoderType;
+import frc.robot.utils.PID;
 
 public class ClimbSubsystem extends SubsystemBase {
 
     private final Motors motor;
+    private final PID pid;
     private boolean rotationActive;
     private double desiredAngle;
+    private double tolerance;
 
     public ClimbSubsystem() {
 
         setName("climb");
 
         motor = new Motors(Constants.CLIMB, encoderType.Absolute, true);
+        pid = new PID(0.001, 0.001, 0);
         rotationActive = false;
 
     }
 
-    public double GetCurrentAngle() {
+    public void SetTolerance(double m_tolerance) {
 
-        return motor.motor.getAbsoluteAngle();
-
-    }
-
-    private boolean IsInDesiredZone (double deadzone) {
-
-        return desiredAngle > this.GetCurrentAngle() - deadzone && desiredAngle < this.GetCurrentAngle() + deadzone;
+        tolerance = m_tolerance;
 
     }
 
@@ -39,9 +37,15 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
-    public boolean IsReady(double deadzone) {
+    public boolean GetIsReady() {
 
-        return IsInDesiredZone(deadzone) && motor.GetVelocity() < 100;
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && motor.GetVelocity() < 100;
+
+    }
+
+    public double GetCurrentAngle() {
+
+        return motor.motor.getAbsoluteAngle();
 
     }
 
@@ -51,25 +55,20 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
-    public void Pivot(double speed) {
+    public void Pivot() {
 
         if (!rotationActive) return;
 
         double minAngle = 0;
         double maxAngle = 180;
 
-        if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
-            Stop();
-            return;
-        }
+        // if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
+        //     Stop();
+        //     return;
+        // }
 
-        if (GetCurrentAngle() < desiredAngle - 0.5) {
-            motor.Spin(Math.abs(speed));
-        } else if (GetCurrentAngle() > desiredAngle + 0.5) {
-            motor.Spin(-Math.abs(speed));
-        } else { 
-            Stop();
-        }
+        double pidVal = pid.GetPIDValue(GetCurrentAngle(), desiredAngle);
+        motor.Spin(pidVal);
 
     }
 

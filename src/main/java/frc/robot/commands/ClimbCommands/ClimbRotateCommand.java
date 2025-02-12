@@ -1,5 +1,7 @@
 package frc.robot.commands.ClimbCommands;
 
+import com.fasterxml.jackson.databind.deser.DefaultDeserializationContext;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.utils.SubsystemList;
@@ -7,36 +9,47 @@ import frc.robot.subsystems.ClimbSubsystem;
 
 public class ClimbRotateCommand extends Command {
 
-    final ClimbSubsystem climbSubsystem;
-    private final double motorspeed;
+    final ClimbSubsystem climb;
+    double desiredAngle;
+    double deadzone;
     
-    public ClimbRotateCommand(SubsystemList subsystems, double speed) {
+    public ClimbRotateCommand(SubsystemList subsystems, double angle, double tolerance) {
 
-        climbSubsystem = (ClimbSubsystem) subsystems.getSubsystem("climb");
-        motorspeed = speed;
+        climb = (ClimbSubsystem) subsystems.getSubsystem("climb");
+        desiredAngle = angle;
+        deadzone = tolerance;
 
-        addRequirements(climbSubsystem);
+        addRequirements(climb);
 
     }
 
     @Override
     public void initialize() {
-        
-        climbSubsystem.ActivateRotation();
+
+        climb.SetDesiredAngle(desiredAngle);
+        climb.SetTolerance(deadzone);
+        climb.ActivateRotation();
 
     }
 
     @Override
     public void execute() {
 
-        climbSubsystem.Pivot(motorspeed);
+        climb.Pivot();
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return climb.GetIsReady();
 
     }
 
     @Override
     public void end(boolean interrupted) {
 
-        climbSubsystem.Stop();
+        climb.Stop();
 
     }
 
