@@ -62,6 +62,7 @@ public class RobotContainer {
 
     /*  Subsystem and SubsystemList Declarations  */
 
+  LEDSubsystem led = new LEDSubsystem(32, 19); // 60 and 10 are placeholders
     DriveSubsystem drive = new DriveSubsystem();
     GrabberSubsystem grabber = new GrabberSubsystem();
     ClawArmSubsystem clawArm = new ClawArmSubsystem();

@@ -16,7 +16,9 @@ import static edu.wpi.first.units.Units.Feet;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Seconds;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LEDSubsystem extends SubsystemBase {
@@ -68,7 +70,7 @@ public class LEDSubsystem extends SubsystemBase {
         ledBuffer = new AddressableLEDBuffer(leds);
         led.setLength(ledBuffer.getLength());
 
-        LEDPattern.solid(new Color("00ff00")).applyTo(ledBuffer);
+        LEDPattern.solid(new Color("#00FF00")).applyTo(ledBuffer);
 
         led.setData(ledBuffer);
         led.start();
@@ -85,11 +87,13 @@ public class LEDSubsystem extends SubsystemBase {
      */
     public Color[] SetColors(String... color) {
 
-        Color[] colors = {};
+        List<Color> colorList = new ArrayList<Color>();
 
         for (int i = 0; i < color.length; i++) {
-            colors[i] = new Color(color[i]);
+            colorList.add(new Color(color[i]));
         }
+
+        Color[] colors = (Color[]) colorList.toArray();
 
         return colors;
 
