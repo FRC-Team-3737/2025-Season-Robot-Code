@@ -1,0 +1,263 @@
+package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import frc.robot.motor.MotorInfo;
+import frc.robot.motor.Motors;
+import frc.robot.motor.Motor.encoderType;
+import frc.robot.utils.PID;
+
+public class ArmSubsystem extends SubsystemBase {
+
+    private final Motors pivotMotor;
+    private final PID pivotPID;
+    private double desiredAngle;
+    private double tolerance;
+    private boolean pivotActive;
+    protected double minAngle; // Set per arm
+    protected double maxAngle; // Set per arm
+
+    private final Motors extensionMotor;
+    private final PID extensionPID;
+    private double desiredExtension;
+    private double extensionLimit;
+    protected double minExtension; // Set per arm
+    protected double maxExtension; // Set per arm
+
+    protected double upperMechanismLength; // Set per arm
+    protected double lowerMechanismLength; // Set per arm
+
+    public enum armType {
+        claw, grabber;
+    }
+
+    /** 
+     * Set the motors and PIDs for the arm.
+     * 
+     * @param pivotID The ID of the pivot motor
+     * @param extensionID The ID of the extension motor
+     * @param encoder The encoder type used
+     * @param inverted Whether the encoder is inverted
+     * @param m_pivotPID The PID values for the pivot
+     * @param m_extensionPID The PID values for the extension
+     */
+    public ArmSubsystem(MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_extensionPID) {
+
+        pivotMotor = new Motors(pivotID, encoder, inverted); // Both pivot motors have a through bore encoder on it. One, both or none could be inverted.
+        extensionMotor = new Motors(extensionID);
+        pivotPID = new PID(getName(), m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
+        pivotPID.ContinuousInput(0, 360);
+        extensionPID = new PID(getName() + "Extension", m_extensionPID[0], m_extensionPID[1], m_extensionPID[2]); // For part of the safety check. PID will only run on retracting the arm during rotation when above limit.
+
+    }
+
+    /**
+     * Gets the true length of the arm and mechanism relative to its rotation.
+     * 
+     * @return The true length of the arm and mechanism
+     */
+    private double GetTrueLength() {
+
+        /*  The true length of the arm is determined by the length of the mechanism and the arm. As the arm rotates, a different part is the outer most part.
+            Because the ends of the mechanism is offset from the arm center, we require this code, in order to prevent fouls.  */
+
+        if (pivotMotor.motor.getAbsoluteAngle() > 90) {
+            return (Math.sqrt(Math.pow(extensionMotor.motor.getPosition(), 2) + Math.pow(lowerMechanismLength, 2)));
+        } else if (pivotMotor.motor.getAbsoluteAngle() < 90) {
+            return (Math.sqrt(Math.pow(extensionMotor.motor.getPosition(), 2) + Math.pow(upperMechanismLength, 2)));
+        } else {
+            return extensionMotor.motor.getPosition() + lowerMechanismLength;
+        }
+
+    }
+
+    /**
+     * Gets the limit of the extension via the angle and the max limit we can extend.
+     * 
+     * @return The extension limit
+     */
+    private double GetExtensionLimit() {
+
+        /*  Because the pivot point, the point we can't exceed and the end of the mechanism are three points that make a triangle, we use trigonometry.  */
+
+        // The entire system is currently represented in inches, not the value of the extension motor.
+
+        double a = Math.tan(pivotMotor.motor.getAbsoluteAngle()) * 18;
+
+        if (GetCurrentAngle() < 30) {
+            extensionLimit = 0;
+        } else if (GetCurrentAngle() < 135) {
+            extensionLimit = Math.sqrt(Math.pow(a, 2) + Math.pow(18, 2));
+        } else {
+            extensionLimit = maxExtension;
+        }
+        
+        return extensionLimit;
+
+    }
+
+    /**
+     * Sets the tolerance of the pivot around it's desired angle.
+     * 
+     * @param m_tolerance The tolerance in degrees
+     */
+    public void SetTolerance(double m_tolerance) {
+
+        tolerance = m_tolerance;
+
+    }
+
+    /**
+     * Sets the target angle for the arm.
+     *
+     * @param angle The target angle for the arm in degrees
+     */
+    public void SetDesiredAngle(double angle) {
+
+        desiredAngle = angle;
+
+    }
+
+    /**
+     * Sets the target extension for the arm.
+     * 
+     * @param extension The target extension for the arm in inches
+     */    
+    public void SetDesiredExtension(double extension) {
+
+        desiredExtension = extension;
+
+    }
+
+    /**
+     * Gets the current angle of the pivot in degrees.
+     * 
+     * @return The current angle in degrees
+     */
+    public double GetCurrentAngle() {
+        
+        return pivotMotor.motor.getAbsoluteAngle();
+
+    }
+
+    /**
+     * Gets the current extension of the arm.
+     * 
+     * @return The current extension in inches
+     */
+    public double GetCurrentExtension() {
+
+        return extensionMotor.motor.getPosition();
+
+    }
+    
+    /**
+     * Gets the set desired extension of the arm.
+     *
+     * @return The desired extension in inches
+     */
+    public double GetDesiredExtension() {
+
+        return desiredExtension;
+
+    }
+
+    /**
+     * Gets if the pivot is in a deadzone where based on a set tolerance. Also checks if the speed is slow enough to stop it.
+     * 
+     * @return Whether the arm meets the conditions
+     */
+    public boolean GetIsReady() {
+
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 100;
+
+    }
+
+    /**
+     * Activates the pivot in order for it to move. Is a safe measure to make sure it doesn't move when not supposed to.
+     */
+    public void ActivatePivot() {
+
+        /*  This is needed as a safe measure so that our arm doesn't break itself.  */
+
+        pivotActive = true;
+
+    }
+
+    /**
+     * Pivots the arm to the set desired angle.
+     */
+    public void Pivot() {
+
+        if (!pivotActive) return;
+
+        if (GetCurrentAngle() <= minAngle || GetCurrentAngle() >= maxAngle) {
+            pivotMotor.Spin(0);
+            return;
+        }
+
+        double pidVal = pivotPID.GetPIDValue(GetCurrentAngle(), desiredAngle);
+        pivotMotor.Spin(pidVal);
+        
+    }
+
+    /**
+     * Stops the pivot and deactivates it.
+     */
+    public void PivotStop() {
+
+        pivotActive = false;
+        pivotMotor.Spin(0);
+
+    }
+
+    /**
+     * Extends the arm to its set desired position.
+     * 
+     * @param speed The speed the arm will move at
+     */
+    public void Move(double speed) {
+
+        if (GetTrueLength() >= GetExtensionLimit()) {
+            extensionMotor.Spin(-0.05);
+            return;
+        } else if (GetTrueLength() <= minExtension) {
+            extensionMotor.Spin(0.05);
+            return;
+        }
+
+        if (extensionMotor.motor.getPosition() < desiredExtension - 0.5) {
+            extensionMotor.Spin(Math.abs(speed)); 
+        } else if (extensionMotor.motor.getPosition() > desiredExtension + 0.5) {
+            extensionMotor.Spin(-Math.abs(speed));
+        } else {
+            ExtensionStop();
+        }
+
+    }
+
+    /**
+     * Stops arm extension.
+     */
+    public void ExtensionStop() {
+
+        extensionMotor.Spin(0);
+
+    }
+
+    /**
+     * Displays variable values for debugging.
+     */
+    public void DisplayDebuggingInfo() {
+
+        Shuffleboard.getTab(getName()).addDouble("desired extension", () -> desiredExtension);
+        Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition());
+        Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
+        Shuffleboard.getTab(getName()).addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
+        Shuffleboard.getTab(getName()).addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 3);
+        Shuffleboard.getTab(getName()).addBoolean("reached angle", () -> GetIsReady());
+
+    }
+
+}

@@ -1,0 +1,32 @@
+package frc.robot.subsystems;
+
+import frc.robot.motor.Motor.encoderType;
+import frc.robot.Constants;
+
+public class ClawArmSubsystem extends ArmSubsystem {
+
+    private static final double[] pivotPID = {.001, 0.001, 0};
+    private static final double[] extensionPID = {1/360, 1/360, 1/3600};
+
+    /**
+     * Sets the claw arm up with all the safety variables necessary.
+     */
+    public ClawArmSubsystem() {
+
+        super(Constants.CLAW_ARM, Constants.CLAW_ARM_EXT, encoderType.Absolute, false, pivotPID, extensionPID);
+        setName("clawArm");
+
+        /*  Following values in degrees and inches  */
+
+        minAngle = 0; // Resting position | 130.5 degrees from vertical
+        maxAngle = 150.5; // Max rotation needed | -20 degrees from vertical
+
+        minExtension = 0; // Prevents slamming 0.25 norm
+        maxExtension = 100000; // Prevents overextending 23.5 norm
+
+        upperMechanismLength = 1; // Unknown length
+        lowerMechanismLength = 1; // Unknown length
+
+    }
+    
+}

@@ -7,19 +7,22 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class PID {
 
+    private final String subsystemName;
     private PIDController pid;
     private GenericEntry kP;
     private GenericEntry kI;
     private GenericEntry kD;
     
-    
-    public PID(double p, double i, double d) {
+    public PID(String m_subsystemName, double p, double i, double d) {
 
         /*  The PID formula is: u(t) = Kp * e(t)  +  Ki * ∫ e(t) dt  +  Kd * de(t)/dt but has multiple variations possible.
             The continuous input turns the PID into a circle rather then a line. What you need it to do determines which option is more viable.
             The tolerance is where our angle has to be in order to stop and the derivative tolerance is how much its allowed to move to be considered complete.
             The intergrator range limits how much the integral affects your arm. There is an i zone which makes it reset over a certain point.  */
+            
+            subsystemName = m_subsystemName;
 
+            PIDTuning(p, i, d);
             this.pid = new PIDController(kP.getDouble(p), kI.getDouble(i), kD.getDouble(d));
 
     }
@@ -29,13 +32,13 @@ public class PID {
         /*  The below section is not needed for PID, but helps with PID tuning, allowing us to set values in the dashboard.  */
 
         ShuffleboardTab tab = Shuffleboard.getTab("PivotInfo");
-        kP = tab.add("Proportional", 0.013)
+        kP = tab.add(subsystemName + "Proportional", p)
             .withPosition(3, 0)
             .getEntry();
-        kI = tab.add("Integral", 0.002)
+        kI = tab.add(subsystemName + "Integral", i)
             .withPosition(3, 1)
             .getEntry();
-        kD = tab.add("Derivative", 0.0003)
+        kD = tab.add(subsystemName + "Derivative", d)
             .withPosition(3, 2)
             .getEntry();
 
