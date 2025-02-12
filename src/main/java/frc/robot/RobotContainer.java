@@ -13,10 +13,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.ArmCommands.ClawArmTestCommand;
+
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
+
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ClawArmSubsystem;
@@ -35,14 +36,13 @@ public class RobotContainer {
 
     /*  Subsystem and SubsystemList Declarations  */
 
-  DriveSubsystem drive = new DriveSubsystem();
-  ClawArmSubsystem clawArm = new ClawArmSubsystem();
-  GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
-  SubsystemBase[] subsystems = { drive, clawArm, grabberArm };
-  SubsystemList subsystemList = new SubsystemList(subsystems);
-  
+    DriveSubsystem drive = new DriveSubsystem();
     GrabberSubsystem grabber = new GrabberSubsystem();
-    
+    ClawArmSubsystem clawArm = new ClawArmSubsystem();
+    GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
+    SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber };
+    SubsystemList subsystemList = new SubsystemList(subsystems);
+  
     /*  Controller Declarations  */
 
     CommandXboxController commandDriverController = new CommandXboxController(Constants.DriveControllerPort);
