@@ -73,17 +73,18 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void Pivot() {
 
-        //if (!rotationActive) return;
+        if (!rotationActive) return;
 
-        double minAngle = 5;
+        double minAngle = 0;
         double maxAngle = 175;
 
-        // if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
-        //     WristStop();
-        //     return;
-        // }
+         if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
+             WristStop();
+             return;
+         }
 
         double pidVal = wristPID.GetPIDValue(GetCurrentAngle(), desiredAngle);
+        ActivateRotation();
         wristMotor.Spin(pidVal);
 
     }
@@ -91,6 +92,7 @@ public class ClawSubsystem extends SubsystemBase {
     public void WristStop() {
 
         wristMotor.Spin(0);
+        rotationActive = false;
 
     }
 
