@@ -47,6 +47,7 @@ public class RobotContainer {
 
     /*  Subsystem and SubsystemList Declarations  */
 
+  LEDSubsystem led = new LEDSubsystem(32, 19); // 60 and 10 are placeholders
     DriveSubsystem drive = new DriveSubsystem();
     GrabberSubsystem grabber = new GrabberSubsystem();
     ClawArmSubsystem clawArm = new ClawArmSubsystem();
@@ -55,7 +56,6 @@ public class RobotContainer {
     SubsystemList subsystemList = new SubsystemList(subsystems);
   ClimbSubsystem climb = new ClimbSubsystem();
   ClawSubsystem claw = new ClawSubsystem();
-  LEDSubsystem led = new LEDSubsystem(60, 10); // 60 and 10 are placeholders
   
     /*  Controller Declarations  */
 

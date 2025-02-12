@@ -50,7 +50,7 @@ public final class Constants {
   public static final int ClawPivotMotorID = 10;
   public static final int ClawMotorID = 11;
   // PWM
-  public static final int LED_PORT = 0;
+  public static final int LED_PORT = 1;
 
   // DIO
 
