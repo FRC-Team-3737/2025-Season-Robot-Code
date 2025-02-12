@@ -87,13 +87,11 @@ public class LEDSubsystem extends SubsystemBase {
      */
     public Color[] SetColors(String... color) {
 
-        List<Color> colorList = new ArrayList<Color>();
+        Color[] colors = new Color[10];
 
         for (int i = 0; i < color.length; i++) {
-            colorList.add(new Color(color[i]));
+            colors[i] = new Color(color[i]);
         }
-
-        Color[] colors = (Color[]) colorList.toArray();
 
         return colors;
 
