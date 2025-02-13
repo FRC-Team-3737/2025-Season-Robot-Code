@@ -46,6 +46,7 @@ public final class Constants {
     public static final int ClawArmID = 9;
     public static final int GrabberArmExtID = 14;
     public static final int GrabberArmID = 12;
+  public static final int ClimbID = 10;
 
     // Swerve
     public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.MAX, 3.371094, 360, 82.5, -1, -1);
@@ -53,6 +54,7 @@ public final class Constants {
     public static final SwerveModuleInfo BackRightSwerve = new SwerveModuleInfo(BackRightDriveID, BackRightSteerID, controllerType.MAX, 3.433594, 360, 88.25, 1, -1);
     public static final SwerveModuleInfo BackLeftSwerve = new SwerveModuleInfo(BackLeftDriveID, BackLeftSteerID, controllerType.MAX, 3.496094, 360, 98.5, 1, 1);
 
+  public static final MonitorInfo CLIMB = new MonitorInfo(ClimbID, controllerType.MAX, 0, 0);
     // Robot
     public static final MotorInfo Grabber = new MotorInfo(GrabberID, controllerType.MAX);
     public static final MotorInfo CLAW_ARM = new MotorInfo(ClawArmID, controllerType.MAX, 0, 0);

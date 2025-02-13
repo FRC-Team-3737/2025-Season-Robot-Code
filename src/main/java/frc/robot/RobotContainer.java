@@ -17,9 +17,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
+import frc.robot.commands.ClimbCommands.ClimbRotateCommand;
+import frc.robot.commands.ClimbCommands.ClimbStopCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ClimbSubsytem;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -42,6 +45,7 @@ public class RobotContainer {
     GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
     SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber };
     SubsystemList subsystemList = new SubsystemList(subsystems);
+  ClimbSubsystem climb = new ClimbSubsystem();
   
     /*  Controller Declarations  */
 
