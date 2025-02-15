@@ -8,7 +8,6 @@ import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
 import frc.robot.commands.GrabberCommands.GrabberShootCommand;
 import frc.robot.commands.GrabberCommands.GrabberStopCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-
 import frc.robot.subsystems.ArmSubsystem.armType;
 
 public class AlgaeProcessorCommand extends SequentialCommandGroup {
