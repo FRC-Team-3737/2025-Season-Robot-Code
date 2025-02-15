@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.units.measure.Time;
@@ -26,7 +27,6 @@ public class LEDSubsystem extends SubsystemBase {
     private PWM blinkinled;
     private AddressableLED led;
     private AddressableLEDBuffer ledBuffer;
-    private Distance ledSpacing;
 
     public enum patternType {
         solid, gradient, discontgradient, steps
@@ -59,7 +59,6 @@ public class LEDSubsystem extends SubsystemBase {
      * Defines the Addressable LED object and sets all the data.
      * 
      * @param leds amount of LEDs in the strip
-     * @param ledDensity how many LEDs per foot
      */
     public LEDSubsystem(int leds, int ledDensity) {
 
@@ -75,8 +74,6 @@ public class LEDSubsystem extends SubsystemBase {
         led.setData(ledBuffer);
         led.start();
 
-        ledSpacing = Feet.of(leds*ledDensity);
-
     }
 
     /**
@@ -87,7 +84,7 @@ public class LEDSubsystem extends SubsystemBase {
      */
     public Color[] SetColors(String... color) {
 
-        Color[] colors = new Color[10];
+        Color[] colors = new Color[color.length];
 
         for (int i = 0; i < color.length; i++) {
             colors[i] = new Color(color[i]);
@@ -115,10 +112,9 @@ public class LEDSubsystem extends SubsystemBase {
         } else if (pattern == patternType.discontgradient) {
             selectedPattern = LEDPattern.gradient(LEDPattern.GradientType.kDiscontinuous, colors);
         } else if (pattern == patternType.steps) {
-            double section = 1/colors.length;
-            Map<Number, Color> data = new HashMap<Number, Color>();
+            Map<Number, Color> data = new HashMap<>();
             for (int i = 0; i < colors.length; i++) {
-                data.put(section*(i+1), colors[i]);
+                data.put(i*(1/(double)colors.length), colors[i]);
             }
             selectedPattern = LEDPattern.steps(data);
         } else {
@@ -156,11 +152,12 @@ public class LEDSubsystem extends SubsystemBase {
     /**
      * Used to get the length of an LED for use in an action.
      * 
-     * @return Length of LED in feet
+     * @param ledDensity how many LEDs per foot
+     * @return Length of distance between LED in feet
      */
-    public Distance GetLEDLength() {
+    public Distance GetLEDLength(double ledDensity) {
 
-        return ledSpacing;
+        return Feet.of(1 / ledDensity);
 
     }
 
