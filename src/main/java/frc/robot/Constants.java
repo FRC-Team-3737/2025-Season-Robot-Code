@@ -41,14 +41,14 @@ public final class Constants {
     public static final int FrontRightSteerID = 3;
     public static final int FrontLeftDriveID = 6;
     public static final int FrontLeftSteerID = 7;
-    public static final int GrabberID = 25;
-    public static final int ClawArmExtID = 24;
-    public static final int ClawArmID = 23;
-    public static final int GrabberArmExtID = 22;
-    public static final int GrabberArmID = 21;
-    public static final int ClimbID = 20;
-    public static final int ClawPivotMotorID = 19;
-    public static final int ClawMotorID = 18;
+    public static final int GrabberID = 10;
+    public static final int ClawArmExtID = 14;
+    public static final int ClawArmID = 15;
+    public static final int GrabberArmExtID = 17;
+    public static final int GrabberArmID = 16;
+    public static final int ClimbID = 11;
+    public static final int ClawPivotMotorID = 12;
+    public static final int ClawMotorID = 13;
 
     // Swerve
     public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.FLEX, 3.371094, 360, 82.5, -1, -1);

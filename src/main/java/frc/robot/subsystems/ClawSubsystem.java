@@ -31,7 +31,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     private double GetCurrentAngle() {
 
-        return wristMotor.motor.getAbsoluteAngle();
+        return wristMotor.motor.getAnalogAngle();
 
     }
 
@@ -101,7 +101,7 @@ public class ClawSubsystem extends SubsystemBase {
         double maxPull = 500;
 
         if (GetCurrentPosition() >= maxPull) {
-            clawMotor.Spin(-0.03);
+            clawMotor.Spin(0.03);
             return;
         }
 
