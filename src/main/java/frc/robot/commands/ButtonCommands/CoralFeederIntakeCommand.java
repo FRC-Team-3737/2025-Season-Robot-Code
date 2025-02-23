@@ -1,6 +1,7 @@
-import javax.swing.GroupLayout.SequentialGroup;
+package frc.robot.commands.ButtonCommands;
 
-import edu.wpilib.first.wpilibj2.command.SequentialCommandGroup;
+
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import frc.robot.utils.SubsystemList;
 
@@ -23,10 +24,10 @@ public class CoralFeederIntakeCommand extends SequentialCommandGroup {
         addCommands(
             // PLACEHOLDER VALUES
             // NOT FINAL, LIMELIGHT MUST BE INCORPORATED
-            new ArmPivotMoveCommand(subsystems, claw, 0, 1, 1, 1).alongWith(new ClawOpenCommand(subsystems, 1)).raceWIth(new WaitCommand(1)),
-            new ArmPivotCommand(subsystems, claw, -45,1),
-            new ClawCloseCommand(subsystems, 1).alongWith(new ArmPivotCommand(subsystems, claw, 45,1)),
-            new ArmFullStopCommand(subsystems, claw).alongWIth(new ClawStopCommand(subsystems))
+            new ArmPivotMoveCommand(subsystems, armType.claw, 0, 1, 1, 1).alongWith(new ClawOpenCommand(subsystems, 1)).raceWith(new WaitCommand(1)),
+            new ArmPivotCommand(subsystems, armType.claw, -45,1),
+            new ClawCloseCommand(subsystems, 1).alongWith(new ArmPivotCommand(subsystems, armType.claw, 45,1)),
+            new ArmFullStopCommand(subsystems, armType.claw).alongWith(new ClawStopCommand(subsystems))
         );
 
     }
