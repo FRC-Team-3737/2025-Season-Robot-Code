@@ -36,13 +36,13 @@ public class GrabberSubsystem extends SubsystemBase {
     
     public void Shoot(double speed) {
         
-        motor.Spin(Math.abs(speed));
+        motor.Spin(-Math.abs(speed));
 
     }
 
     public void Intake(double speed) {
         
-        motor.Spin(-Math.abs(speed));
+        motor.Spin(Math.abs(speed));
 
     }
 
