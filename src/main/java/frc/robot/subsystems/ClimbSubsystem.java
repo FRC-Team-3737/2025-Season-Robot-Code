@@ -59,13 +59,13 @@ public class ClimbSubsystem extends SubsystemBase {
 
         if (!rotationActive) return;
 
-        double minAngle = 0;
-        double maxAngle = 180;
+        double minAngle = 10;
+        double maxAngle = -95;
 
-        // if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
-        //     Stop();
-        //     return;
-        // }
+        if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
+            Stop();
+            return;
+        }
 
         double pidVal = pid.GetPIDValue(GetCurrentAngle(), desiredAngle);
         motor.Spin(pidVal);

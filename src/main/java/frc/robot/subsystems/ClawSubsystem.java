@@ -75,7 +75,7 @@ public class ClawSubsystem extends SubsystemBase {
 
         if (!rotationActive) return;
 
-        double minAngle = 0;
+        double minAngle = 5;
         double maxAngle = 175;
 
          if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
@@ -98,7 +98,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void Open(double speed) {
 
-        double maxPull = 500;
+        double maxPull = 4;
 
         if (GetCurrentPosition() >= maxPull) {
             clawMotor.Spin(0.03);
