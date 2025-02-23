@@ -24,7 +24,7 @@ public class ClawSubsystem extends SubsystemBase {
         wristMotor = new Motors(Constants.CLAW_PIVOT_MOTOR, encoderType.Absolute, false);
         wristMotor.motor.motorConfig.absoluteEncoder.positionConversionFactor(360);
         clawMotor = new Motors(Constants.CLAW_MOTOR);
-        wristPID = new PID(.001, .001, 0);
+        wristPID = new PID(getName(), .001, .001, 0);
         wristPID.ContinuousInput(0, 360);
 
     }

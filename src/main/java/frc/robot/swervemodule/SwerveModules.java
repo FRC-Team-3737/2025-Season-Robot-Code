@@ -73,10 +73,10 @@ public class SwerveModules implements Iterable<SwerveModule> {
 
     public void encoderVoltage() {
 
-        SmartDashboard.putNumber("FR", frontRight.angleMotor.getEncoder().getPosition());
-        SmartDashboard.putNumber("FL", frontLeft.angleMotor.getEncoder().getPosition());
-        SmartDashboard.putNumber("BR", backRight.angleMotor.getEncoder().getPosition());
-        SmartDashboard.putNumber("BL", backLeft.angleMotor.getEncoder().getPosition());
+        SmartDashboard.putNumber("FR", frontRight.angleMotor.getAnalog().getVoltage());
+        SmartDashboard.putNumber("FL", frontLeft.angleMotor.getAnalog().getVoltage());
+        SmartDashboard.putNumber("BR", backRight.angleMotor.getAnalog().getVoltage());
+        SmartDashboard.putNumber("BL", backLeft.angleMotor.getAnalog().getVoltage());
 
     }
 

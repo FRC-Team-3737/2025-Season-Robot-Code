@@ -33,38 +33,38 @@ public final class Constants {
     public static final int ButtonBoardPort = 2;
 
     // Motor ID
-    public static final int BackRightDriveID = 6;
-    public static final int BackRightSteerID = 7;
-    public static final int BackLeftDriveID = 8;
-    public static final int BackLeftSteerID = 9;
+    public static final int BackRightDriveID = 8;
+    public static final int BackRightSteerID = 9;
+    public static final int BackLeftDriveID = 4;
+    public static final int BackLeftSteerID = 5;
     public static final int FrontRightDriveID = 2;
     public static final int FrontRightSteerID = 3;
-    public static final int FrontLeftDriveID = 4;
-    public static final int FrontLeftSteerID = 5;
-    public static final int GrabberID = 11;
-    public static final int ClawArmExtID = 10;
-    public static final int ClawArmID = 9;
-    public static final int GrabberArmExtID = 14;
-    public static final int GrabberArmID = 12;
-  public static final int ClimbID = 10;
-  public static final int ClawPivotMotorID = 10;
-  public static final int ClawMotorID = 11;
+    public static final int FrontLeftDriveID = 6;
+    public static final int FrontLeftSteerID = 7;
+    public static final int GrabberID = 25;
+    public static final int ClawArmExtID = 24;
+    public static final int ClawArmID = 23;
+    public static final int GrabberArmExtID = 22;
+    public static final int GrabberArmID = 21;
+    public static final int ClimbID = 20;
+    public static final int ClawPivotMotorID = 19;
+    public static final int ClawMotorID = 18;
 
     // Swerve
-    public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.MAX, 3.371094, 360, 82.5, -1, -1);
-    public static final SwerveModuleInfo FrontLeftSwerve = new SwerveModuleInfo(FrontLeftDriveID, FrontLeftSteerID, controllerType.MAX, 3.410156, 360, 113, -1, 1);
-    public static final SwerveModuleInfo BackRightSwerve = new SwerveModuleInfo(BackRightDriveID, BackRightSteerID, controllerType.MAX, 3.433594, 360, 88.25, 1, -1);
-    public static final SwerveModuleInfo BackLeftSwerve = new SwerveModuleInfo(BackLeftDriveID, BackLeftSteerID, controllerType.MAX, 3.496094, 360, 98.5, 1, 1);
+    public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.FLEX, 3.371094, 360, 82.5, -1, -1);
+    public static final SwerveModuleInfo FrontLeftSwerve = new SwerveModuleInfo(FrontLeftDriveID, FrontLeftSteerID, controllerType.FLEX, 3.410156, 360, 113, -1, 1);
+    public static final SwerveModuleInfo BackRightSwerve = new SwerveModuleInfo(BackRightDriveID, BackRightSteerID, controllerType.FLEX, 3.433594, 360, 88.25, 1, -1);
+    public static final SwerveModuleInfo BackLeftSwerve = new SwerveModuleInfo(BackLeftDriveID, BackLeftSteerID, controllerType.FLEX, 3.496094, 360, 98.5, 1, 1);
 
-  public static final MonitorInfo CLIMB = new MonitorInfo(ClimbID, controllerType.MAX, 0, 0);
+    public static final MotorInfo CLIMB = new MotorInfo(ClimbID, controllerType.MAX, 0, 0);
     // Robot
     public static final MotorInfo Grabber = new MotorInfo(GrabberID, controllerType.MAX);
     public static final MotorInfo CLAW_ARM = new MotorInfo(ClawArmID, controllerType.MAX, 0, 0);
     public static final MotorInfo CLAW_ARM_EXT = new MotorInfo(ClawArmExtID, controllerType.MAX, 0, 0);
     public static final MotorInfo GRABBER_ARM = new MotorInfo(GrabberArmID, controllerType.MAX, 0, 0);
     public static final MotorInfo GRABBER_ARM_EXT = new MotorInfo(GrabberArmExtID, controllerType.MAX, 0, 0);
-  public static final MotorInfo CLAW_PIVOT_MOTOR = new MotorInfo(ClawPivotMotorID, controllerType.MAX, 0, 0);
-  public static final MotorInfo CLAW_MOTOR = new MotorInfo(ClawMotorID, controllerType.MAX, 0, 0);
+    public static final MotorInfo CLAW_PIVOT_MOTOR = new MotorInfo(ClawPivotMotorID, controllerType.MAX, 0, 0);
+    public static final MotorInfo CLAW_MOTOR = new MotorInfo(ClawMotorID, controllerType.MAX, 0, 0);
 
     public static final class Swerve {
 

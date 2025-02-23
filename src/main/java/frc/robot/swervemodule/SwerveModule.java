@@ -51,8 +51,8 @@ public class SwerveModule {
             driveMotorConfig.closedLoopRampRate(0.5);
             driveMotor.configure(driveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
         } else {
-            this.angleMotor = new SparkFlex(info.SteerID, MotorType.kBrushless);
-            this.angleMotorConfig = new SparkFlexConfig();
+            this.angleMotor = new SparkMax(info.SteerID, MotorType.kBrushless);
+            this.angleMotorConfig = new SparkMaxConfig();
             angleMotorConfig.idleMode(IdleMode.kCoast);
             angleMotor.configure(angleMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
             

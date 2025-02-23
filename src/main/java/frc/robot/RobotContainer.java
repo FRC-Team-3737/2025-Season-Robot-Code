@@ -21,14 +21,13 @@ import frc.robot.commands.ClimbCommands.ClimbRotateCommand;
 import frc.robot.commands.ClimbCommands.ClimbStopCommand;
 import frc.robot.commands.ClawCommands.ClawStopCommand;
 import frc.robot.commands.ClawCommands.ClawOpenCommand;
-import frc.robot.commands.ButtonCommands.WristRightPivotCommand;
 import frc.robot.commands.ClawCommands.ClawCloseCommand;
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ClimbSubsytem;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -105,7 +104,7 @@ public class RobotContainer {
 
     public void displayDashboard() {
 
-        // No current dashboard information to display
+        drive.DisplayDebuggingInfo();
 
     }
 

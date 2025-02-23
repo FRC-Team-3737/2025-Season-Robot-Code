@@ -20,7 +20,7 @@ public class ClimbSubsystem extends SubsystemBase {
         setName("climb");
 
         motor = new Motors(Constants.CLIMB, encoderType.Absolute, true);
-        pid = new PID(0.001, 0.001, 0);
+        pid = new PID(getName(), 0.001, 0.001, 0);
         rotationActive = false;
 
     }
