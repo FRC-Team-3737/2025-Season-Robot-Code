@@ -24,6 +24,8 @@ import frc.robot.commands.ClawCommands.ClawOpenCommand;
 import frc.robot.commands.ClawCommands.ClawCloseCommand;
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;
+import frc.robot.commands.ButtonTestCommands.TestWristCommand;
+import frc.robot.commands.ButtonTestCommands.TestClawCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
@@ -48,11 +50,11 @@ public class RobotContainer {
     DriveSubsystem drive = new DriveSubsystem();
     GrabberSubsystem grabber = new GrabberSubsystem();
     ClawArmSubsystem clawArm = new ClawArmSubsystem();
+    ClimbSubsystem climb = new ClimbSubsystem();
+    ClawSubsystem claw = new ClawSubsystem();
     GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
-    SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber };
+    SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber, claw };
     SubsystemList subsystemList = new SubsystemList(subsystems);
-  ClimbSubsystem climb = new ClimbSubsystem();
-  ClawSubsystem claw = new ClawSubsystem();
   
     /*  Controller Declarations  */
 
@@ -91,6 +93,9 @@ public class RobotContainer {
             .onTrue(new TeleopMoveCommand(subsystemList, driverController));
 
         // Operator Triggers
+
+        commandDriverController.x().onTrue(new TestWristCommand(subsystemList, -10, 1));
+        commandDriverController.y().onTrue(new TestClawCommand(subsystemList, .3));
 
         displayDashboard();
 

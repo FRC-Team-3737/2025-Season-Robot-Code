@@ -28,7 +28,7 @@ public class ClawOpenCommand extends Command {
     @Override
     public boolean isFinished() {
 
-        return claw.GetClawPosition() >= 500;
+        return claw.GetClawPosition() >= 4.2;
         
     }
 

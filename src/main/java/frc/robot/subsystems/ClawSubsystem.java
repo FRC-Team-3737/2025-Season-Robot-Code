@@ -24,7 +24,8 @@ public class ClawSubsystem extends SubsystemBase {
         wristMotor = new Motors(Constants.CLAW_PIVOT_MOTOR, encoderType.Absolute, false);
         wristMotor.motor.motorConfig.absoluteEncoder.positionConversionFactor(360);
         clawMotor = new Motors(Constants.CLAW_MOTOR);
-        wristPID = new PID(getName(), .001, .001, 0);
+        // original p .001 i .001 d 0
+        wristPID = new PID(getName(), .0001, .0001, 0);
         wristPID.ContinuousInput(0, 360);
 
     }
@@ -98,10 +99,10 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void Open(double speed) {
 
-        double maxPull = 4;
+        double maxPull = 4.5;
 
         if (GetCurrentPosition() >= maxPull) {
-            clawMotor.Spin(0.03);
+            clawMotor.Spin(0);
             return;
         }
 
@@ -110,6 +111,11 @@ public class ClawSubsystem extends SubsystemBase {
     }
 
     public void Close(double speed) {
+
+        if (GetCurrentPosition() <= 0) {
+            clawMotor.Spin(.03);
+            return;
+        }
 
         clawMotor.Spin(-Math.abs(speed));
 
