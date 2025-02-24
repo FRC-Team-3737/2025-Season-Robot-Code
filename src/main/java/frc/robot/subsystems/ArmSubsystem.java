@@ -17,6 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
     private boolean pivotActive;
     protected double minAngle; // Set per arm
     protected double maxAngle; // Set per arm
+    protected double pivotDirection; // Set per arm
 
     private final Motors extensionMotor;
     private final PID extensionPID;
@@ -198,7 +199,7 @@ public class ArmSubsystem extends SubsystemBase {
         }
 
         double pidVal = pivotPID.GetPIDValue(GetCurrentAngle(), desiredAngle);
-        pivotMotor.Spin(pidVal);
+        pivotMotor.Spin(pivotDirection*pidVal);
         
     }
 
@@ -220,10 +221,10 @@ public class ArmSubsystem extends SubsystemBase {
     public void Move(double speed) {
 
         if (GetTrueLength() >= GetExtensionLimit()) {
-            extensionMotor.Spin(-0.05);
+            extensionMotor.Spin(0.05);
             return;
         } else if (GetTrueLength() <= minExtension) {
-            extensionMotor.Spin(0.05);
+            extensionMotor.Spin(-0.05);
             return;
         }
 

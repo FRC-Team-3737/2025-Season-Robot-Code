@@ -66,6 +66,18 @@ public class Motor {
 
     }
 
+
+    /**
+     * Gets the voltage from an analog encoder.
+     * 
+     * @return The encoder voltage
+     */
+    public double getAnalogVoltage() {
+
+        return motor.getAnalog().getVoltage();
+
+    }
+
     /**
      * Gets the voltage of the analog encoder and modifies it to return a number in degrees.
      * 

@@ -13,16 +13,17 @@ public class ClawArmSubsystem extends ArmSubsystem {
      */
     public ClawArmSubsystem() {
 
-        super(Constants.CLAW_ARM, Constants.CLAW_ARM_EXT, encoderType.Absolute, false, pivotPID, extensionPID);
+        super(Constants.ClawArm, Constants.ClawArmExt, encoderType.Absolute, false, pivotPID, extensionPID);
         setName("clawArm");
 
         /*  Following values in degrees and inches  */
 
         minAngle = 0; // Resting position | 130.5 degrees from vertical
         maxAngle = 150.5; // Max rotation needed | -20 degrees from vertical
+        pivotDirection = 1; // Which direction the arm moves
 
         minExtension = 0; // Prevents slamming 0.25 norm
-        maxExtension = 100000; // Prevents overextending 23.5 norm
+        maxExtension = 23.5; // Prevents overextending 23.5 norm
 
         upperMechanismLength = 1; // Unknown length
         lowerMechanismLength = 1; // Unknown length

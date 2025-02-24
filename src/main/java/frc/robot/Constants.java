@@ -56,15 +56,15 @@ public final class Constants {
     public static final SwerveModuleInfo BackRightSwerve = new SwerveModuleInfo(BackRightDriveID, BackRightSteerID, controllerType.FLEX, 3.433594, 360, 88.25, 1, -1);
     public static final SwerveModuleInfo BackLeftSwerve = new SwerveModuleInfo(BackLeftDriveID, BackLeftSteerID, controllerType.FLEX, 3.496094, 360, 98.5, 1, 1);
 
-    public static final MotorInfo CLIMB = new MotorInfo(ClimbID, controllerType.MAX, 0, 0);
     // Robot
-    public static final MotorInfo Grabber = new MotorInfo(GrabberID, controllerType.MAX);
-    public static final MotorInfo CLAW_ARM = new MotorInfo(ClawArmID, controllerType.MAX, 0, 0);
-    public static final MotorInfo CLAW_ARM_EXT = new MotorInfo(ClawArmExtID, controllerType.MAX, 0, 0);
-    public static final MotorInfo GRABBER_ARM = new MotorInfo(GrabberArmID, controllerType.MAX, 0, 0);
-    public static final MotorInfo GRABBER_ARM_EXT = new MotorInfo(GrabberArmExtID, controllerType.MAX, 0, 0);
-    public static final MotorInfo CLAW_PIVOT_MOTOR = new MotorInfo(ClawPivotMotorID, controllerType.MAX, 0, 0);
-    public static final MotorInfo CLAW_MOTOR = new MotorInfo(ClawMotorID, controllerType.MAX, 0, 0);
+    public static final MotorInfo Grabber = new MotorInfo(GrabberID, controllerType.FLEX);
+    public static final MotorInfo Climb = new MotorInfo(ClimbID, controllerType.FLEX);
+    public static final MotorInfo ClawArm = new MotorInfo(ClawArmID, controllerType.MAX);
+    public static final MotorInfo ClawArmExt = new MotorInfo(ClawArmExtID, controllerType.MAX);
+    public static final MotorInfo GrabberArm = new MotorInfo(GrabberArmID, controllerType.MAX);
+    public static final MotorInfo GrabberArmExt = new MotorInfo(GrabberArmExtID, controllerType.MAX);
+    public static final MotorInfo Wrist = new MotorInfo(ClawPivotMotorID, controllerType.MAX, 0, 0);
+    public static final MotorInfo Claw = new MotorInfo(ClawMotorID, controllerType.MAX);
 
     public static final class Swerve {
 

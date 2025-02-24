@@ -13,13 +13,14 @@ public class GrabberArmSubsystem extends ArmSubsystem {
      */
     public GrabberArmSubsystem() {
 
-        super(Constants.GRABBER_ARM, Constants.GRABBER_ARM_EXT, encoderType.Absolute, false, pivotPID, extensionPID);
+        super(Constants.GrabberArm, Constants.GrabberArmExt, encoderType.Absolute, false, pivotPID, extensionPID);
         setName("grabberArm");
 
         /*  Following values in degrees and inches  */
 
         minAngle = 0; // Resting position | 135 degrees from vertical
         maxAngle = 135; // Max rotation needed | 0 degrees from vertical
+        pivotDirection = -1; // Which direction the arm moves
 
         minExtension = 0.25; // Prevents slamming
         maxExtension = 6.5; // Prevents overextending
