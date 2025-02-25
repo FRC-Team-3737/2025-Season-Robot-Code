@@ -8,7 +8,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 // Controller Imports
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
@@ -17,6 +17,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
+import frc.robot.commands.GrabberCommands.AlgeaDetectionCommand;
+import frc.robot.commands.GrabberCommands.GrabberIntakeCommand;
+import frc.robot.commands.GrabberCommands.GrabberShootCommand;
+import frc.robot.commands.GrabberCommands.GrabberStopCommand;
 import frc.robot.commands.ClimbCommands.ClimbRotateCommand;
 import frc.robot.commands.ClimbCommands.ClimbStopCommand;
 import frc.robot.commands.ClawCommands.ClawStopCommand;
@@ -93,9 +97,9 @@ public class RobotContainer {
             .onTrue(new TeleopMoveCommand(subsystemList, driverController));
 
         // Operator Triggers
-
-        commandDriverController.x().onTrue(new TestWristCommand(subsystemList, -10, 1));
-        commandDriverController.y().onTrue(new TestClawCommand(subsystemList, .3));
+        buttonBoard.button(4).onTrue(new GrabberIntakeCommand(subsystemList, 0.25).raceWith(new AlgeaDetectionCommand(subsystemList)));
+        buttonBoard.button(3).onTrue(new GrabberShootCommand(subsystemList, 0.85));
+        buttonBoard.button(2).onTrue(new GrabberStopCommand(subsystemList));
 
         displayDashboard();
 

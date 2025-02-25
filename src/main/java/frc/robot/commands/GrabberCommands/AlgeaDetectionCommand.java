@@ -11,8 +11,6 @@ public class AlgeaDetectionCommand extends Command {
     public AlgeaDetectionCommand(SubsystemList subsystems) {
 
         grabber = (GrabberSubsystem) subsystems.getSubsystem("grabber");
-
-        addRequirements(grabber);
         
     }
 

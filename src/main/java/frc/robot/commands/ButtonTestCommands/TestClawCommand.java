@@ -14,10 +14,10 @@ public class TestClawCommand extends SequentialCommandGroup {
     public TestClawCommand(SubsystemList subsystems, double speed) {
 
         addCommands(
-            new ClawOpenCommand(subsystems, speed),
+            new ClawOpenCommand(subsystems, speed), // 0.3
             new ClawStopCommand(subsystems),
             new WaitCommand(3),
-            new ClawCloseCommand(subsystems, speed)
+            new ClawCloseCommand(subsystems, speed) // 0.03
         );
 
     }
