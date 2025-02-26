@@ -142,8 +142,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void DisplayDebuggingInfo() {
 
-        modules.encoderVoltage();
-        modules.debugSmartDashboard();
+        // No debugging information to display
 
     }
 

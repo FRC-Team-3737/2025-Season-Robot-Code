@@ -63,7 +63,7 @@ public final class Constants {
     public static final MotorInfo ClawArmExt = new MotorInfo(ClawArmExtID, controllerType.MAX);
     public static final MotorInfo GrabberArm = new MotorInfo(GrabberArmID, controllerType.MAX);
     public static final MotorInfo GrabberArmExt = new MotorInfo(GrabberArmExtID, controllerType.MAX);
-    public static final MotorInfo Wrist = new MotorInfo(ClawPivotMotorID, controllerType.MAX, 0, 0);
+    public static final MotorInfo Wrist = new MotorInfo(ClawPivotMotorID, controllerType.MAX, 3.325308, 0);
     public static final MotorInfo Claw = new MotorInfo(ClawMotorID, controllerType.MAX);
 
     public static final class Swerve {

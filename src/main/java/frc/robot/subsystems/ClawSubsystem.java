@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -21,8 +22,7 @@ public class ClawSubsystem extends SubsystemBase {
 
         setName("claw");
 
-        wristMotor = new Motors(Constants.Wrist, encoderType.Absolute, false);
-        wristMotor.motor.motorConfig.absoluteEncoder.positionConversionFactor(360);
+        wristMotor = new Motors(Constants.Wrist, encoderType.Analog, true);
         clawMotor = new Motors(Constants.Claw);
         wristPID = new PID(getName(), .001, .001, 0);
         wristPID.ContinuousInput(0, 360);
@@ -128,10 +128,11 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void DisplayDebuggingInfo() {
 
-       Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
-       Shuffleboard.getTab(getName()).addDouble("current angle", () -> GetCurrentAngle());
-       Shuffleboard.getTab(getName()).addDouble("set speed", () -> wristMotor.motor.motor.get());
-
+        SmartDashboard.putNumber("encoder voltage", wristMotor.motor.getAnalogVoltage());
+        SmartDashboard.putNumber("encoder angle", wristMotor.motor.getAnalogAngle());
+        // Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
+        // Shuffleboard.getTab(getName()).addDouble("current angle", () -> GetCurrentAngle());
+        // Shuffleboard.getTab(getName()).addDouble("set speed", () -> wristMotor.motor.motor.get());
 
     }
 

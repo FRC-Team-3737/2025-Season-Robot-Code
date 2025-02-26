@@ -113,7 +113,7 @@ public class RobotContainer {
 
     public void displayDashboard() {
 
-        drive.DisplayDebuggingInfo();
+        claw.DisplayDebuggingInfo();
 
     }
 

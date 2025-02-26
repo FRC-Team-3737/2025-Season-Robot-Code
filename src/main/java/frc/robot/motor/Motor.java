@@ -39,19 +39,21 @@ public class Motor {
             this.motor = new SparkMax(info.ID, MotorType.kBrushless);
             this.motorConfig = new SparkMaxConfig();
             motorConfig.idleMode(IdleMode.kBrake);
-            motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
         } else {
             this.motor = new SparkFlex(info.ID, MotorType.kBrushless);
             this.motorConfig = new SparkFlexConfig();
             motorConfig.idleMode(IdleMode.kBrake);
-            motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
         }
 
         if (encoder == encoderType.Analog) {
             motorConfig.analogSensor.inverted(inverted);
+            motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
         } else if (encoder == encoderType.Absolute) {
             motorConfig.absoluteEncoder.inverted(inverted);
-        } 
+            motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        } else {
+            motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        }
 
     }
 
