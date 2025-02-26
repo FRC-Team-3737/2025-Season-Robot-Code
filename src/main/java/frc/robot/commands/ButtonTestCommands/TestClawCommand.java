@@ -16,8 +16,8 @@ public class TestClawCommand extends SequentialCommandGroup {
         addCommands(
             new ClawOpenCommand(subsystems, speed), // 0.3
             new ClawStopCommand(subsystems),
-            new WaitCommand(3),
-            new ClawCloseCommand(subsystems, speed) // 0.03
+            new WaitCommand(.25),
+            new ClawCloseCommand(subsystems, speed/5) // 0.06
         );
 
     }

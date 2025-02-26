@@ -5,7 +5,7 @@ import frc.robot.Constants;
 
 public class GrabberArmSubsystem extends ArmSubsystem {
 
-    private static final double[] pivotPID = {1/360, 1/360, 1/3600};
+    private static final double[] pivotPID = {0.005, 0, 0};
     private static final double[] extensionPID = {1/360, 1/360, 1/3600};
 
     /**
@@ -13,7 +13,7 @@ public class GrabberArmSubsystem extends ArmSubsystem {
      */
     public GrabberArmSubsystem() {
 
-        super(Constants.GrabberArm, Constants.GrabberArmExt, encoderType.Absolute, false, pivotPID, extensionPID);
+        super(Constants.GrabberArm, Constants.GrabberArmExt, encoderType.Absolute, true, pivotPID, extensionPID);
         setName("grabberArm");
 
         /*  Following values in degrees and inches  */
