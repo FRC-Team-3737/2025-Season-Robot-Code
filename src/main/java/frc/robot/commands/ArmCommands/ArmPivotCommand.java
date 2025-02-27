@@ -56,7 +56,8 @@ public class ArmPivotCommand extends Command {
     @Override
     public boolean isFinished() {
 
-        return arm.GetIsReady();
+        //return arm.GetIsReady();
+        return false;
 
     }
 

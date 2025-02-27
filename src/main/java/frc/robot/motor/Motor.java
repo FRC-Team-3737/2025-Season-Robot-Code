@@ -47,12 +47,12 @@ public class Motor {
 
         if (encoder == encoderType.Analog) {
             motorConfig.analogSensor.inverted(inverted);
-            motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+            motor.configure(motorConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
         } else if (encoder == encoderType.Absolute) {
             motorConfig.absoluteEncoder.inverted(inverted);
-            motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+            motor.configure(motorConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
         } else {
-            motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+            motor.configure(motorConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
         }
 
     }

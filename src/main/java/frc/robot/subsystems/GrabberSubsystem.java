@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.motor.Motors;
 import frc.robot.Constants;
 
@@ -18,7 +18,7 @@ public class GrabberSubsystem extends SubsystemBase {
         
         motor = new Motors(Constants.Grabber);
 
-        microswitch = new DigitalInput(0);
+        microswitch = new DigitalInput(1);
 
     }
 
@@ -52,9 +52,10 @@ public class GrabberSubsystem extends SubsystemBase {
 
     }
     
-    public void GetDebuggingInfo() {
+    public void DisplayDebuggingInfo() {
 
-        // No debugging info to provide
+        Shuffleboard.getTab(getName()).addBoolean("algae in", () -> GetAlgeaIn());
+        Shuffleboard.getTab(getName()).addNumber("temp", () -> motor.GetTemperature());
 
     }
 }

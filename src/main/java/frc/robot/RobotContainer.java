@@ -101,11 +101,11 @@ public class RobotContainer {
             .onTrue(new TeleopMoveCommand(subsystemList, driverController));
 
         // Operator Triggers
-        // buttonBoard.button(4).onTrue(new GrabberIntakeCommand(subsystemList, 0.25).raceWith(new AlgeaDetectionCommand(subsystemList)));
-        // buttonBoard.button(3).onTrue(new GrabberShootCommand(subsystemList, 0.85));
-        // buttonBoard.button(2).onTrue(new GrabberStopCommand(subsystemList));
+        //  buttonBoard.button(8).onTrue(new GrabberIntakeCommand(subsystemList, 0.1)); //.raceWith(new AlgeaDetectionCommand(subsystemList)));
+        //  buttonBoard.button(7).onTrue(new GrabberShootCommand(subsystemList, 1));
+        //  buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
 
-          buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 45, 1));
+          buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 135, .5));
           buttonBoard.button(3).onTrue(new ArmPivotStopCommand(subsystemList, armType.grabber));
 
         // buttonBoard.button(8).onTrue(new TestClawCommand(subsystemList, .3));
@@ -127,7 +127,7 @@ public class RobotContainer {
 
     public void displayDashboard() {
 
-        claw.DisplayDebuggingInfo();
+        grabber.DisplayDebuggingInfo();
 
     }
 

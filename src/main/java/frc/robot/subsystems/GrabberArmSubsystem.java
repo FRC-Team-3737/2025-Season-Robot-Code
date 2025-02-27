@@ -5,7 +5,7 @@ import frc.robot.Constants;
 
 public class GrabberArmSubsystem extends ArmSubsystem {
 
-    private static final double[] pivotPID = {0.005, 0, 0};
+    private static final double[] pivotPID = {0.01, 0, 0};
     private static final double[] extensionPID = {1/360, 1/360, 1/3600};
 
     /**

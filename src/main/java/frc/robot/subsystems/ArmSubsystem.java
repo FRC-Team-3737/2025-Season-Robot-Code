@@ -49,6 +49,7 @@ public class ArmSubsystem extends SubsystemBase {
         extensionMotor = new Motors(extensionID);
         pivotPID = new PID(getName(), m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
         pivotPID.ContinuousInput(0, 360);
+        pivotPID.IntegratorConfig(0, 0.15);
         extensionPID = new PID(getName() + "Extension", m_extensionPID[0], m_extensionPID[1], m_extensionPID[2]); // For part of the safety check. PID will only run on retracting the arm during rotation when above limit.
 
     }

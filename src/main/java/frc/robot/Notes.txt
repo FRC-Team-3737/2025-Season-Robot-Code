@@ -53,3 +53,8 @@ Conversion Factors
     (Both) Arm extension to inches = 113 roatations per inch
     Claw open and close = 4.1 open | 0 close
     Climb rotation to degrees = N/A
+
+Grabber
+    Running intake speed 25%
+    holding speed 10%
+    max temp 125F
