@@ -150,7 +150,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public double GetCurrentExtension() {
 
-        return extensionMotor.motor.getPosition(true);
+        return extensionMotor.motor.getPosition(false);
 
     }
     

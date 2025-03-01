@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.motor.PairedMotors;
@@ -35,7 +36,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public boolean GetIsReady() {
 
-        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && motor.GetVelocity() < 100;
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance);
 
     }
 
@@ -55,18 +56,20 @@ public class ClimbSubsystem extends SubsystemBase {
 
         if (!rotationActive) return;
 
-        double minAngle = 10;
-        double maxAngle = -95;
+        double minAngle = -95;
+        double maxAngle = 15;
 
         if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
             Stop();
             return;
         }
 
-        if (desiredAngle < motor.mainMotor.getPosition(false)) {
+        if (motor.mainMotor.getPosition(false) < desiredAngle - 3) {
             motor.Spin(Math.abs(speed));
-        } else {
+        } else if (motor.mainMotor.getPosition(false) > desiredAngle + 3){
             motor.Spin(-Math.abs(speed));
+        } else {
+            Stop();
         }
 
     }
@@ -76,6 +79,10 @@ public class ClimbSubsystem extends SubsystemBase {
         motor.Spin(0);
         rotationActive = false;
 
+    }
+
+    public void DisplayDebuggingInfo() {
+        Shuffleboard.getTab(getName()).addNumber("Current Angle", () -> motor.mainMotor.getPosition(false));
     }
     
 }

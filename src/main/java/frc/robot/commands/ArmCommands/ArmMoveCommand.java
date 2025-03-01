@@ -54,7 +54,7 @@ public class ArmMoveCommand extends Command {
     @Override
     public boolean isFinished() {
 
-        return Math.abs(arm.GetCurrentExtension() - arm.GetDesiredExtension()) < 3;
+        return Math.abs(arm.GetCurrentExtension() - arm.GetDesiredExtension()) < 1;
 
     }
 

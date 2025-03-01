@@ -70,7 +70,7 @@ public class RobotContainer {
     ClimbSubsystem climb = new ClimbSubsystem();
     ClawSubsystem claw = new ClawSubsystem();
     GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
-    SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber, claw };
+    SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber, claw, climb };
     SubsystemList subsystemList = new SubsystemList(subsystems);
   
     /*  Controller Declarations  */
@@ -115,10 +115,22 @@ public class RobotContainer {
         // buttonBoard.button(7).onTrue(new GrabberShootCommand(subsystemList, 1));
         // buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
 
+        // buttonBoard.button(4).onTrue(new ClawOpenCommand(subsystemList, .3));
+        // buttonBoard.button(3).onTrue(new ClawCloseCommand(subsystemList, 0.06));
+        // buttonBoard.button(2).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 85, 1));
+        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 10, .5));
+        // buttonBoard.button(8).onTrue(new WristPivotCommand(subsystemList, 70, 1));
+        // buttonBoard.button(7).onTrue(new WristPivotCommand(subsystemList, 0, 1));
+        // buttonBoard.button(6).onTrue(new ClawStopCommand(subsystemList));
+        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
 
-        buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 100, .30));
-        buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.claw, -2.5, .30));
-        buttonBoard.button(8).onTrue(new ArmExtensionStopCommand(subsystemList, armType.claw));
+        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.grabber, 30, .3));
+        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.grabber, 0, .30));
+        // buttonBoard.button(8).onTrue(new ArmExtensionStopCommand(subsystemList, armType.claw));
+
+        buttonBoard.button(4).onTrue(new ClimbRotateCommand(subsystemList, .3, -27.25, .5));
+        buttonBoard.button(2).onTrue(new ClimbRotateCommand(subsystemList, .3, 0, .5));
+        buttonBoard.button(3).onTrue(new ClimbRotateCommand(subsystemList, .5, 3, .5));
 
         // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 48, 1));
         // buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 13, 1));
@@ -146,7 +158,7 @@ public class RobotContainer {
 
     public void displayDashboard() {
 
-        clawArm.DisplayDebuggingInfo();
+        climb.DisplayDebuggingInfo();
 
     }
 
