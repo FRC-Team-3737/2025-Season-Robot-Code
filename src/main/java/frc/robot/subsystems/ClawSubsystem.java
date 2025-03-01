@@ -24,7 +24,7 @@ public class ClawSubsystem extends SubsystemBase {
 
         wristMotor = new Motors(Constants.Wrist, encoderType.Analog, true);
         clawMotor = new Motors(Constants.Claw);
-        wristPID = new PID(getName(), .01, .001, 0);
+        wristPID = new PID(getName(), 0.01, 0.001, 0);
         wristPID.ContinuousInput(0, 360);
 
     }
@@ -37,7 +37,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     private double GetCurrentPosition() {
         
-        return clawMotor.motor.getPosition();
+        return clawMotor.motor.getPosition(false);
 
     }
 
@@ -55,7 +55,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     public double GetClawPosition() {
 
-        return clawMotor.motor.getPosition();
+        return clawMotor.motor.getPosition(false);
 
     }
 

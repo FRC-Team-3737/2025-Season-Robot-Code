@@ -36,9 +36,11 @@ Operator Controller
         Left/Right 
 
 
-Button Box (top down)
-    4 3 2 1
-    8 7 6 5
+Button Board (top down)
+    1  2  3  4  5 
+    6  7  8  9  10
+    11 12 13 14 15
+    16 17 18 19 20
 
     1
     2
@@ -48,13 +50,36 @@ Button Box (top down)
     6
     7
     8
+    9
+    10
+    11
+    12
+    13
+    14
+    15
+    16
+    17
+    18
+    19
+    20
+
 
 Conversion Factors
-    (Both) Arm extension to inches = 113 roatations per inch
-    Claw open and close = 4.1 open | 0 close
-    Climb rotation to degrees = N/A
+    (Both) Arm extension to inches = 6.6496 rotations per inch
+    Climb rotation to degrees = .2778 rotations per degree
+
 
 Grabber
-    Running intake speed 25%
-    holding speed 10%
-    max temp 125F
+    PID Arm (0.1, 0, 0)
+    Running intake speed (25%)
+
+
+Coral
+    PID Arm (0.1, 0, 0)
+    PID Wrist (0.01, 0.001, 0)
+    Claw open and close = 4.1 open (30%) | 0 close (6%)
+
+
+Climb
+    -93 degrees to capture
+    10 degrees to climb

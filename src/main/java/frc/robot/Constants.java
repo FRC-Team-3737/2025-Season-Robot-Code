@@ -51,10 +51,10 @@ public final class Constants {
     public static final int ClawMotorID = 13;
 
     // Swerve
-    public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.FLEX, 3.359589, 360, 214.25, -1, -1);
-    public static final SwerveModuleInfo FrontLeftSwerve = new SwerveModuleInfo(FrontLeftDriveID, FrontLeftSteerID, controllerType.FLEX, 3.403666, 360, 40.25, -1, 1);
-    public static final SwerveModuleInfo BackRightSwerve = new SwerveModuleInfo(BackRightDriveID, BackRightSteerID, controllerType.FLEX, 3.344897, 360,222.75, 1, -1);
-    public static final SwerveModuleInfo BackLeftSwerve = new SwerveModuleInfo(BackLeftDriveID, BackLeftSteerID, controllerType.FLEX, 3.428153, 360, 331.5, 1, 1);
+    public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.FLEX, 3.359589, 360, 34.25, -1, -1);
+    public static final SwerveModuleInfo FrontLeftSwerve = new SwerveModuleInfo(FrontLeftDriveID, FrontLeftSteerID, controllerType.FLEX, 3.403666, 360, 220.25, -1, 1);
+    public static final SwerveModuleInfo BackRightSwerve = new SwerveModuleInfo(BackRightDriveID, BackRightSteerID, controllerType.FLEX, 3.344897, 360,42.75, 1, -1);
+    public static final SwerveModuleInfo BackLeftSwerve = new SwerveModuleInfo(BackLeftDriveID, BackLeftSteerID, controllerType.FLEX, 3.428153, 360, 151.5, 1, 1);
 
     // Robot
     public static final MotorInfo Grabber = new MotorInfo(GrabberID, controllerType.FLEX);

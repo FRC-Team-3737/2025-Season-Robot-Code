@@ -10,7 +10,6 @@ import frc.robot.utils.PID;
 public class ClimbSubsystem extends SubsystemBase {
 
     private final Motors motor;
-    private final PID pid;
     private boolean rotationActive;
     private double desiredAngle;
     private double tolerance;
@@ -20,7 +19,6 @@ public class ClimbSubsystem extends SubsystemBase {
         setName("climb");
 
         motor = new Motors(Constants.Climb, encoderType.Absolute, true);
-        pid = new PID(getName(), 0.001, 0.001, 0);
         rotationActive = false;
 
     }
@@ -55,7 +53,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     }
 
-    public void Pivot() {
+    public void Pivot(double speed) {
 
         if (!rotationActive) return;
 
@@ -67,8 +65,11 @@ public class ClimbSubsystem extends SubsystemBase {
             return;
         }
 
-        double pidVal = pid.GetPIDValue(GetCurrentAngle(), desiredAngle);
-        motor.Spin(pidVal);
+        if (desiredAngle < motor.motor.getPosition(false)) {
+            motor.Spin(Math.abs(speed));
+        } else {
+            motor.Spin(-Math.abs(speed));
+        }
 
     }
 

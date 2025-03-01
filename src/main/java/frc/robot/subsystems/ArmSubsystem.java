@@ -65,11 +65,11 @@ public class ArmSubsystem extends SubsystemBase {
             Because the ends of the mechanism is offset from the arm center, we require this code, in order to prevent fouls.  */
 
         if (pivotMotor.motor.getAbsoluteAngle() > 90) {
-            return (Math.sqrt(Math.pow(extensionMotor.motor.getPosition(), 2) + Math.pow(lowerMechanismLength, 2)));
+            return (Math.sqrt(Math.pow(extensionMotor.motor.getPosition(true), 2) + Math.pow(lowerMechanismLength, 2)));
         } else if (pivotMotor.motor.getAbsoluteAngle() < 90) {
-            return (Math.sqrt(Math.pow(extensionMotor.motor.getPosition(), 2) + Math.pow(upperMechanismLength, 2)));
+            return (Math.sqrt(Math.pow(extensionMotor.motor.getPosition(true), 2) + Math.pow(upperMechanismLength, 2)));
         } else {
-            return extensionMotor.motor.getPosition() + lowerMechanismLength;
+            return extensionMotor.motor.getPosition(true) + lowerMechanismLength;
         }
 
     }
@@ -150,7 +150,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public double GetCurrentExtension() {
 
-        return extensionMotor.motor.getPosition();
+        return extensionMotor.motor.getPosition(true);
 
     }
     
@@ -222,17 +222,17 @@ public class ArmSubsystem extends SubsystemBase {
     public void Move(double speed) {
 
         if (GetTrueLength() >= GetExtensionLimit()) {
-            extensionMotor.Spin(0.05);
+            extensionMotor.Spin(-0.05);
             return;
         } else if (GetTrueLength() <= minExtension) {
-            extensionMotor.Spin(-0.05);
+            extensionMotor.Spin(0.05);
             return;
         }
 
-        if (extensionMotor.motor.getPosition() < desiredExtension - 0.5) {
-            extensionMotor.Spin(Math.abs(speed)); 
-        } else if (extensionMotor.motor.getPosition() > desiredExtension + 0.5) {
-            extensionMotor.Spin(-Math.abs(speed));
+        if (extensionMotor.motor.getPosition(true) < desiredExtension - 0.5) {
+            extensionMotor.Spin(-Math.abs(speed)); 
+        } else if (extensionMotor.motor.getPosition(true) > desiredExtension + 0.5) {
+            extensionMotor.Spin(Math.abs(speed));
         } else {
             ExtensionStop();
         }
@@ -254,7 +254,7 @@ public class ArmSubsystem extends SubsystemBase {
     public void DisplayDebuggingInfo() {
 
         Shuffleboard.getTab(getName()).addDouble("desired extension", () -> desiredExtension);
-        Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition());
+        Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition(true));
         Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
         Shuffleboard.getTab(getName()).addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
         Shuffleboard.getTab(getName()).addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 3);

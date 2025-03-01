@@ -62,12 +62,15 @@ public class Motor {
      * 
      * @return The amount of rotations the motor has made
      */
-    public double getPosition() {
+    public double getPosition(boolean reverse) {
 
-        return motor.getEncoder().getPosition();
+        if (reverse) {
+            return -(motor.getEncoder().getPosition());
+        } else {
+            return motor.getEncoder().getPosition();
+        }
 
     }
-
 
     /**
      * Gets the voltage from an analog encoder.

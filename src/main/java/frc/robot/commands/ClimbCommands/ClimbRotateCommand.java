@@ -12,12 +12,14 @@ public class ClimbRotateCommand extends Command {
     final ClimbSubsystem climb;
     double desiredAngle;
     double deadzone;
+    double motorSpeed;
     
-    public ClimbRotateCommand(SubsystemList subsystems, double angle, double tolerance) {
+    public ClimbRotateCommand(SubsystemList subsystems, double speed, double angle, double tolerance) {
 
         climb = (ClimbSubsystem) subsystems.getSubsystem("climb");
         desiredAngle = angle;
         deadzone = tolerance;
+        motorSpeed = speed;
 
         addRequirements(climb);
 
@@ -35,7 +37,7 @@ public class ClimbRotateCommand extends Command {
     @Override
     public void execute() {
 
-        climb.Pivot();
+        climb.Pivot(motorSpeed);
 
     }
 

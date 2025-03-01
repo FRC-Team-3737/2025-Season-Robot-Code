@@ -28,11 +28,11 @@ import frc.robot.commands.ClawCommands.ClawOpenCommand;
 import frc.robot.commands.ClawCommands.ClawCloseCommand;
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;
-import frc.robot.commands.ButtonTestCommands.TestWristCommand;
+import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
+import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
 import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
-import frc.robot.commands.ButtonTestCommands.TestClawCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
@@ -101,15 +101,12 @@ public class RobotContainer {
             .onTrue(new TeleopMoveCommand(subsystemList, driverController));
 
         // Operator Triggers
-        //  buttonBoard.button(8).onTrue(new GrabberIntakeCommand(subsystemList, 0.1)); //.raceWith(new AlgeaDetectionCommand(subsystemList)));
-        //  buttonBoard.button(7).onTrue(new GrabberShootCommand(subsystemList, 1));
-        //  buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
+        // buttonBoard.button(8).onTrue(new GrabberIntakeCommand(subsystemList, 0.1)); //.raceWith(new AlgeaDetectionCommand(subsystemList)));
+        // buttonBoard.button(7).onTrue(new GrabberShootCommand(subsystemList, 1));
+        // buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
 
-          buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 135, .5));
-          buttonBoard.button(3).onTrue(new ArmPivotStopCommand(subsystemList, armType.grabber));
-
-        // buttonBoard.button(8).onTrue(new TestClawCommand(subsystemList, .3));
-        // buttonBoard.button(8).onTrue(new ClawStopCommand(subsystemList));
+        buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 6.6, .05));
+        buttonBoard.button(3).onTrue(new ArmExtensionStopCommand(subsystemList, armType.claw));
 
         // buttonBoard.button(4).onTrue(new WristPivotCommand(subsystemList,120, 1));
         // buttonBoard.button(3).onTrue(new WristPivotCommand(subsystemList, 40, 1));
