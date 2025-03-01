@@ -2,14 +2,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.motor.Motors;
+import frc.robot.motor.PairedMotors;
 import frc.robot.Constants;
-import frc.robot.motor.Motor.encoderType;
-import frc.robot.utils.PID;
 
 public class ClimbSubsystem extends SubsystemBase {
 
-    private final Motors motor;
+    private final PairedMotors motor;
     private boolean rotationActive;
     private double desiredAngle;
     private double tolerance;
@@ -18,7 +16,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
         setName("climb");
 
-        motor = new Motors(Constants.Climb, encoderType.Absolute, true);
+        motor = new PairedMotors(Constants.Climb, Constants.ClimbSlave);
         rotationActive = false;
 
     }
@@ -43,7 +41,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public double GetCurrentAngle() {
 
-        return motor.motor.getAbsoluteAngle();
+        return motor.mainMotor.getAbsoluteAngle();
 
     }
 
@@ -65,7 +63,7 @@ public class ClimbSubsystem extends SubsystemBase {
             return;
         }
 
-        if (desiredAngle < motor.motor.getPosition(false)) {
+        if (desiredAngle < motor.mainMotor.getPosition(false)) {
             motor.Spin(Math.abs(speed));
         } else {
             motor.Spin(-Math.abs(speed));

@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
-import frc.robot.commands.GrabberCommands.AlgeaDetectionCommand;
+import frc.robot.commands.GrabberCommands.ServoLockCommand;
 import frc.robot.commands.GrabberCommands.GrabberIntakeCommand;
 import frc.robot.commands.GrabberCommands.GrabberShootCommand;
 import frc.robot.commands.GrabberCommands.GrabberStopCommand;
@@ -113,12 +113,19 @@ public class RobotContainer {
         // buttonBoard.button(7).onTrue(new GrabberShootCommand(subsystemList, 1));
         // buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
 
-        buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 6.6, .05));
-        buttonBoard.button(3).onTrue(new ArmExtensionStopCommand(subsystemList, armType.claw));
+        //buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 6.6, .05));
+        //buttonBoard.button(3).onTrue(new ArmExtensionStopCommand(subsystemList, armType.claw));
+
+        buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 30, 1));
+        buttonBoard.button(3).onTrue(new ArmPivotStopCommand(subsystemList, armType.grabber));
 
         // buttonBoard.button(4).onTrue(new WristPivotCommand(subsystemList,120, 1));
         // buttonBoard.button(3).onTrue(new WristPivotCommand(subsystemList, 40, 1));
         // buttonBoard.button(2).onTrue(new WristStopCommand(subsystemList));
+
+        buttonBoard.button(2).onTrue(new GrabberIntakeCommand(subsystemList, .1).andThen(new ServoLockCommand(subsystemList)));
+        buttonBoard.button(1).onTrue(new GrabberIntakeCommand(subsystemList, .1).andThen(new GrabberShootCommand(subsystemList, .85)));
+        buttonBoard.button(8).onTrue(new GrabberStopCommand(subsystemList));
 
         displayDashboard();
 

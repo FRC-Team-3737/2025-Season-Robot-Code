@@ -42,17 +42,18 @@ public final class Constants {
     public static final int FrontLeftDriveID = 6;
     public static final int FrontLeftSteerID = 7;
     public static final int GrabberID = 10;
-    public static final int ClawArmExtID = 14;
-    public static final int ClawArmID = 15;
-    public static final int GrabberArmExtID = 17;
-    public static final int GrabberArmID = 16;
+    public static final int ClawArmExtID = 15;
+    public static final int ClawArmID = 16;
+    public static final int GrabberArmExtID = 18;
+    public static final int GrabberArmID = 17;
     public static final int ClimbID = 11;
-    public static final int ClawPivotMotorID = 12;
-    public static final int ClawMotorID = 13;
-  // PWM
+    public static final int ClimbSlaveID = 12;
+    public static final int ClawPivotMotorID = 13;
+    public static final int ClawMotorID = 14;
   public static final int LED_PORT = 1;
 
   // DIO
+  // PWM
 
     // Swerve
     public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.FLEX, 3.359589, 360, 34.25, -1, -1);
@@ -63,6 +64,7 @@ public final class Constants {
     // Robot
     public static final MotorInfo Grabber = new MotorInfo(GrabberID, controllerType.FLEX);
     public static final MotorInfo Climb = new MotorInfo(ClimbID, controllerType.FLEX);
+    public static final MotorInfo ClimbSlave = new MotorInfo(ClimbSlaveID, controllerType.FLEX);
     public static final MotorInfo ClawArm = new MotorInfo(ClawArmID, controllerType.MAX);
     public static final MotorInfo ClawArmExt = new MotorInfo(ClawArmExtID, controllerType.MAX);
     public static final MotorInfo GrabberArm = new MotorInfo(GrabberArmID, controllerType.MAX);

@@ -7,10 +7,13 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.motor.Motors;
 import frc.robot.Constants;
 
+import edu.wpi.first.wpilibj.Servo;
+
 public class GrabberSubsystem extends SubsystemBase {
 
     private final Motors motor;
     private final DigitalInput microswitch;
+    private final Servo servo;
 
     public GrabberSubsystem() {
 
@@ -19,6 +22,8 @@ public class GrabberSubsystem extends SubsystemBase {
         motor = new Motors(Constants.Grabber);
 
         microswitch = new DigitalInput(1);
+
+        servo = new Servo(0);
 
     }
 
@@ -50,6 +55,10 @@ public class GrabberSubsystem extends SubsystemBase {
         
         motor.Spin(0);
 
+    }
+
+    public void ServoLock() {
+        servo.setPosition(1);
     }
     
     public void DisplayDebuggingInfo() {
