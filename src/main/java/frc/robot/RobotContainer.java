@@ -42,13 +42,12 @@ import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
-import frc.robot.subsystems.LEDSubsystem.patternType;
-import frc.robot.subsystems.ClimbSubsytem;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.subsystems.ClawSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 
 // Utility Imports
 import frc.robot.utils.AutoPicker;
@@ -62,7 +61,7 @@ public class RobotContainer {
 
     /*  Subsystem and SubsystemList Declarations  */
 
-  LEDSubsystem led = new LEDSubsystem(32, 19); // 60 and 10 are placeholders
+    LEDSubsystem led = new LEDSubsystem(32, 19); // 60 and 10 are placeholders
     DriveSubsystem drive = new DriveSubsystem();
     GrabberSubsystem grabber = new GrabberSubsystem();
     ClawArmSubsystem clawArm = new ClawArmSubsystem();
@@ -71,7 +70,6 @@ public class RobotContainer {
     GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
     SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber, claw };
     SubsystemList subsystemList = new SubsystemList(subsystems);
-  LEDSubsystem led = new LEDSubsystem(60, 10); // 60 and 10 are placeholders
   
     /*  Controller Declarations  */
 
