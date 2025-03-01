@@ -23,7 +23,7 @@ public class GrabberSubsystem extends SubsystemBase {
 
         microswitch = new DigitalInput(1);
 
-        servo = new Servo(0);
+        servo = new Servo(Constants.GrabberServo);
 
     }
 
@@ -58,6 +58,10 @@ public class GrabberSubsystem extends SubsystemBase {
     }
 
     public void ServoLock() {
+        servo.setPosition(0);
+    }
+
+    public void ServoUnlock() {
         servo.setPosition(1);
     }
     

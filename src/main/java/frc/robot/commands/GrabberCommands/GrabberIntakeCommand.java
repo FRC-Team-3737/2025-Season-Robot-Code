@@ -27,15 +27,9 @@ public class GrabberIntakeCommand extends Command{
     }
 
     @Override
-    public boolean isFinished() {
-        return grabber.GetAlgeaIn();
-    }
-
-    @Override
     public void end(boolean interrupted) {
 
-        new WaitCommand(.1);
-        grabber.Stop();
+        //grabber.Stop();
 
     }
     

@@ -90,7 +90,7 @@ public class ArmSubsystem extends SubsystemBase {
         if (GetCurrentAngle() < 30) {
             extensionLimit = 0;
         } else if (GetCurrentAngle() < 135) {
-            extensionLimit = Math.sqrt(Math.pow(a, 2) + Math.pow(18, 2));
+            extensionLimit = Math.sqrt(Math.pow(a, 2) + Math.pow(18*6.6, 2));
         } else {
             extensionLimit = maxExtension;
         }
@@ -221,18 +221,18 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void Move(double speed) {
 
-        if (GetTrueLength() >= GetExtensionLimit()) {
-            extensionMotor.Spin(-0.05);
-            return;
-        } else if (GetTrueLength() <= minExtension) {
-            extensionMotor.Spin(0.05);
-            return;
-        }
+        // if (GetTrueLength() >= GetExtensionLimit()) {
+        //     extensionMotor.Spin(-0.05);
+        //     return;
+        // } else if (GetTrueLength() <= minExtension) {
+        //     extensionMotor.Spin(0.05);
+        //     return;
+        // }
 
-        if (extensionMotor.motor.getPosition(true) < desiredExtension - 0.5) {
-            extensionMotor.Spin(-Math.abs(speed)); 
-        } else if (extensionMotor.motor.getPosition(true) > desiredExtension + 0.5) {
-            extensionMotor.Spin(Math.abs(speed));
+        if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.5) {
+            extensionMotor.Spin(Math.abs(speed)); 
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.5) {
+            extensionMotor.Spin(-Math.abs(speed));
         } else {
             ExtensionStop();
         }
@@ -254,7 +254,7 @@ public class ArmSubsystem extends SubsystemBase {
     public void DisplayDebuggingInfo() {
 
         Shuffleboard.getTab(getName()).addDouble("desired extension", () -> desiredExtension);
-        Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition(true));
+        Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition(false));
         Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
         Shuffleboard.getTab(getName()).addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
         Shuffleboard.getTab(getName()).addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 3);

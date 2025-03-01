@@ -73,6 +73,24 @@ Grabber
     PID Arm (0.1, 0, 0)
     Running intake speed (25%)
 
+    Upper Algae Intake:
+        Start Angle: 45 + 75 (120)
+        Second Angle: 45 + 85 (130)
+        Intake speed: .25
+        Extension:
+
+    Lower Algae Intake:
+        Angle: 45 + 48 (93)
+        Intake speed: .25
+        Extension:
+    
+    Processor shoot:
+        Angle: 45 + 13 (58)
+        Shoot Speed: .6
+        Extension: 0
+
+
+
 
 Coral
     PID Arm (0.1, 0, 0)
@@ -83,6 +101,7 @@ Coral
 Climb
     -93 degrees to capture
     10 degrees to climb
+
 
 LED Subsystem
     Ideas

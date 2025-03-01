@@ -23,7 +23,7 @@ public class GrabberArmSubsystem extends ArmSubsystem {
         pivotDirection = -1; // Which direction the arm moves
 
         minExtension = 0.25; // Prevents slamming
-        maxExtension = 6.5; // Prevents overextending
+        maxExtension = 6.5*6.6; // Prevents overextending
 
         upperMechanismLength = 1; // Unknown length
         lowerMechanismLength = 1; // Unknown length
