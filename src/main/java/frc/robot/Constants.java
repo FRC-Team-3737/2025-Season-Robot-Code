@@ -49,6 +49,10 @@ public final class Constants {
     public static final int ClimbID = 11;
     public static final int ClawPivotMotorID = 12;
     public static final int ClawMotorID = 13;
+  // PWM
+  public static final int LED_PORT = 1;
+
+  // DIO
 
     // Swerve
     public static final SwerveModuleInfo FrontRightSwerve = new SwerveModuleInfo(FrontRightDriveID, FrontRightSteerID, controllerType.FLEX, 3.359589, 360, 34.25, -1, -1);

@@ -8,7 +8,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
+// Informational Imports
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.RobotState;
+
 // Controller Imports
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
@@ -36,12 +41,13 @@ import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
 
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.subsystems.ClawSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 
 // Utility Imports
 import frc.robot.utils.AutoPicker;
@@ -55,6 +61,7 @@ public class RobotContainer {
 
     /*  Subsystem and SubsystemList Declarations  */
 
+    LEDSubsystem led = new LEDSubsystem(32, 19); // 60 and 10 are placeholders
     DriveSubsystem drive = new DriveSubsystem();
     GrabberSubsystem grabber = new GrabberSubsystem();
     ClawArmSubsystem clawArm = new ClawArmSubsystem();
@@ -89,6 +96,7 @@ public class RobotContainer {
         SmartDashboard.putData("Reset Gyro", new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
 
         // Driver Triggers
+    // LED Triggers
 
         commandDriverController.axisGreaterThan(0, 0.1)
             .or(commandDriverController.axisLessThan(0, -0.1))

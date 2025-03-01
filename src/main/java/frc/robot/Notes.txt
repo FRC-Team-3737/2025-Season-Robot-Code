@@ -83,3 +83,33 @@ Coral
 Climb
     -93 degrees to capture
     10 degrees to climb
+
+LED Subsystem
+    Ideas
+        
+    Disabled: 
+        Display defualt green lights
+            In FMS:
+                If elimination match:
+                    Special scrolling gradient pattern
+    Enabled:
+        In FMS: 
+            Display Battery voltage in the top 1/4th of LEDs 
+            Display Robot State in the middle 1/2 of LEDs
+                Certain colors for algea in, button pressed, running command, etc. 
+                    If possible when climbing:
+                        Get our pitch and roll and see if we are off the ground (trial and error)
+                        green for good
+                        red for touching ground
+                        needs to run when disabled
+            Display Match State in the lower 1/4th of LEDs
+                Which part of the match are we in.
+                    Auto is orange
+                    Teleop is green
+                    End game is a cycling rainbow
+            If Estopped:
+                Red blinking LED 
+            If Astopped:
+                Yellow blinking LED 
+        In DS:
+            Default green showing battery voltage
