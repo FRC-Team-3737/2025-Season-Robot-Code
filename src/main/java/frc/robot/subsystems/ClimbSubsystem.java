@@ -54,23 +54,39 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public void Pivot(double speed) {
 
+        // Only runs if the pivot is activated first, to prevent errors
         if (!rotationActive) return;
 
         double minAngle = -95;
         double maxAngle = 15;
+        double motorSpeed;
 
+        // Stops if past limits
         if (GetCurrentAngle() < minAngle || GetCurrentAngle() > maxAngle) {
             Stop();
             return;
         }
 
+        // Feeds motor default value inputted
         if (motor.mainMotor.getPosition(false) < desiredAngle - 3) {
-            motor.Spin(Math.abs(speed));
+            motorSpeed = Math.abs(speed);
         } else if (motor.mainMotor.getPosition(false) > desiredAngle + 3){
-            motor.Spin(-Math.abs(speed));
+            motorSpeed = -Math.abs(speed);
         } else {
-            Stop();
+            motorSpeed = 0;
         }
+
+        // Holds a steady velocity so that the motor doesn't become jerky
+        if (Math.abs(motor.GetVelocity()) < 100 && !(Math.abs(motor.GetVelocity()) < 500)) {
+            if (motorSpeed > 0) {
+                motorSpeed++;
+            } else {
+                motorSpeed--;
+            }
+        }
+
+        // Spins the motors
+        motor.Spin(motorSpeed);
 
     }
 

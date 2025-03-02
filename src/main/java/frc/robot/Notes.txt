@@ -70,40 +70,104 @@ Conversion Factors
 
 
 Grabber
-    PID Arm (0.1, 0, 0)
-    Running intake speed (25%)
+    Arm:
+        Pivot:
+            Movement: +up | -down
+            Controller: MAX
+            CAN: 17
+            PID: (0.1, 0, 0)
+            Offset: 46
+        Extension:
+            Movement: +out | -in 
+            Controller: MAX
+            CAN: 18
+            PID:
+            Min:
+            Max:
+    Shooter:
+        Movement: +intake | -outtake
+        Controller: FLEX
+        CAN: 10
+        Servo:
+            PWM: 0
+        Switch:
+            DIO: 1
 
     Upper Algae Intake:
         Start Angle: 45 + 75 (120)
         Second Angle: 45 + 85 (130)
-        Intake speed: .25
+        Intake speed: 25%
         Extension:
 
     Lower Algae Intake:
         Angle: 45 + 48 (93)
-        Intake speed: .25
+        Intake speed: 25%
         Extension:
     
     Processor shoot:
         Angle: 45 + 13 (58)
-        Shoot Speed: .6
+        Shoot Speed: 20%
         Extension: 0
 
 
-
-
 Coral
-    PID Arm (0.1, 0, 0)
-    PID Wrist (0.01, 0.001, 0)
-    Claw open and close = 4.1 open (30%) | 0 close (6%)
+    Arm:
+        Pivot:
+            Movement: +down | -up 
+            Controller: MAX
+            CAN: 16
+            PID: (0.1, 0, 0)
+            Offset: 44
+        Extension:
+            Movement: +out | -in 
+            Controller: MAX
+            CAN: 15
+            PID:
+            Min:
+            Max:
+    Claw:
+        Wrist:
+            Movement: +down | -up 
+            Controller: MAX
+            CAN: 12
+            PID: (0.01, 0.001, 0)
+        Fingers:
+            Movement: +open | -close
+            Controller: MAX
+            CAN: 14
+    Bucket:
+        Switch:
+            DIO: 0
+
+    Level 3:
+        Angle: 45 + 85 (130)
+        Wrist: 90
+        Extension: 0
+
+    Release:
+        Open: 4.1 (30%)
+        Close: 0 (6%)
 
 
 Climb
-    -93 degrees to capture
-    10 degrees to climb
+    Arm:
+        Movement: +in | -out
+        Controller: FLEX
+        CAN: 
+            Main: 11
+            Slave: 12
+    
+    Climb Prep:
+        Angle: 27.5 (-90)
+        Speed: 30%
+    
+    Climb Execute:
+        Angle: 2.5 (10)
+        Speed: 30% -> 100% (Hold Velocity)
 
 
-LED Subsystem
+LED
+    PWM: 1
     Ideas
         
     Disabled: 
