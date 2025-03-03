@@ -39,6 +39,7 @@ import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
+import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
 import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
 
 // Subsystem Imports
@@ -111,9 +112,18 @@ public class RobotContainer {
             .onTrue(new TeleopMoveCommand(subsystemList, driverController));
 
         // Operator Triggers
-        // buttonBoard.button(8).onTrue(new GrabberIntakeCommand(subsystemList, 0.1)); //.raceWith(new AlgeaDetectionCommand(subsystemList)));
-        // buttonBoard.button(7).onTrue(new GrabberShootCommand(subsystemList, 1));
-        // buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
+
+
+        // CLAW
+
+        buttonBoard.button(1).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 90, 1).alongWith(new WristPivotCommand(subsystemList, 95, 0.5)));
+        buttonBoard.button(2).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 105, 1).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)));
+        buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 7, 1).alongWith(new WristPivotCommand(subsystemList, 120, 0.5)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 9, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 0, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)))));
+        buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 110, 1).alongWith(new WristPivotCommand(subsystemList, 150, 0.5)).raceWith(new WaitCommand(1)).andThen(new ArmPivotHoldCommand(subsystemList, armType.claw).alongWith(new ArmMoveCommand(subsystemList, armType.claw, 125, 0.5))));
+        buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
+        buttonBoard.button(6).onTrue(new ClawOpenCommand(subsystemList, 0.30).andThen(new WaitCommand(0.25).andThen(new ClawCloseCommand(subsystemList, 0.06))));
+        buttonBoard.button(7).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 5, 1).raceWith(new WaitCommand(0.5))).andThen(new ArmPivotStopCommand(subsystemList, armType.claw)));
+        buttonBoard.button(8).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 40, 1).alongWith(new WristPivotCommand(subsystemList, 5, 0.5)));
 
         // buttonBoard.button(4).onTrue(new ClawOpenCommand(subsystemList, .3));
         // buttonBoard.button(3).onTrue(new ClawCloseCommand(subsystemList, 0.06));
@@ -128,23 +138,26 @@ public class RobotContainer {
         // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.grabber, 0, .30));
         // buttonBoard.button(8).onTrue(new ArmExtensionStopCommand(subsystemList, armType.claw));
 
-        buttonBoard.button(4).onTrue(new ClimbRotateCommand(subsystemList, .3, -27.25, .5));
-        buttonBoard.button(2).onTrue(new ClimbRotateCommand(subsystemList, .3, 0, .5));
-        buttonBoard.button(3).onTrue(new ClimbRotateCommand(subsystemList, .5, 3, .5));
-
-        // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 48, 1));
-        // buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 13, 1));
-        // buttonBoard.button(2).onTrue(new ArmPivotStopCommand(subsystemList, armType.grabber));
-
         // // buttonBoard.button(4).onTrue(new WristPivotCommand(subsystemList,120, 1));
         // // buttonBoard.button(3).onTrue(new WristPivotCommand(subsystemList, 40, 1));
         // // buttonBoard.button(2).onTrue(new WristStopCommand(subsystemList));
 
-        // buttonBoard.button(5).onTrue(new ServoUnlockCommand(subsystemList));
+        // GRABBER
 
-        // buttonBoard.button(8).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new AlgaeDetectionCommand(subsystemList))).andThen(new ServoLockCommand(subsystemList)).andThen(new WaitCommand(1)).andThen(new GrabberStopCommand(subsystemList)).andThen(new ServoUnlockCommand(subsystemList)));
+        // buttonBoard.button(5).onTrue(new ServoUnlockCommand(subsystemList));
+        // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 85, 1));
+        // buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 13, 1));
+        // buttonBoard.button(2).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .05).raceWith(new WaitCommand(.5)))));
+        // buttonBoard.button(1).onTrue((new GrabberIntakeCommand(subsystemList, .40).raceWith(new AlgaeDetectionCommand(subsystemList))).andThen(new ServoLockCommand(subsystemList)).andThen(new WaitCommand(0.5)).andThen(new GrabberStopCommand(subsystemList)).andThen(new ServoUnlockCommand(subsystemList)));
+        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.grabber));
         // buttonBoard.button(7).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .6).raceWith(new WaitCommand(.5)))));
         // buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
+
+        // CLIMB
+
+        // buttonBoard.button(4).onTrue(new ClimbRotateCommand(subsystemList, .3, -30, .2));
+        // buttonBoard.button(3).onTrue(new ClimbRotateCommand(subsystemList, .15, 7, .2));
+        // buttonBoard.button(2).onTrue(new ClimbRotateCommand(subsystemList, .30, 7, .2));
 
         displayDashboard();
 
@@ -158,7 +171,9 @@ public class RobotContainer {
 
     public void displayDashboard() {
 
-        climb.DisplayDebuggingInfo();
+        clawArm.DisplayDebuggingInfo();
+        claw.DisplayDebuggingInfo();
+        drive.DisplayDebuggingInfo();
 
     }
 

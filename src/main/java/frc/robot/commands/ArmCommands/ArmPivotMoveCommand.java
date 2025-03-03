@@ -64,14 +64,13 @@ public class ArmPivotMoveCommand extends Command {
     @Override
     public boolean isFinished() {
 
-        return Math.abs(arm.GetCurrentExtension() - arm.GetDesiredExtension()) < 0.5 && arm.GetIsReady();
+        return Math.abs(arm.GetCurrentExtension() - arm.GetDesiredExtension()) < 0.5;
 
     }
 
     @Override
     public void end(boolean interrupted) {
 
-        arm.PivotStop();
         arm.ExtensionStop();
 
     }

@@ -8,7 +8,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.utils.SubsystemList;
 
-public class ArmPivotCommand extends Command {
+public class ArmPivotHoldCommand extends Command {
 
     final ArmSubsystem arm;
     double desiredAngle;
@@ -22,27 +22,13 @@ public class ArmPivotCommand extends Command {
      * @param angle The angle setpoint
      * @param tolerance The tolerance the pivot
      */
-    public ArmPivotCommand(SubsystemList subsystems, armType type, double angle, double tolerance) {
+    public ArmPivotHoldCommand(SubsystemList subsystems, armType type) {
 
         if (type == armType.claw) {
             arm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
         } else {
             arm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
         }
-
-        desiredAngle = angle;
-        deadzone = tolerance;
-
-        addRequirements(arm);
-
-    }
-
-    @Override
-    public void initialize() {
-
-        arm.ActivatePivot();
-        arm.SetTolerance(deadzone);
-        arm.SetDesiredAngle(desiredAngle);
 
     }
 
@@ -52,5 +38,12 @@ public class ArmPivotCommand extends Command {
         arm.Pivot();
 
     }
-    
+
+    @Override
+    public void end(boolean interrupted) {
+
+        arm.PivotStop();
+
+    }
+
 }

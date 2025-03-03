@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.swervemodule.SwerveModule;
@@ -142,7 +143,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void DisplayDebuggingInfo() {
 
-        // No debugging information to display
+        SmartDashboard.putNumber("gyro", gyro.getAngle());
 
     }
 

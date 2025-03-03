@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.motor.PairedMotors;
@@ -57,7 +59,7 @@ public class ClimbSubsystem extends SubsystemBase {
         // Only runs if the pivot is activated first, to prevent errors
         if (!rotationActive) return;
 
-        double minAngle = -95;
+        double minAngle = -33;
         double maxAngle = 15;
         double motorSpeed;
 
@@ -68,22 +70,23 @@ public class ClimbSubsystem extends SubsystemBase {
         }
 
         // Feeds motor default value inputted
-        if (motor.mainMotor.getPosition(false) < desiredAngle - 3) {
+        if (motor.mainMotor.getPosition(false) < desiredAngle - 0.2) {
             motorSpeed = Math.abs(speed);
-        } else if (motor.mainMotor.getPosition(false) > desiredAngle + 3){
+        } else if (motor.mainMotor.getPosition(false) > desiredAngle + 0.2){
             motorSpeed = -Math.abs(speed);
         } else {
             motorSpeed = 0;
+            Stop();
         }
 
         // Holds a steady velocity so that the motor doesn't become jerky
-        if (Math.abs(motor.GetVelocity()) < 100 && !(Math.abs(motor.GetVelocity()) < 500)) {
-            if (motorSpeed > 0) {
-                motorSpeed++;
-            } else {
-                motorSpeed--;
-            }
-        }
+        // if (Math.abs(motor.GetVelocity()) < 100) {
+        //     if (motorSpeed > 0) {
+        //         ++motorSpeed;
+        //     } else if (motorSpeed < 0) {
+        //         --motorSpeed;
+        //     }
+        // }
 
         // Spins the motors
         motor.Spin(motorSpeed);
@@ -99,6 +102,8 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public void DisplayDebuggingInfo() {
         Shuffleboard.getTab(getName()).addNumber("Current Angle", () -> motor.mainMotor.getPosition(false));
+        Shuffleboard.getTab(getName()).addNumber("Current Velocity", () -> motor.GetVelocity());
+        Shuffleboard.getTab(getName()).addNumber("Current Speed", () -> motor.mainMotor.motor.get());
     }
     
 }
