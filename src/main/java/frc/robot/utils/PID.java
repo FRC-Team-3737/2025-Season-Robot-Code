@@ -33,13 +33,13 @@ public class PID {
 
         ShuffleboardTab tab = Shuffleboard.getTab("PivotInfo");
         kP = tab.add(subsystemName + "Proportional", p)
-            .withPosition(3, 0)
+            .withPosition(0, 0)
             .getEntry();
         kI = tab.add(subsystemName + "Integral", i)
-            .withPosition(3, 1)
+            .withPosition(1, 0)
             .getEntry();
         kD = tab.add(subsystemName + "Derivative", d)
-            .withPosition(3, 2)
+            .withPosition(2, 0)
             .getEntry();
 
     }

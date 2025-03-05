@@ -116,14 +116,14 @@ public class RobotContainer {
 
         // CLAW
 
-        buttonBoard.button(1).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 90, 1).alongWith(new WristPivotCommand(subsystemList, 95, 0.5)));
-        buttonBoard.button(2).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 105, 1).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)));
-        buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 7, 1).alongWith(new WristPivotCommand(subsystemList, 120, 0.5)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 9, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 0, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)))));
-        buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 110, 1).alongWith(new WristPivotCommand(subsystemList, 150, 0.5)).raceWith(new WaitCommand(1)).andThen(new ArmPivotHoldCommand(subsystemList, armType.claw).alongWith(new ArmMoveCommand(subsystemList, armType.claw, 125, 0.5))));
-        buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
-        buttonBoard.button(6).onTrue(new ClawOpenCommand(subsystemList, 0.30).andThen(new WaitCommand(0.25).andThen(new ClawCloseCommand(subsystemList, 0.06))));
-        buttonBoard.button(7).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 5, 1).raceWith(new WaitCommand(0.5))).andThen(new ArmPivotStopCommand(subsystemList, armType.claw)));
-        buttonBoard.button(8).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 40, 1).alongWith(new WristPivotCommand(subsystemList, 5, 0.5)));
+        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 115, 1)).alongWith(new WristPivotCommand(subsystemList, 160, 0.5)).raceWith(new WaitCommand(1)).andThen(new ArmPivotHoldCommand(subsystemList, armType.claw).alongWith(new ArmMoveCommand(subsystemList, armType.claw, 150, 0.5))));
+        // buttonBoard.button(2).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 90, 1)).alongWith(new WristPivotCommand(subsystemList, 95, 0.5)));
+        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 40, 1)).alongWith(new WristPivotCommand(subsystemList, 5, 0.5)));
+        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 105, 1)).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)));
+        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
+        // buttonBoard.button(6).onTrue(new ClawOpenCommand(subsystemList, 0.30).andThen(new WaitCommand(0.25).andThen(new ClawCloseCommand(subsystemList, 0.06))));
+        // buttonBoard.button(7).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)).andThen(new ArmPivotCommand(subsystemList, armType.claw, 5, 1).raceWith(new WaitCommand(0.5))).andThen(new ArmPivotStopCommand(subsystemList, armType.claw)));
+        // buttonBoard.button(8).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 7, 1)).alongWith(new WristPivotCommand(subsystemList, 120, 0.5)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 9, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 0, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)))));
 
         // buttonBoard.button(4).onTrue(new ClawOpenCommand(subsystemList, .3));
         // buttonBoard.button(3).onTrue(new ClawCloseCommand(subsystemList, 0.06));
@@ -155,9 +155,9 @@ public class RobotContainer {
 
         // CLIMB
 
-        // buttonBoard.button(4).onTrue(new ClimbRotateCommand(subsystemList, .3, -30, .2));
-        // buttonBoard.button(3).onTrue(new ClimbRotateCommand(subsystemList, .15, 7, .2));
-        // buttonBoard.button(2).onTrue(new ClimbRotateCommand(subsystemList, .30, 7, .2));
+        // buttonBoard.button(4).onTrue(new ClimbRotateCommand(subsystemList, .30, -30, .25));
+        // buttonBoard.button(3).onTrue(new ClimbRotateCommand(subsystemList, .15, 13, .25));
+        // buttonBoard.button(2).onTrue(new ClimbRotateCommand(subsystemList, .30,13, .25));
 
         displayDashboard();
 

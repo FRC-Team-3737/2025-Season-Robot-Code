@@ -33,24 +33,23 @@ public final class Constants {
     public static final int ButtonBoardPort = 2;
 
     // Motor ID
-    public static final int BackRightDriveID = 8;
-    public static final int BackRightSteerID = 9;
-    public static final int BackLeftDriveID = 4;
-    public static final int BackLeftSteerID = 5;
     public static final int FrontRightDriveID = 2;
     public static final int FrontRightSteerID = 3;
+    public static final int BackLeftDriveID = 4;
+    public static final int BackLeftSteerID = 5;
     public static final int FrontLeftDriveID = 6;
     public static final int FrontLeftSteerID = 7;
+    public static final int BackRightDriveID = 8;
+    public static final int BackRightSteerID = 9;
     public static final int GrabberID = 10;
-    public static final int ClawArmExtID = 15;
-    public static final int ClawArmID = 16;
-    public static final int GrabberArmExtID = 18;
-    public static final int GrabberArmID = 17;
     public static final int ClimbID = 11;
     public static final int ClimbSlaveID = 12;
     public static final int ClawPivotMotorID = 13;
     public static final int ClawMotorID = 14;
-  
+    public static final int ClawArmExtID = 15;
+    public static final int ClawArmID = 16;
+    public static final int GrabberArmID = 17;
+    public static final int GrabberArmExtID = 18;  
 
     // DIO
     public static final int CoralSwitch = 0;
@@ -70,9 +69,9 @@ public final class Constants {
     public static final MotorInfo Grabber = new MotorInfo(GrabberID, controllerType.FLEX);
     public static final MotorInfo Climb = new MotorInfo(ClimbID, controllerType.FLEX);
     public static final MotorInfo ClimbSlave = new MotorInfo(ClimbSlaveID, controllerType.FLEX);
-    public static final MotorInfo ClawArm = new MotorInfo(ClawArmID, controllerType.MAX);
+    public static final MotorInfo ClawArm = new MotorInfo(ClawArmID, controllerType.MAX, 44);
     public static final MotorInfo ClawArmExt = new MotorInfo(ClawArmExtID, controllerType.MAX);
-    public static final MotorInfo GrabberArm = new MotorInfo(GrabberArmID, controllerType.MAX);
+    public static final MotorInfo GrabberArm = new MotorInfo(GrabberArmID, controllerType.MAX, 46);
     public static final MotorInfo GrabberArmExt = new MotorInfo(GrabberArmExtID, controllerType.MAX);
     public static final MotorInfo Wrist = new MotorInfo(ClawPivotMotorID, controllerType.MAX, 3.325308, 0);
     public static final MotorInfo Claw = new MotorInfo(ClawMotorID, controllerType.MAX);

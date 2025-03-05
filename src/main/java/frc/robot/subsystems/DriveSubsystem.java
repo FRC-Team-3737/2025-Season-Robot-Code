@@ -29,7 +29,7 @@ public class DriveSubsystem extends SubsystemBase {
             new SwerveModule(Constants.FrontRightSwerve), new SwerveModule(Constants.FrontLeftSwerve),
             new SwerveModule(Constants.BackRightSwerve), new SwerveModule(Constants.BackLeftSwerve));
 
-        gyro = new AHRS(AHRS.NavXComType.kI2C);
+        gyro = new AHRS(AHRS.NavXComType.kMXP_SPI);
         gyro.reset();
 
     }
@@ -143,7 +143,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void DisplayDebuggingInfo() {
 
-        SmartDashboard.putNumber("gyro", gyro.getAngle());
+        SmartDashboard.putNumber("gyro", gyro.getYaw());
 
     }
 

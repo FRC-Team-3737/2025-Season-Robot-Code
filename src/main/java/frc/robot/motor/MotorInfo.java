@@ -8,6 +8,7 @@ public class MotorInfo {
     public final controllerType Controller;
     public final double MaxEncoderValue;
     public final double ReferenceAngle;
+    //public final double ConversionFactor;
 
     /**
      * Sets up the MotorInfo for a motor to be used later in the code for declaring a spark controller.

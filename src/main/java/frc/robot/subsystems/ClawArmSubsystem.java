@@ -5,7 +5,8 @@ import frc.robot.Constants;
 
 public class ClawArmSubsystem extends ArmSubsystem {
 
-    private static final double[] pivotPID = {.01, 0, 0};
+    private static final double[] pivotPID = {0, 0, 0}; // kP, kI, kD
+    private static final double[] pivotFeedforward = {0, 0, 0}; // kS, kG, kV
     private static final double[] extensionPID = {1/360, 1/360, 1/3600};
 
     /**
@@ -13,7 +14,7 @@ public class ClawArmSubsystem extends ArmSubsystem {
      */
     public ClawArmSubsystem() {
 
-        super(Constants.ClawArm, Constants.ClawArmExt, encoderType.Absolute, false, pivotPID, extensionPID);
+        super(Constants.ClawArm, Constants.ClawArmExt, encoderType.Absolute, false, pivotPID, pivotFeedforward, extensionPID);
         setName("clawArm");
 
         /*  Following values in degrees and inches  */

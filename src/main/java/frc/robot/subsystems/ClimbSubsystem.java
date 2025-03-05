@@ -70,9 +70,9 @@ public class ClimbSubsystem extends SubsystemBase {
         }
 
         // Feeds motor default value inputted
-        if (motor.mainMotor.getPosition(false) < desiredAngle - 0.2) {
+        if (motor.mainMotor.getPosition(false) < desiredAngle - 0.25) {
             motorSpeed = Math.abs(speed);
-        } else if (motor.mainMotor.getPosition(false) > desiredAngle + 0.2){
+        } else if (motor.mainMotor.getPosition(false) > desiredAngle + 0.25){
             motorSpeed = -Math.abs(speed);
         } else {
             motorSpeed = 0;

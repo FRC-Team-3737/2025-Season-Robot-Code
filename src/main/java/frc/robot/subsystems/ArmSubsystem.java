@@ -1,6 +1,12 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.LayoutType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardComponent;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.motor.MotorInfo;
@@ -12,6 +18,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     private final Motors pivotMotor;
     private final PID pivotPID;
+    private final ArmFeedforward pivotFeedforward;
     private double desiredAngle;
     private double tolerance;
     private boolean pivotActive;
@@ -41,15 +48,15 @@ public class ArmSubsystem extends SubsystemBase {
      * @param encoder The encoder type used
      * @param inverted Whether the encoder is inverted
      * @param m_pivotPID The PID values for the pivot
+     * @param m_pivotFeedforward
      * @param m_extensionPID The PID values for the extension
      */
-    public ArmSubsystem(MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_extensionPID) {
+    public ArmSubsystem(MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_pivotFeedforward, double[] m_extensionPID) {
 
         pivotMotor = new Motors(pivotID, encoder, inverted); // Both pivot motors have a through bore encoder on it. One, both or none could be inverted.
         extensionMotor = new Motors(extensionID);
         pivotPID = new PID(getName(), m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
-        pivotPID.ContinuousInput(0, 360);
-        pivotPID.IntegratorConfig(0, 0.15);
+        pivotFeedforward = new ArmFeedforward(m_pivotFeedforward[0], m_pivotFeedforward[1], m_pivotFeedforward[2]);
         extensionPID = new PID(getName() + "Extension", m_extensionPID[0], m_extensionPID[1], m_extensionPID[2]); // For part of the safety check. PID will only run on retracting the arm during rotation when above limit.
 
     }
@@ -192,6 +199,9 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void Pivot() {
 
+        double radianCoversion = 3.14159/180;
+        double armOffset = 45;
+
         if (!pivotActive) return;
 
         if (GetCurrentAngle() <= minAngle || GetCurrentAngle() >= maxAngle) {
@@ -199,8 +209,8 @@ public class ArmSubsystem extends SubsystemBase {
             return;
         }
 
-        double pidVal = pivotPID.GetPIDValue(GetCurrentAngle(), desiredAngle);
-        pivotMotor.Spin(pivotDirection*pidVal);
+        double pidVal = pivotPID.GetPIDValue(GetCurrentAngle()*radianCoversion, desiredAngle*radianCoversion);
+        pivotMotor.Spin(pivotDirection*pidVal + pivotFeedforward.calculate((desiredAngle-armOffset)*radianCoversion, pivotMotor.GetVelocity()));
         
     }
 
@@ -253,12 +263,16 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void DisplayDebuggingInfo() {
 
-        Shuffleboard.getTab(getName()).addDouble("desired extension", () -> desiredExtension);
-        Shuffleboard.getTab(getName()).addDouble("current extension", () -> extensionMotor.motor.getPosition(false));
-        Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
-        Shuffleboard.getTab(getName()).addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
-        Shuffleboard.getTab(getName()).addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 3);
-        Shuffleboard.getTab(getName()).addBoolean("reached angle", () -> GetIsReady());
+        ShuffleboardTab tab = Shuffleboard.getTab(getName());
+        ShuffleboardLayout PID = tab.getLayout("PID", BuiltInLayouts.kList).withSize(3, 3);
+        tab.addDouble("desired extension", () -> desiredExtension);
+        tab.addDouble("current extension", () -> extensionMotor.motor.getPosition(false));
+        tab.addDouble("desired angle", () -> desiredAngle);
+        tab.addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
+        PID.addDouble("desired angle", () -> desiredAngle);
+        PID.addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
+        tab.addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 3);
+        tab.addBoolean("reached angle", () -> GetIsReady());
 
     }
 
