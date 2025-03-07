@@ -1,4 +1,4 @@
-package frc.robot.commands.ButtonCommands;
+package frc.robot.commands.ButtonCommands.Claw;
 
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;

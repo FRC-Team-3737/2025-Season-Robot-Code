@@ -1,4 +1,4 @@
-package frc.robot.commands.ButtonCommands; 
+package frc.robot.commands.ButtonCommands.Climb; 
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -12,7 +12,7 @@ public class ClimbGrabCommand extends SequentialCommandGroup {
 
     public ClimbGrabCommand (SubsystemList subsystems) {
         addCommands (
-            new ClimbRotateCommand(subsystems, -93,0.5).raceWith(new WaitCommand(1)),
+            new ClimbRotateCommand(subsystems, 15, -93, 0.5).raceWith(new WaitCommand(1)),
             new ClimbStopCommand(subsystems)
         );
     }

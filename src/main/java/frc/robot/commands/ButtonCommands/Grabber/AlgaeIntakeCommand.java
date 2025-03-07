@@ -1,4 +1,4 @@
-package frc.robot.commands.ButtonCommands;
+package frc.robot.commands.ButtonCommands.Grabber;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -8,9 +8,9 @@ import frc.robot.commands.ArmCommands.ArmPivotCommand;
 
 import frc.robot.subsystems.ArmSubsystem.armType;
 
-public class AlgaeReefIntakeCommand extends SequentialCommandGroup {
+public class AlgaeIntakeCommand extends SequentialCommandGroup {
 
-    public AlgaeReefIntakeCommand(SubsystemList subsystems, String algaeLevel) {
+    public AlgaeIntakeCommand(SubsystemList subsystems, String algaeLevel) {
 
         switch (algaeLevel.toLowerCase()) {
 
@@ -24,11 +24,15 @@ public class AlgaeReefIntakeCommand extends SequentialCommandGroup {
                     new ArmPivotCommand(subsystems, armType.grabber, 0, 0)
                 );
 
+            case "floor":
+                addCommands(
+                    new ArmPivotCommand(subsystems, armType.grabber, 0, 0)
+                );
+
             default:
                 addCommands(
                     new ArmFullStopCommand(subsystems, armType.grabber)
                 );
-
 
         }
 

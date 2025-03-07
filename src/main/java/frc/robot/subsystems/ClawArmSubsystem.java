@@ -5,8 +5,8 @@ import frc.robot.Constants;
 
 public class ClawArmSubsystem extends ArmSubsystem {
 
-    private static final double[] pivotPID = {0, 0, 0}; // kP, kI, kD
-    private static final double[] pivotFeedforward = {0, 0, 0}; // kS, kG, kV
+    private static final double[] pivotPID = {0.45, 0.09, 0.06}; // kP, kI, kD
+    private static final double[] pivotFeedforward = {0, 0.1175, 0.8}; // kS, kG, kV
     private static final double[] extensionPID = {1/360, 1/360, 1/3600};
 
     /**
@@ -19,12 +19,12 @@ public class ClawArmSubsystem extends ArmSubsystem {
 
         /*  Following values in degrees and inches  */
 
-        minAngle = 0; // Resting position | 130.5 degrees from vertical
-        maxAngle = 150.5; // Max rotation needed | -20 degrees from vertical
+        minAngle = 44; // Resting position
+        maxAngle = 180; // Max rotation needed
         pivotDirection = 1; // Which direction the arm moves
 
-        minExtension = 0; // Prevents slamming 0.25 norm
-        maxExtension = 23.5; // Prevents overextending 23.5 norm
+        minExtension = 0; // Prevents slamming
+        maxExtension = 23.5; // Prevents overextending
 
         upperMechanismLength = 1; // Unknown length
         lowerMechanismLength = 1; // Unknown length
