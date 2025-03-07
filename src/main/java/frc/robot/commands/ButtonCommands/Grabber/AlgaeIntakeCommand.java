@@ -18,16 +18,19 @@ public class AlgaeIntakeCommand extends SequentialCommandGroup {
                 addCommands(
                     new ArmPivotCommand(subsystems, armType.grabber, 0, 0)
                 );
+                break;
 
             case "upper":
                 addCommands(
                     new ArmPivotCommand(subsystems, armType.grabber, 0, 0)
                 );
+                break;
 
             case "floor":
                 addCommands(
                     new ArmPivotCommand(subsystems, armType.grabber, 0, 0)
                 );
+                break;
 
             default:
                 addCommands(

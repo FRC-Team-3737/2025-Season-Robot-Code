@@ -52,5 +52,20 @@ public class ArmPivotCommand extends Command {
         arm.Pivot();
 
     }
+
+    @Override
+    public boolean isFinished() {
+
+        return arm.GetIsReady();
+
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+
+        arm.PivotStop();
+        
+
+    }
     
 }

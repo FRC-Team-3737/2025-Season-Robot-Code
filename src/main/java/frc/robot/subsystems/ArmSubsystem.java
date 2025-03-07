@@ -118,6 +118,7 @@ public class ArmSubsystem extends SubsystemBase {
     public void SetTolerance(double m_tolerance) {
 
         tolerance = m_tolerance;
+        pivotPID.setTolerance(m_tolerance);
 
     }
 
@@ -183,7 +184,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public boolean GetIsReady() {
 
-        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 100;
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 100 && pivotPID.atSetpoint();
 
     }
 
@@ -216,6 +217,18 @@ public class ArmSubsystem extends SubsystemBase {
         double feedforward = pivotFeedforward.calculate((desiredAngle-46)*radianCoversion, 0.1*((desiredAngle-GetCurrentAngle())*radianCoversion));
         pivotMotor.Spin(pid + feedforward);
         
+    }
+
+    public void Hold() {
+
+        double radianCoversion = 3.14159/180;
+
+        if (!pivotActive) return;
+
+        double feedforward = pivotFeedforward.calculate((desiredAngle-46)*radianCoversion, 2.5*((desiredAngle-GetCurrentAngle())*radianCoversion));
+
+        pivotMotor.Spin(feedforward);
+
     }
 
     /**
