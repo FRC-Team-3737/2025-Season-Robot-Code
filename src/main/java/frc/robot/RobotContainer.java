@@ -41,6 +41,7 @@ import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
 import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
 import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
+import frc.robot.commands.ArmCommands.TuningPivotCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralLevelCommand;
 import frc.robot.commands.ButtonCommands.Claw.OpenClawCommand;
 import frc.robot.commands.ButtonCommands.Safety.CancelCommand;
@@ -117,10 +118,10 @@ public class RobotContainer {
 
         // CLAW
 
-        buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
-        buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
-        buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
-        buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
+        // buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
+        // buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
+        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+        // buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
 
         // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 115, 1)).alongWith(new WristPivotCommand(subsystemList, 160, 0.5)).raceWith(new WaitCommand(1)).andThen(new ArmPivotHoldCommand(subsystemList, armType.claw).alongWith(new ArmMoveCommand(subsystemList, armType.claw, 150, 0.5))));
         // buttonBoard.button(2).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 90, 1)).alongWith(new WristPivotCommand(subsystemList, 95, 0.5)));
@@ -150,6 +151,9 @@ public class RobotContainer {
 
         // GRABBER
 
+        buttonBoard.button(4).onTrue(new TuningPivotCommand(subsystemList, armType.grabber, 90, 1));
+        buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+
         // buttonBoard.button(5).onTrue(new ServoUnlockCommand(subsystemList));
         // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 85, 1));
         // buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 13, 1));
@@ -177,8 +181,8 @@ public class RobotContainer {
 
     public void displayDashboard() {
 
-        clawArm.DisplayDebuggingInfo();
-        claw.DisplayDebuggingInfo();
+        grabberArm.DisplayDebuggingInfo();
+        grabber.DisplayDebuggingInfo();
         drive.DisplayDebuggingInfo();
 
     }

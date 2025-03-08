@@ -215,7 +215,7 @@ public class ArmSubsystem extends SubsystemBase {
 
         double pid = MathUtil.clamp(pivotPID.calculate(GetCurrentAngle()*radianCoversion, desiredAngle*radianCoversion), -0.35, 0.35);
         double feedforward = pivotFeedforward.calculate((desiredAngle-46)*radianCoversion, 0.1*((desiredAngle-GetCurrentAngle())*radianCoversion));
-        pivotMotor.Spin(pid + feedforward);
+        pivotMotor.Spin(pid*pivotDirection + feedforward);
         
     }
 
