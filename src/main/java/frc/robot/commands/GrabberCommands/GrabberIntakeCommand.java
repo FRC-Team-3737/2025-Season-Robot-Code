@@ -1,7 +1,6 @@
 package frc.robot.commands.GrabberCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.utils.SubsystemList;
 import frc.robot.subsystems.GrabberSubsystem;
 
