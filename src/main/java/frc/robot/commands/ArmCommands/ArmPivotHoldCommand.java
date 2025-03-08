@@ -44,4 +44,9 @@ public class ArmPivotHoldCommand extends Command {
 
     }
 
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
+
 }

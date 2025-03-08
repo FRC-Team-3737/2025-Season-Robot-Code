@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.utils.SubsystemList;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
+import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
 import frc.robot.commands.GrabberCommands.AlgaeDetectionCommand;
 import frc.robot.commands.GrabberCommands.GrabberIntakeCommand;
 import frc.robot.commands.GrabberCommands.GrabberStopCommand;
@@ -23,10 +24,11 @@ public class AlgaeIntakeCommand extends SequentialCommandGroup {
             case "lower":
                 addCommands(
                     new ArmPivotCommand(subsystems, armType.grabber, 96, 1.0),
-                    new GrabberIntakeCommand(subsystems, 0.25).raceWith(
+                    new GrabberIntakeCommand(subsystems, 0.4).alongWith(
+                        new ArmPivotHoldCommand(subsystems, armType.grabber)).raceWith(
                         new AlgaeDetectionCommand(subsystems)),
                     new ServoLockCommand(subsystems).alongWith(
-                        new WaitCommand(0.25)),
+                        new WaitCommand(0.5)),
                     new GrabberStopCommand(subsystems).alongWith(
                         new ServoUnlockCommand(subsystems))
                 );
@@ -34,11 +36,12 @@ public class AlgaeIntakeCommand extends SequentialCommandGroup {
 
             case "upper":
                 addCommands(
-                    new ArmPivotCommand(subsystems, armType.grabber, 131, 1.0),
-                    new GrabberIntakeCommand(subsystems, 0.25).raceWith(
+                    new ArmPivotCommand(subsystems, armType.grabber, 125, 1.0),
+                    new GrabberIntakeCommand(subsystems, 0.4).alongWith(
+                        new ArmPivotHoldCommand(subsystems, armType.grabber)).raceWith(
                         new AlgaeDetectionCommand(subsystems)),
                     new ServoLockCommand(subsystems).alongWith(
-                        new WaitCommand(0.25)),
+                        new WaitCommand(0.5)),
                     new GrabberStopCommand(subsystems).alongWith(
                         new ServoUnlockCommand(subsystems))
                 );
@@ -47,10 +50,11 @@ public class AlgaeIntakeCommand extends SequentialCommandGroup {
             case "floor":
                 addCommands(
                     new ArmPivotCommand(subsystems, armType.grabber, 55, 1.0),
-                    new GrabberIntakeCommand(subsystems, 0.25).raceWith(
+                    new GrabberIntakeCommand(subsystems, 0.4).alongWith(
+                        new ArmPivotHoldCommand(subsystems, armType.grabber)).raceWith(
                         new AlgaeDetectionCommand(subsystems)),
                     new ServoLockCommand(subsystems).alongWith(
-                        new WaitCommand(0.25)),
+                        new WaitCommand(0.5)),
                     new GrabberStopCommand(subsystems).alongWith(
                         new ServoUnlockCommand(subsystems))
                 );

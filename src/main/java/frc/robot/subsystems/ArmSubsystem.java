@@ -215,11 +215,10 @@ public class ArmSubsystem extends SubsystemBase {
             return;
         }
 
-        double pid = MathUtil.clamp(
-            Math.min(minSpeedClamp, Math.max(pivotPID.calculate(GetCurrentAngle()*radianCoversion, desiredAngle*radianCoversion), -minSpeedClamp)), 
-            -maxSpeedClamp, 
-            maxSpeedClamp);
-        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianCoversion, 0.1*((desiredAngle-GetCurrentAngle())*radianCoversion));
+        double pidVal = pivotPID.calculate(GetCurrentAngle()*radianCoversion, desiredAngle*radianCoversion);
+
+        double pid = Math.signum(pidVal)*MathUtil.clamp(Math.abs(pidVal), minSpeedClamp, maxSpeedClamp);
+        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianCoversion, 0.1*((desiredAngle-GetCurrentAngle())*radianCoversion*pivotDirection));
         pivotMotor.Spin(pid*pivotDirection + feedforward);
         
     }
@@ -230,7 +229,7 @@ public class ArmSubsystem extends SubsystemBase {
 
         if (!pivotActive) return;
 
-        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianCoversion, 0.5*((desiredAngle-GetCurrentAngle())*radianCoversion));
+        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianCoversion, 0.5*((desiredAngle-GetCurrentAngle())*radianCoversion)*pivotDirection);
 
         pivotMotor.Spin(feedforward);
 

@@ -23,7 +23,7 @@ public class GrabberArmSubsystem extends ArmSubsystem {
         maxAngle = 135; // Max rotation needed | 0 degrees from vertical
         pivotDirection = -1; // Which direction the arm moves
         maxSpeedClamp = 1; // Max speed of the pivot
-        minSpeedClamp = 0; // Min speed of the pivot
+        minSpeedClamp = 0.05; // Min speed of the pivot
 
         minExtension = 0.25; // Prevents slamming
         maxExtension = 6.5*6.6; // Prevents overextending

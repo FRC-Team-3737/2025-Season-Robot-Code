@@ -44,7 +44,10 @@ import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
 import frc.robot.commands.ArmCommands.TuningPivotCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralLevelCommand;
 import frc.robot.commands.ButtonCommands.Claw.OpenClawCommand;
+import frc.robot.commands.ButtonCommands.Grabber.AlgaeIntakeCommand;
 import frc.robot.commands.ButtonCommands.Safety.CancelCommand;
+import frc.robot.commands.ButtonCommands.Grabber.AlgaeProcessorCommand;
+import frc.robot.commands.ButtonCommands.Grabber.AlgaeStowCommand;
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -117,10 +120,10 @@ public class RobotContainer {
 
         // CLAW
 
-        buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
-        buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
-        buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
-        buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
+        // buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
+        // buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
+        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+        // buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
 
         // buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
         // buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
@@ -155,12 +158,24 @@ public class RobotContainer {
 
         // GRABBER
 
-        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+        buttonBoard.button(4).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
+        buttonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
+        buttonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "floor"));
+        buttonBoard.button(7).onTrue(new ServoUnlockCommand(subsystemList));
+
+        buttonBoard.button(8).onTrue(new AlgaeProcessorCommand(subsystemList));
+        buttonBoard.button(1).onTrue(new AlgaeStowCommand(subsystemList));
+        buttonBoard.button(6).onTrue(new TuningPivotCommand(subsystemList, armType.grabber, 90, 1));
+        buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+
+
+        //buttonBoard.button(2).onTrue(new ServoUnlockCommand(subsystemList));
+        //buttonBoard.button(1).onTrue(new ServoLockCommand(subsystemList));
 
         // buttonBoard.button(5).onTrue(new ServoUnlockCommand(subsystemList));
         // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 85, 1));
         // buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 13, 1));
-        // buttonBoard.button(2).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .05).raceWith(new WaitCommand(.5)))));
+        //buttonBoard.button(1).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .05).raceWith(new WaitCommand(.5)))));
         // buttonBoard.button(1).onTrue((new GrabberIntakeCommand(subsystemList, .40).raceWith(new AlgaeDetectionCommand(subsystemList))).andThen(new ServoLockCommand(subsystemList)).andThen(new WaitCommand(0.5)).andThen(new GrabberStopCommand(subsystemList)).andThen(new ServoUnlockCommand(subsystemList)));
         // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.grabber));
         // buttonBoard.button(7).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .6).raceWith(new WaitCommand(.5)))));
