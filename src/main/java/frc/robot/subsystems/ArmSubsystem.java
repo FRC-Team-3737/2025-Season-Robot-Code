@@ -28,6 +28,8 @@ public class ArmSubsystem extends SubsystemBase {
     protected double minAngle; // Set per arm
     protected double maxAngle; // Set per arm
     protected double pivotDirection; // Set per arm
+    protected double maxSpeedClamp; // Set per arm
+    protected double minSpeedClamp; // Set per arm
 
     private final Motors extensionMotor;
     private final PID extensionPID;
@@ -184,7 +186,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public boolean GetIsReady() {
 
-        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 100 && pivotPID.atSetpoint();
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 500 && pivotPID.atSetpoint();
 
     }
 
@@ -213,8 +215,11 @@ public class ArmSubsystem extends SubsystemBase {
             return;
         }
 
-        double pid = MathUtil.clamp(pivotPID.calculate(GetCurrentAngle()*radianCoversion, desiredAngle*radianCoversion), -0.35, 0.35);
-        double feedforward = pivotFeedforward.calculate((desiredAngle-46)*radianCoversion, 0.1*((desiredAngle-GetCurrentAngle())*radianCoversion));
+        double pid = MathUtil.clamp(
+            Math.min(minSpeedClamp, Math.max(pivotPID.calculate(GetCurrentAngle()*radianCoversion, desiredAngle*radianCoversion), -minSpeedClamp)), 
+            -maxSpeedClamp, 
+            maxSpeedClamp);
+        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianCoversion, 0.1*((desiredAngle-GetCurrentAngle())*radianCoversion));
         pivotMotor.Spin(pid*pivotDirection + feedforward);
         
     }
@@ -225,7 +230,7 @@ public class ArmSubsystem extends SubsystemBase {
 
         if (!pivotActive) return;
 
-        double feedforward = pivotFeedforward.calculate((desiredAngle-46)*radianCoversion, 2.5*((desiredAngle-GetCurrentAngle())*radianCoversion));
+        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianCoversion, 0.5*((desiredAngle-GetCurrentAngle())*radianCoversion));
 
         pivotMotor.Spin(feedforward);
 

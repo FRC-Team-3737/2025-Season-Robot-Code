@@ -102,8 +102,7 @@ public class RobotContainer {
         SmartDashboard.putData("Reset Gyro", new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
 
         // Driver Triggers
-    // LED Triggers
-
+    
         commandDriverController.axisGreaterThan(0, 0.1)
             .or(commandDriverController.axisLessThan(0, -0.1))
             .or(commandDriverController.axisGreaterThan(1, 0.1))
@@ -117,6 +116,11 @@ public class RobotContainer {
         // Operator Triggers
 
         // CLAW
+
+        buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
+        buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
+        buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+        buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
 
         // buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
         // buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
@@ -151,8 +155,7 @@ public class RobotContainer {
 
         // GRABBER
 
-        buttonBoard.button(4).onTrue(new TuningPivotCommand(subsystemList, armType.grabber, 90, 1));
-        buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
 
         // buttonBoard.button(5).onTrue(new ServoUnlockCommand(subsystemList));
         // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 85, 1));
@@ -171,8 +174,8 @@ public class RobotContainer {
 
         // SAFETY
 
-        
-
+        // LED Triggers
+     
         displayDashboard();
 
     }
@@ -185,6 +188,8 @@ public class RobotContainer {
 
     public void displayDashboard() {
 
+        clawArm.DisplayDebuggingInfo();
+        claw.DisplayDebuggingInfo();
         grabberArm.DisplayDebuggingInfo();
         grabber.DisplayDebuggingInfo();
         drive.DisplayDebuggingInfo();

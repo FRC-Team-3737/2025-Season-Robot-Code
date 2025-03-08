@@ -1,12 +1,13 @@
 package frc.robot.subsystems;
 
 import frc.robot.motor.Motor.encoderType;
+
 import frc.robot.Constants;
 
 public class ClawArmSubsystem extends ArmSubsystem {
 
-    private static final double[] pivotPID = {0.45, 0.09, 0.06}; // kP, kI, kD
-    private static final double[] pivotFeedforward = {0, 0.1175, 1}; // kS, kG, kV
+    private static final double[] pivotPID = {0.4, 0.1, 0}; // kP, kI, kD
+    private static final double[] pivotFeedforward = {0, 0.0725, 1}; // kS, kG, kV
     private static final double[] extensionPID = {1/360, 1/360, 1/3600};
 
     /**
@@ -22,6 +23,8 @@ public class ClawArmSubsystem extends ArmSubsystem {
         minAngle = 44; // Resting position
         maxAngle = 180; // Max rotation needed
         pivotDirection = 1; // Which direction the arm moves
+        maxSpeedClamp = 0.35; // Max speed of pivot
+        minSpeedClamp = 0.05; // Min speed of pivot
 
         minExtension = 0; // Prevents slamming
         maxExtension = 23.5; // Prevents overextending

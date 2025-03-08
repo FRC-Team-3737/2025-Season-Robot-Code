@@ -22,7 +22,7 @@ public class CoralLevelCommand extends SequentialCommandGroup {
                 addCommands(
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
                     new ArmPivotCommand(subsystems, armType.claw, 0, 1.0).alongWith(
-                        new WristPivotCommand(subsystems, 90, 0.5).unless(() -> arm.GetCurrentAngle() > 55)),
+                        new WristPivotCommand(subsystems, 90, 0.5).unless(() -> arm.GetCurrentAngle() < 55)),
                     new ArmPivotHoldCommand(subsystems, armType.claw)
                 );
                 break;
@@ -30,8 +30,8 @@ public class CoralLevelCommand extends SequentialCommandGroup {
             case 2:
                 addCommands(
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
-                    new ArmPivotCommand(subsystems, armType.claw, 70, 1.0).alongWith(
-                        new WristPivotCommand(subsystems, 2, 0.5).unless(() -> arm.GetCurrentAngle() > 55)),
+                    new ArmPivotCommand(subsystems, armType.claw, 77.5, 1.0).alongWith(
+                        new WristPivotCommand(subsystems, 12.5, 0.5).unless(() -> arm.GetCurrentAngle() < 55)),
                     new ArmPivotHoldCommand(subsystems, armType.claw)
                 );
                 break;
@@ -39,8 +39,8 @@ public class CoralLevelCommand extends SequentialCommandGroup {
             case 3:
                 addCommands(
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
-                    new ArmPivotCommand(subsystems, armType.claw, 130, 1.0).alongWith(
-                        new WristPivotCommand(subsystems, 100, 0.5).unless(() -> arm.GetCurrentAngle() > 55)),
+                    new ArmPivotCommand(subsystems, armType.claw, 130, 1).alongWith(
+                        new WristPivotCommand(subsystems, 105, 0.5).unless(() -> arm.GetCurrentAngle() < 55)),
                     new ArmPivotHoldCommand(subsystems, armType.claw)
                 );
                 break;
@@ -49,14 +49,14 @@ public class CoralLevelCommand extends SequentialCommandGroup {
                 addCommands(
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
                     new ArmPivotCommand(subsystems, armType.claw, 0, 1.0).alongWith(
-                        new WristPivotCommand(subsystems, 90, 0.5).unless(() -> arm.GetCurrentAngle() > 55)),
+                        new WristPivotCommand(subsystems, 90, 0.5).unless(() -> arm.GetCurrentAngle() < 55)),
                     new ArmPivotHoldCommand(subsystems, armType.claw)
                 );
                 break;
-        
+
             default:
                 addCommands(
-                    new ArmFullStopCommand(subsystems, armType.claw)  
+                    new ArmFullStopCommand(subsystems, armType.claw)
                 );
             
         }
