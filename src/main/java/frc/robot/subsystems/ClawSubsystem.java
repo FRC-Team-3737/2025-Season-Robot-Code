@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,11 +15,14 @@ import frc.robot.utils.PID;
 public class ClawSubsystem extends SubsystemBase {
 
     private final Motors wristMotor;
-    private final PID wristPID;
+    private final PIDController wristPID;
+    private final ArmFeedforward wristFeedforward;
     private final Motors clawMotor;
     private double tolerance;
     private double desiredAngle;
     private boolean rotationActive;
+    private double minSpeedClamp = 0.03;
+    private double maxSpeedClamp = 0.30;
     
     public ClawSubsystem() {
 
@@ -24,8 +30,8 @@ public class ClawSubsystem extends SubsystemBase {
 
         wristMotor = new Motors(Constants.Wrist, encoderType.Analog, true);
         clawMotor = new Motors(Constants.Claw);
-        wristPID = new PID(getName(), 0.01, 0.001, 0);
-        wristPID.ContinuousInput(0, 360);
+        wristPID = new PIDController(0.4, 0.015, 0);
+        wristFeedforward = new ArmFeedforward(0, -0.01, 1);
 
     }
 
@@ -61,7 +67,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     public boolean GetIsReady() {
 
-        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && wristMotor.GetVelocity() < 100;
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && wristMotor.GetVelocity() < 1000 && wristPID.atSetpoint();
 
     }
 
@@ -73,6 +79,8 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void Pivot() {
 
+        double radianConversion = 3.14159/180;
+
         if (!rotationActive) return;
 
         double minAngle = 5;
@@ -83,9 +91,23 @@ public class ClawSubsystem extends SubsystemBase {
              return;
          }
 
-        double pidVal = wristPID.GetPIDValue(GetCurrentAngle(), desiredAngle);
-        ActivateRotation();
-        wristMotor.Spin(pidVal);
+        double pidVal = wristPID.calculate(GetCurrentAngle()*radianConversion, desiredAngle*radianConversion);
+
+        double pid = Math.signum(pidVal)*MathUtil.clamp(Math.abs(pidVal), minSpeedClamp, maxSpeedClamp);
+        double feedforward = wristFeedforward.calculate((desiredAngle-90)*radianConversion, 0.05*((desiredAngle-GetCurrentAngle())*radianConversion));
+        wristMotor.Spin(pid + feedforward);
+
+    }
+
+    public void Hold() {
+
+        double radianConversion = 3.14159/180;
+
+        if (!rotationActive) return;
+
+        double feedforward = wristFeedforward.calculate((desiredAngle-90)*radianConversion, 0.3*((desiredAngle-GetCurrentAngle())*radianConversion));
+
+        wristMotor.Spin(feedforward);
 
     }
 
@@ -128,11 +150,8 @@ public class ClawSubsystem extends SubsystemBase {
 
     public void DisplayDebuggingInfo() {
 
-        SmartDashboard.putNumber("encoder voltage", wristMotor.motor.getAnalogVoltage());
-        SmartDashboard.putNumber("encoder angle", wristMotor.motor.getAnalogAngle());
-        // Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
-        // Shuffleboard.getTab(getName()).addDouble("current angle", () -> GetCurrentAngle());
-        // Shuffleboard.getTab(getName()).addDouble("set speed", () -> wristMotor.motor.motor.get());
+        Shuffleboard.getTab(getName()).addDouble("desired angle", () -> desiredAngle);
+        Shuffleboard.getTab(getName()).addDouble("current angle", () -> GetCurrentAngle());
 
     }
 

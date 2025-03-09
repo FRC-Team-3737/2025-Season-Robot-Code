@@ -26,8 +26,6 @@ public class ArmPivotHoldCommand extends Command {
             arm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
         }
 
-        addRequirements(arm);
-
     }
 
     @Override
@@ -46,7 +44,9 @@ public class ArmPivotHoldCommand extends Command {
 
     @Override
     public boolean isFinished() {
+
         return true;
+
     }
 
 }

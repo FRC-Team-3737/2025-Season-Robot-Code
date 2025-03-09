@@ -35,17 +35,21 @@ import frc.robot.commands.ClawCommands.ClawOpenCommand;
 import frc.robot.commands.ClawCommands.ClawCloseCommand;
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;
+import frc.robot.commands.ClawCommands.WristTuningPivot;
 import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
 import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
 import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
-import frc.robot.commands.ArmCommands.TuningPivotCommand;
+import frc.robot.commands.ArmCommands.ArmTuningPivot;
+import frc.robot.commands.ButtonCommands.Claw.CoralFeederIntakeCommand;
+import frc.robot.commands.ButtonCommands.Claw.CoralFeederPrepCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralLevelCommand;
 import frc.robot.commands.ButtonCommands.Claw.OpenClawCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeIntakeCommand;
 import frc.robot.commands.ButtonCommands.Safety.CancelCommand;
+import frc.robot.commands.ButtonCommands.Safety.StowCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeProcessorCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeStowCommand;
 // Subsystem Imports
@@ -120,10 +124,17 @@ public class RobotContainer {
 
         // CLAW
 
+        // buttonBoard.button(1).onTrue(new WristTuningPivot(subsystemList, 90, 0.5));
+        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+
+        // buttonBoard.button(1).onTrue(new CoralLevelCommand(subsystemList, 4));
         // buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
         // buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
+        // buttonBoard.button(4).onTrue(new CoralFeederPrepCommand(subsystemList));
         // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
         // buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
+        // buttonBoard.button(7).onTrue(new StowCommand(subsystemList, armType.claw));
+        // buttonBoard.button(8).onTrue(new CoralFeederIntakeCommand(subsystemList));
 
         // buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
         // buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
@@ -158,16 +169,15 @@ public class RobotContainer {
 
         // GRABBER
 
-        buttonBoard.button(4).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
-        buttonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
-        buttonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "floor"));
-        buttonBoard.button(7).onTrue(new ServoUnlockCommand(subsystemList));
+        // buttonBoard.button(4).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
+        // buttonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
+        // buttonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "floor"));
+        // buttonBoard.button(7).onTrue(new ServoUnlockCommand(subsystemList));
 
-        buttonBoard.button(8).onTrue(new AlgaeProcessorCommand(subsystemList));
-        buttonBoard.button(1).onTrue(new AlgaeStowCommand(subsystemList));
-        buttonBoard.button(6).onTrue(new TuningPivotCommand(subsystemList, armType.grabber, 90, 1));
-        buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
-
+        // buttonBoard.button(8).onTrue(new AlgaeProcessorCommand(subsystemList));
+        // buttonBoard.button(1).onTrue(new AlgaeStowCommand(subsystemList));
+        // buttonBoard.button(6).onTrue(new ArmTuningPivot(subsystemList, armType.grabber, 90, 1));
+        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
 
         //buttonBoard.button(2).onTrue(new ServoUnlockCommand(subsystemList));
         //buttonBoard.button(1).onTrue(new ServoLockCommand(subsystemList));
@@ -185,7 +195,7 @@ public class RobotContainer {
 
         // buttonBoard.button(4).onTrue(new ClimbRotateCommand(subsystemList, .30, -30, .25));
         // buttonBoard.button(3).onTrue(new ClimbRotateCommand(subsystemList, .15, 13, .25));
-        // buttonBoard.button(2).onTrue(new ClimbRotateCommand(subsystemList, .30,13, .25));
+        // buttonBoard.button(2).onTrue(new ClimbRotateCommand(subsystemList, .30, 13, .25));
 
         // SAFETY
 

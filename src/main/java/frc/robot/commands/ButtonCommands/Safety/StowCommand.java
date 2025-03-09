@@ -8,7 +8,9 @@ import frc.robot.subsystems.GrabberSubsystem;
 
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;
+import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
+import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
 import frc.robot.commands.ArmCommands.ArmPivotMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
@@ -30,7 +32,11 @@ public class StowCommand extends SequentialCommandGroup {
 
             case claw:
                 addCommands(
-                    new ArmPivotCommand(subsystems, type, 0, 0)
+                    new ArmMoveCommand(subsystems, type, 0, 1.00).alongWith(
+                        new WristPivotCommand(subsystems, 100, 0.5)),
+                    new ArmPivotCommand(subsystems, type, 55, 1.0).alongWith(
+                        new WristStopCommand(subsystems)),
+                    new ArmFullStopCommand(subsystems, type)
                 );
 
             default:

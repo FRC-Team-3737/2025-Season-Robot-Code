@@ -8,7 +8,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.utils.SubsystemList;
 
-public class TuningPivotCommand extends Command {
+public class ArmTuningPivot extends Command {
 
     final ArmSubsystem arm;
     double desiredAngle;
@@ -22,7 +22,7 @@ public class TuningPivotCommand extends Command {
      * @param angle The angle setpoint
      * @param tolerance The tolerance the pivot
      */
-    public TuningPivotCommand(SubsystemList subsystems, armType type, double angle, double tolerance) {
+    public ArmTuningPivot(SubsystemList subsystems, armType type, double angle, double tolerance) {
 
         if (type == armType.claw) {
             arm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");

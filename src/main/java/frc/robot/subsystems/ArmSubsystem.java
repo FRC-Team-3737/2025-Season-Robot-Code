@@ -186,7 +186,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public boolean GetIsReady() {
 
-        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 500 && pivotPID.atSetpoint();
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 1000 && pivotPID.atSetpoint();
 
     }
 
@@ -206,7 +206,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void Pivot() {
 
-        double radianCoversion = 3.14159/180;
+        double radianConversion = 3.14159/180;
 
         if (!pivotActive) return;
 
@@ -215,21 +215,21 @@ public class ArmSubsystem extends SubsystemBase {
             return;
         }
 
-        double pidVal = pivotPID.calculate(GetCurrentAngle()*radianCoversion, desiredAngle*radianCoversion);
+        double pidVal = pivotPID.calculate(GetCurrentAngle()*radianConversion, desiredAngle*radianConversion);
 
         double pid = Math.signum(pidVal)*MathUtil.clamp(Math.abs(pidVal), minSpeedClamp, maxSpeedClamp);
-        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianCoversion, 0.1*((desiredAngle-GetCurrentAngle())*radianCoversion*pivotDirection));
+        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianConversion, 0.1*((desiredAngle-GetCurrentAngle())*radianConversion));
         pivotMotor.Spin(pid*pivotDirection + feedforward);
         
     }
 
     public void Hold() {
 
-        double radianCoversion = 3.14159/180;
+        double radianConversion = 3.14159/180;
 
         if (!pivotActive) return;
 
-        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianCoversion, 0.5*((desiredAngle-GetCurrentAngle())*radianCoversion)*pivotDirection);
+        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianConversion, 0.5*((desiredAngle-GetCurrentAngle())*radianConversion)*pivotDirection);
 
         pivotMotor.Spin(feedforward);
 
