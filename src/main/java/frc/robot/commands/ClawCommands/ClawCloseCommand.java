@@ -28,7 +28,7 @@ public class ClawCloseCommand extends Command {
     @Override
     public boolean isFinished() {
 
-        return claw.GetClawPosition() <= 0;
+        return claw.GetClawPosition() <= 0.25;
         
     }
 

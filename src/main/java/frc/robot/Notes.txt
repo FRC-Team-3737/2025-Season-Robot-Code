@@ -65,8 +65,8 @@ Button Board (top down)
 
 
 Conversion Factors
-    (Both) Arm extension to inches = 6.6496 rotations per inch
-    Climb rotation to degrees = .2778 rotations per degree
+    {Both} Arm extension to inches = 6.8441 rotations per inch (0.1461 inches per rotation)
+    Climb rotation to degrees = .3472 rotations per degree (2.88 degrees per rotation)
 
 
 Grabber

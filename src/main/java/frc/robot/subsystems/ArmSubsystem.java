@@ -261,9 +261,13 @@ public class ArmSubsystem extends SubsystemBase {
         //     return;
         // }
 
-        if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.5) {
+        if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.25) {
+            extensionMotor.Spin(Math.abs(speed/8)); 
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.25) {
+            extensionMotor.Spin(-Math.abs(speed/8));
+        } else if (extensionMotor.motor.getPosition(false) < desiredExtension - 1) {
             extensionMotor.Spin(Math.abs(speed)); 
-        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.5) {
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 1) {
             extensionMotor.Spin(-Math.abs(speed));
         } else {
             ExtensionStop();
