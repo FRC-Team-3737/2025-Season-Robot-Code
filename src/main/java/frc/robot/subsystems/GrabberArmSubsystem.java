@@ -19,8 +19,8 @@ public class GrabberArmSubsystem extends ArmSubsystem {
 
         /*  Following values in degrees and inches  */
 
-        minAngle = 0; // Resting position | 135 degrees from vertical
-        maxAngle = 135; // Max rotation needed | 0 degrees from vertical
+        minAngle = 45; // Resting position | 135 degrees from vertical
+        maxAngle = 180; // Max rotation needed | 0 degrees from vertical
         pivotDirection = -1; // Which direction the arm moves
         maxSpeedClamp = 1; // Max speed of the pivot
         minSpeedClamp = 0.05; // Min speed of the pivot

@@ -48,9 +48,11 @@ import frc.robot.commands.ButtonCommands.Claw.CoralFeederPrepCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralLevelCommand;
 import frc.robot.commands.ButtonCommands.Claw.OpenClawCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeIntakeCommand;
+import frc.robot.commands.ButtonCommands.Grabber.AlgaeNetCommand;
 import frc.robot.commands.ButtonCommands.Safety.CancelCommand;
 import frc.robot.commands.ButtonCommands.Safety.StowCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeProcessorCommand;
+import frc.robot.commands.ButtonCommands.Grabber.AlgaeShootCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeStowCommand;
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
@@ -169,15 +171,16 @@ public class RobotContainer {
 
         // GRABBER
 
-        // buttonBoard.button(4).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
-        // buttonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
+        buttonBoard.button(4).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
+        buttonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
         // buttonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "floor"));
-        // buttonBoard.button(7).onTrue(new ServoUnlockCommand(subsystemList));
+        buttonBoard.button(6).onTrue(new ServoUnlockCommand(subsystemList));
 
-        // buttonBoard.button(8).onTrue(new AlgaeProcessorCommand(subsystemList));
-        // buttonBoard.button(1).onTrue(new AlgaeStowCommand(subsystemList));
+        buttonBoard.button(8).onTrue(new AlgaeNetCommand(subsystemList));
+        buttonBoard.button(7).onTrue(new AlgaeShootCommand(subsystemList, 1.00));
+        buttonBoard.button(1).onTrue(new AlgaeStowCommand(subsystemList));
         // buttonBoard.button(6).onTrue(new ArmTuningPivot(subsystemList, armType.grabber, 90, 1));
-        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+        buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
 
         //buttonBoard.button(2).onTrue(new ServoUnlockCommand(subsystemList));
         //buttonBoard.button(1).onTrue(new ServoLockCommand(subsystemList));

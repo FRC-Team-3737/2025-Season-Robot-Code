@@ -18,14 +18,8 @@ public class AlgaeProcessorCommand extends SequentialCommandGroup {
     public AlgaeProcessorCommand(SubsystemList subsystems) {
 
         addCommands(
-            new ArmPivotCommand(subsystems, armType.grabber, 55, 1).alongWith(
-                new GrabberIntakeCommand(subsystems, .25).raceWith(
-                    new WaitCommand(.25))),
-            new GrabberStopCommand(subsystems).alongWith(
-                new ArmPivotHoldCommand(subsystems, armType.grabber)),
-            new GrabberShootCommand(subsystems, .05).raceWith(
-                new WaitCommand(.5)),
-            new GrabberStopCommand(subsystems)
+            new ArmPivotCommand(subsystems, armType.grabber, 55, 1),
+            new ArmPivotHoldCommand(subsystems, armType.grabber)
         );
 
     }
