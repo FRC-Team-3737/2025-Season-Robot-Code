@@ -12,7 +12,7 @@ public class ClimbGrabCommand extends SequentialCommandGroup {
 
     public ClimbGrabCommand (SubsystemList subsystems) {
         addCommands (
-            new ClimbRotateCommand(subsystems, 15, -93, 0.5).raceWith(new WaitCommand(1)),
+            new ClimbRotateCommand(subsystems, 0.15, -30, 0.5),
             new ClimbStopCommand(subsystems)
         );
     }

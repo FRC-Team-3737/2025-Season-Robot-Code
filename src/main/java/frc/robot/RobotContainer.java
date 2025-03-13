@@ -8,7 +8,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 // Informational Imports
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
@@ -22,38 +22,19 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
-import frc.robot.commands.GrabberCommands.ServoLockCommand;
-import frc.robot.commands.GrabberCommands.ServoUnlockCommand;
-import frc.robot.commands.GrabberCommands.AlgaeDetectionCommand;
-import frc.robot.commands.GrabberCommands.GrabberIntakeCommand;
-import frc.robot.commands.GrabberCommands.GrabberShootCommand;
-import frc.robot.commands.GrabberCommands.GrabberStopCommand;
-import frc.robot.commands.ClimbCommands.ClimbRotateCommand;
-import frc.robot.commands.ClimbCommands.ClimbStopCommand;
-import frc.robot.commands.ClawCommands.ClawStopCommand;
-import frc.robot.commands.ClawCommands.ClawOpenCommand;
-import frc.robot.commands.ClawCommands.ClawCloseCommand;
-import frc.robot.commands.ClawCommands.WristPivotCommand;
-import frc.robot.commands.ClawCommands.WristStopCommand;
-import frc.robot.commands.ClawCommands.WristTuningPivot;
-import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
-import frc.robot.commands.ArmCommands.ArmFullStopCommand;
-import frc.robot.commands.ArmCommands.ArmMoveCommand;
-import frc.robot.commands.ArmCommands.ArmPivotCommand;
-import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
-import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
-import frc.robot.commands.ArmCommands.ArmTuningPivot;
 import frc.robot.commands.ButtonCommands.Claw.CoralFeederIntakeCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralFeederPrepCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralLevelCommand;
 import frc.robot.commands.ButtonCommands.Claw.OpenClawCommand;
+import frc.robot.commands.ButtonCommands.Climb.ClimbGrabCommand;
+import frc.robot.commands.ButtonCommands.Climb.ClimbRaiseCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeIntakeCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeNetCommand;
-import frc.robot.commands.ButtonCommands.Safety.CancelCommand;
-import frc.robot.commands.ButtonCommands.Safety.StowCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeProcessorCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeShootCommand;
-import frc.robot.commands.ButtonCommands.Grabber.AlgaeStowCommand;
+import frc.robot.commands.ButtonCommands.Safety.CancelCommand;
+import frc.robot.commands.ButtonCommands.Safety.StowCommand;
+
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -94,7 +75,8 @@ public class RobotContainer {
     CommandXboxController commandOperatorController = new CommandXboxController(Constants.OperatorControllerPort);
     XboxController operatorController = new XboxController(Constants.OperatorControllerPort);
 
-    CommandGenericHID buttonBoard = new CommandGenericHID(Constants.ButtonBoardPort);
+    CommandGenericHID upperButtonBoard = new CommandGenericHID(Constants.UpperButtonBoardPort);
+    CommandGenericHID lowerButtonBoard = new CommandGenericHID(Constants.LowerButtonBoardPort);
 
     AutoPicker autoPicker = new AutoPicker(subsystemList);
 
@@ -123,6 +105,28 @@ public class RobotContainer {
             .onTrue(new TeleopMoveCommand(subsystemList, driverController));
 
         // Operator Triggers
+
+        upperButtonBoard.button(1).onTrue(new CoralFeederPrepCommand(subsystemList));
+        upperButtonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 1));
+        upperButtonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
+        upperButtonBoard.button(4).onTrue(new CoralLevelCommand(subsystemList, 3));
+        upperButtonBoard.button(5).onTrue(new CoralLevelCommand(subsystemList, 4));
+        upperButtonBoard.button(6).onTrue(new CoralFeederIntakeCommand(subsystemList));
+        upperButtonBoard.button(7).onTrue(new CancelCommand(subsystemList)); // Coral floor prep
+        upperButtonBoard.button(8).onTrue(new CancelCommand(subsystemList)); // Coral floor grab
+        upperButtonBoard.button(9).onTrue(new StowCommand(subsystemList, armType.claw));
+        upperButtonBoard.button(10).onTrue(new OpenClawCommand(subsystemList));
+
+        lowerButtonBoard.button(1).onTrue(new CancelCommand(subsystemList));
+        lowerButtonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
+        lowerButtonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
+        lowerButtonBoard.button(4).onTrue(new AlgaeProcessorCommand(subsystemList));
+        lowerButtonBoard.button(5).onTrue(new AlgaeNetCommand(subsystemList));
+        lowerButtonBoard.button(6).onTrue(new AlgaeShootCommand(subsystemList));
+        lowerButtonBoard.button(7).onTrue(new ClimbGrabCommand(subsystemList));
+        lowerButtonBoard.button(8).onTrue(new ClimbRaiseCommand(subsystemList));
+        lowerButtonBoard.button(9).onTrue(new StowCommand(subsystemList, armType.grabber));
+        lowerButtonBoard.button(10).onTrue(new CancelCommand(subsystemList));
 
         // CLAW
 
@@ -171,16 +175,16 @@ public class RobotContainer {
 
         // GRABBER
 
-        buttonBoard.button(4).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
-        buttonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
-        // buttonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "floor"));
-        buttonBoard.button(6).onTrue(new ServoUnlockCommand(subsystemList));
+        // buttonBoard.button(4).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
+        // buttonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
+        // // buttonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "floor"));
+        // buttonBoard.button(6).onTrue(new ServoUnlockCommand(subsystemList));
 
-        buttonBoard.button(8).onTrue(new AlgaeNetCommand(subsystemList));
-        buttonBoard.button(7).onTrue(new AlgaeShootCommand(subsystemList, 1.00));
-        buttonBoard.button(1).onTrue(new AlgaeStowCommand(subsystemList));
-        // buttonBoard.button(6).onTrue(new ArmTuningPivot(subsystemList, armType.grabber, 90, 1));
-        buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
+        // buttonBoard.button(8).onTrue(new AlgaeNetCommand(subsystemList));
+        // buttonBoard.button(7).onTrue(new AlgaeShootCommand(subsystemList, 1.00));
+        // buttonBoard.button(1).onTrue(new AlgaeStowCommand(subsystemList));
+        // // buttonBoard.button(6).onTrue(new ArmTuningPivot(subsystemList, armType.grabber, 90, 1));
+        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
 
         //buttonBoard.button(2).onTrue(new ServoUnlockCommand(subsystemList));
         //buttonBoard.button(1).onTrue(new ServoLockCommand(subsystemList));
@@ -221,6 +225,14 @@ public class RobotContainer {
         grabberArm.DisplayDebuggingInfo();
         grabber.DisplayDebuggingInfo();
         drive.DisplayDebuggingInfo();
+
+    }
+
+
+
+    public SubsystemList getSubsystemList() {
+
+        return subsystemList;
 
     }
 

@@ -49,9 +49,9 @@ public class CoralLevelCommand extends SequentialCommandGroup {
             case 4:
                 addCommands(
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
-                    new ArmPivotCommand(subsystems, armType.claw, 157, 1.0).alongWith(
-                        new WristPivotCommand(subsystems, 140, 0.5)),
-                    new ArmMoveCommand(subsystems, armType.claw, 127, 1.00).alongWith(
+                    new ArmPivotCommand(subsystems, armType.claw, 159, 1.0).alongWith(
+                        new WristPivotCommand(subsystems, 137, 0.5)),
+                    new ArmMoveCommand(subsystems, armType.claw, 132, 1.00).alongWith(
                         new ArmPivotHoldCommand(subsystems, armType.claw))
                 );
                 break;

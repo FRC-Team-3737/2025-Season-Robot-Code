@@ -7,19 +7,26 @@ import frc.robot.commands.GrabberCommands.GrabberIntakeCommand;
 import frc.robot.commands.GrabberCommands.GrabberShootCommand;
 import frc.robot.commands.GrabberCommands.GrabberStopCommand;
 import frc.robot.utils.SubsystemList;
+import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.subsystems.ArmSubsystem.armType;
 
 public class AlgaeShootCommand extends SequentialCommandGroup {
 
-    public AlgaeShootCommand(SubsystemList subsystems, double speed) {
+    public AlgaeShootCommand(SubsystemList subsystems) {
+
+        GrabberArmSubsystem grabberArm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
 
         addCommands(
             new GrabberIntakeCommand(subsystems, .25).raceWith(
                     new WaitCommand(.25)),
             new GrabberStopCommand(subsystems).alongWith(
                 new ArmPivotHoldCommand(subsystems, armType.grabber)),
-            new GrabberShootCommand(subsystems, speed).raceWith(
-                new WaitCommand(.5)),
+            new GrabberShootCommand(subsystems, 0.05).raceWith(
+                new WaitCommand(.5)).unless(
+                () -> grabberArm.GetCurrentAngle() > 90),
+            new GrabberShootCommand(subsystems, 0.80).raceWith(
+                new WaitCommand(.5)).unless(
+                () -> grabberArm.GetCurrentAngle() < 90),
             new GrabberStopCommand(subsystems)
         );
 

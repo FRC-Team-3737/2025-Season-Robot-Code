@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 public class ClimbRaiseCommand extends SequentialCommandGroup {
     public ClimbRaiseCommand(SubsystemList subsystems) {
         addCommands (
-            new ClimbRotateCommand(subsystems, 15, 90, 0.5).raceWith(new WaitCommand(1)),
+            new ClimbRotateCommand(subsystems, 0.15, 10, 0.5).raceWith(new WaitCommand(3)),
+            new ClimbRotateCommand(subsystems, 0.30, 10, 0.5),
             new ClimbStopCommand(subsystems)
         );
     }

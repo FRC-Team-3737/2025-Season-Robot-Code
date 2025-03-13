@@ -8,6 +8,7 @@ import frc.robot.subsystems.GrabberSubsystem;
 
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;
+import frc.robot.commands.GrabberCommands.GrabberStopCommand;
 import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 import frc.robot.commands.ArmCommands.ArmMoveCommand;
@@ -28,7 +29,8 @@ public class StowCommand extends SequentialCommandGroup {
 
             case grabber:
                 addCommands(
-                    new ArmMoveCommand(subsystems, type, 0, 1.00),
+                    new ArmMoveCommand(subsystems, type, 0, 1.00).alongWith(
+                        new GrabberStopCommand(subsystems)),
                     new ArmPivotCommand(subsystems, type, 55, 1.0),
                     new ArmPivotHoldCommand(subsystems, type).unless(() -> grabber.GetAlgeaOut()),
                     new ArmFullStopCommand(subsystems, type).unless(() -> grabber.GetAlgeaIn())
