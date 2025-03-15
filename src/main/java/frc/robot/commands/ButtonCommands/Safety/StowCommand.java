@@ -9,6 +9,7 @@ import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;
 import frc.robot.commands.GrabberCommands.GrabberStopCommand;
+import frc.robot.Constants.subsystemType;
 import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 import frc.robot.commands.ArmCommands.ArmMoveCommand;
@@ -17,17 +18,16 @@ import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
 import frc.robot.commands.ArmCommands.ArmPivotMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
 
-import frc.robot.subsystems.ArmSubsystem.armType;
 
 public class StowCommand extends SequentialCommandGroup {
 
-    public StowCommand(SubsystemList subsystems, armType type) {
+    public StowCommand(SubsystemList subsystems, subsystemType type) {
 
         GrabberSubsystem grabber = (GrabberSubsystem) subsystems.getSubsystem("grabber");
 
         switch (type) {
 
-            case grabber:
+            case GRABBER_ARM:
                 addCommands(
                     new ArmMoveCommand(subsystems, type, 0, 1.00).alongWith(
                         new GrabberStopCommand(subsystems)),
@@ -36,7 +36,7 @@ public class StowCommand extends SequentialCommandGroup {
                     new ArmFullStopCommand(subsystems, type).unless(() -> grabber.GetAlgeaIn())
                 );
 
-            case claw:
+            case CLAW_ARM:
                 addCommands(
                     new ArmMoveCommand(subsystems, type, 0, 1.00).alongWith(
                         new WristPivotCommand(subsystems, 100, 0.5)),
@@ -46,9 +46,6 @@ public class StowCommand extends SequentialCommandGroup {
                 );
 
             default:
-                addCommands(
-                    new ArmFullStopCommand(subsystems, type)
-                );
 
         }
 

@@ -1,11 +1,8 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
-import frc.robot.subsystems.ClawArmSubsystem;
-import frc.robot.subsystems.GrabberArmSubsystem;
+import frc.robot.Constants.subsystemType;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.utils.SubsystemList;
 
 public class ArmPivotMoveCommand extends Command {
@@ -26,13 +23,9 @@ public class ArmPivotMoveCommand extends Command {
      * @param extension The extension setpoint of the arm
      * @param speed The extension speed of the arm
      */
-    public ArmPivotMoveCommand(SubsystemList subsystems, armType type, double angle, double tolerance, double extension, double speed) {
+    public ArmPivotMoveCommand(SubsystemList subsystems, subsystemType type, double angle, double tolerance, double extension, double speed) {
 
-        if (type == armType.claw) {
-            arm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
-        } else {
-            arm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
-        }
+        arm = (ArmSubsystem) subsystems.getSubsystem(type.name());
 
         desiredAngle = angle;
         desiredExtension = extension;

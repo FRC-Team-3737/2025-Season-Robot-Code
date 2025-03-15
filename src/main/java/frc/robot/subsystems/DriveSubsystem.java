@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.subsystemType;
 import frc.robot.swervemodule.SwerveModule;
 import frc.robot.swervemodule.SwerveModules;
 import frc.robot.utils.VectorR;
@@ -23,7 +24,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     public DriveSubsystem() {
 
-        setName("drive");
+        setName(subsystemType.DRIVE.name());
 
         modules = new SwerveModules(
             new SwerveModule(Constants.FrontRightSwerve), new SwerveModule(Constants.FrontLeftSwerve),

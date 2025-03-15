@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.motor.Motor.encoderType;
 
 import frc.robot.Constants;
+import frc.robot.Constants.subsystemType;
 
 public class ClawArmSubsystem extends ArmSubsystem {
 
@@ -15,8 +16,15 @@ public class ClawArmSubsystem extends ArmSubsystem {
      */
     public ClawArmSubsystem() {
 
-        super(Constants.ClawArm, Constants.ClawArmExt, encoderType.Absolute, false, pivotPID, pivotFeedforward, extensionPID);
-        setName("clawArm");
+        super(
+            subsystemType.CLAW_ARM.name(),
+            Constants.ClawArm, Constants.ClawArmExt,
+            encoderType.Absolute,
+            false,
+            pivotPID,
+            pivotFeedforward,
+            extensionPID
+        );
 
         /*  Following values in degrees and inches  */
 

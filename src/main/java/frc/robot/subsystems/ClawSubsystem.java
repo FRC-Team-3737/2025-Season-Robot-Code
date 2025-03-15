@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.Constants.subsystemType;
 import frc.robot.motor.Motors;
 import frc.robot.motor.Motor.encoderType;
 import frc.robot.utils.PID;
@@ -26,7 +27,7 @@ public class ClawSubsystem extends SubsystemBase {
     
     public ClawSubsystem() {
 
-        setName("claw");
+        setName(subsystemType.CLAW.name());
 
         wristMotor = new Motors(Constants.Wrist, encoderType.Analog, true);
         clawMotor = new Motors(Constants.Claw);

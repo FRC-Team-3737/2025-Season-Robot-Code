@@ -1,11 +1,8 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
-import frc.robot.subsystems.ClawArmSubsystem;
-import frc.robot.subsystems.GrabberArmSubsystem;
+import frc.robot.Constants.subsystemType;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.utils.SubsystemList;
 
 public class ArmPivotCommand extends Command {
@@ -22,13 +19,9 @@ public class ArmPivotCommand extends Command {
      * @param angle The angle setpoint
      * @param tolerance The tolerance the pivot
      */
-    public ArmPivotCommand(SubsystemList subsystems, armType type, double angle, double tolerance) {
+    public ArmPivotCommand(SubsystemList subsystems, subsystemType type, double angle, double tolerance) {
 
-        if (type == armType.claw) {
-            arm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
-        } else {
-            arm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
-        }
+        arm = (ArmSubsystem) subsystems.getSubsystem(type.name());
 
         desiredAngle = angle;
         deadzone = tolerance;

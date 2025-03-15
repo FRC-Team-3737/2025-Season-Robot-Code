@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import frc.robot.utils.SubsystemList;
 
-import frc.robot.subsystems.ArmSubsystem.armType;
+import frc.robot.Constants.subsystemType;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
 import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
 
@@ -14,8 +14,8 @@ public class AlgaeNetCommand extends SequentialCommandGroup {
 
         addCommands(
             
-            new ArmPivotCommand(subsystems, armType.grabber, 170, 1),
-            new ArmPivotHoldCommand(subsystems, armType.grabber)
+            new ArmPivotCommand(subsystems, subsystemType.GRABBER_ARM, 170, 1),
+            new ArmPivotHoldCommand(subsystems, subsystemType.GRABBER_ARM)
 
         );
 

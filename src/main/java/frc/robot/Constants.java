@@ -25,6 +25,16 @@ public final class Constants {
 
     }
 
+    public enum subsystemType {
+        DRIVE,
+        CLAW,
+        CLAW_ARM,
+        GRABBER,
+        GRABBER_ARM,
+        CLIMB,
+        LED;
+    }
+
     public static final double ModuleAngleKP = -0.00524;
 
     // Controller Port

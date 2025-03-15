@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.motor.Motor.encoderType;
 import frc.robot.Constants;
+import frc.robot.Constants.subsystemType;
 
 public class GrabberArmSubsystem extends ArmSubsystem {
 
@@ -14,8 +15,16 @@ public class GrabberArmSubsystem extends ArmSubsystem {
      */
     public GrabberArmSubsystem() {
 
-        super(Constants.GrabberArm, Constants.GrabberArmExt, encoderType.Absolute, true, pivotPID, pivotFeedforward, extensionPID);
-        setName("grabberArm");
+        super(
+            subsystemType.GRABBER_ARM.name(),
+            Constants.GrabberArm,
+            Constants.GrabberArmExt,
+            encoderType.Absolute,
+            true,
+            pivotPID,
+            pivotFeedforward,
+            extensionPID
+        );
 
         /*  Following values in degrees and inches  */
 

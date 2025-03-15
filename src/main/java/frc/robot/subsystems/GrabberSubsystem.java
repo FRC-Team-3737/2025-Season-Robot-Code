@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.motor.Motors;
 import frc.robot.Constants;
-
+import frc.robot.Constants.subsystemType;
 import edu.wpi.first.wpilibj.Servo;
 
 public class GrabberSubsystem extends SubsystemBase {
@@ -17,7 +17,7 @@ public class GrabberSubsystem extends SubsystemBase {
 
     public GrabberSubsystem() {
 
-        setName("grabber");
+        setName(subsystemType.GRABBER.name());
         
         motor = new Motors(Constants.Grabber);
 

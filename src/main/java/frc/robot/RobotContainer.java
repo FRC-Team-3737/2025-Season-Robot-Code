@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
+import frc.robot.Constants.subsystemType;
 import frc.robot.commands.ButtonCommands.Claw.CoralFeederIntakeCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralFeederPrepCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralLevelCommand;
@@ -41,7 +42,6 @@ import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.subsystems.GrabberArmSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
-import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 
@@ -114,7 +114,7 @@ public class RobotContainer {
         upperButtonBoard.button(6).onTrue(new CoralFeederIntakeCommand(subsystemList));
         upperButtonBoard.button(7).onTrue(new CancelCommand(subsystemList)); // Coral floor prep
         upperButtonBoard.button(8).onTrue(new CancelCommand(subsystemList)); // Coral floor grab
-        upperButtonBoard.button(9).onTrue(new StowCommand(subsystemList, armType.claw));
+        upperButtonBoard.button(9).onTrue(new StowCommand(subsystemList, subsystemType.CLAW_ARM));
         upperButtonBoard.button(10).onTrue(new OpenClawCommand(subsystemList));
 
         lowerButtonBoard.button(1).onTrue(new CancelCommand(subsystemList));
@@ -125,7 +125,7 @@ public class RobotContainer {
         lowerButtonBoard.button(6).onTrue(new AlgaeShootCommand(subsystemList));
         lowerButtonBoard.button(7).onTrue(new ClimbGrabCommand(subsystemList));
         lowerButtonBoard.button(8).onTrue(new ClimbRaiseCommand(subsystemList));
-        lowerButtonBoard.button(9).onTrue(new StowCommand(subsystemList, armType.grabber));
+        lowerButtonBoard.button(9).onTrue(new StowCommand(subsystemList, subsystemType.GRABBER_ARM));
         lowerButtonBoard.button(10).onTrue(new CancelCommand(subsystemList));
 
         // CLAW
@@ -139,7 +139,7 @@ public class RobotContainer {
         // buttonBoard.button(4).onTrue(new CoralFeederPrepCommand(subsystemList));
         // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
         // buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
-        // buttonBoard.button(7).onTrue(new StowCommand(subsystemList, armType.claw));
+        // buttonBoard.button(7).onTrue(new StowCommand(subsystemList, subsystemType.CLAW_ARM));
         // buttonBoard.button(8).onTrue(new CoralFeederIntakeCommand(subsystemList));
 
         // buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
@@ -147,27 +147,27 @@ public class RobotContainer {
         // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
         // buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
 
-        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 115, 1)).alongWith(new WristPivotCommand(subsystemList, 160, 0.5)).raceWith(new WaitCommand(1)).andThen(new ArmPivotHoldCommand(subsystemList, armType.claw).alongWith(new ArmMoveCommand(subsystemList, armType.claw, 150, 0.5))));
-        // buttonBoard.button(2).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 90, 1)).alongWith(new WristPivotCommand(subsystemList, 95, 0.5)));
-        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 40, 1)).alongWith(new WristPivotCommand(subsystemList, 5, 0.5)));
-        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 105, 1)).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)));
-        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
+        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, subsystemType.CLAW_ARM, 115, 1)).alongWith(new WristPivotCommand(subsystemList, 160, 0.5)).raceWith(new WaitCommand(1)).andThen(new ArmPivotHoldCommand(subsystemList, subsystemType.CLAW_ARM).alongWith(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 150, 0.5))));
+        // buttonBoard.button(2).onTrue(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, subsystemType.CLAW_ARM, 90, 1)).alongWith(new WristPivotCommand(subsystemList, 95, 0.5)));
+        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, subsystemType.CLAW_ARM, 40, 1)).alongWith(new WristPivotCommand(subsystemList, 5, 0.5)));
+        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, subsystemType.CLAW_ARM, 105, 1)).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)));
+        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, subsystemType.CLAW_ARM));
         // buttonBoard.button(6).onTrue(new ClawOpenCommand(subsystemList, 0.30).andThen(new WaitCommand(0.25).andThen(new ClawCloseCommand(subsystemList, 0.06))));
-        // buttonBoard.button(7).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)).andThen(new ArmPivotCommand(subsystemList, armType.claw, 5, 1).raceWith(new WaitCommand(0.5))).andThen(new ArmPivotStopCommand(subsystemList, armType.claw)));
-        // buttonBoard.button(8).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 7, 1)).alongWith(new WristPivotCommand(subsystemList, 120, 0.5)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 9, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 0, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)))));
+        // buttonBoard.button(7).onTrue(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 0, 0.5).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)).andThen(new ArmPivotCommand(subsystemList, subsystemType.CLAW_ARM, 5, 1).raceWith(new WaitCommand(0.5))).andThen(new ArmPivotStopCommand(subsystemList, subsystemType.CLAW_ARM)));
+        // buttonBoard.button(8).onTrue(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, subsystemType.CLAW_ARM, 7, 1)).alongWith(new WristPivotCommand(subsystemList, 120, 0.5)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 9, .5).alongWith(new ArmPivotHoldCommand(subsystemList, subsystemType.CLAW_ARM)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 0, .5).alongWith(new ArmPivotHoldCommand(subsystemList, subsystemType.CLAW_ARM)))));
 
         // buttonBoard.button(4).onTrue(new ClawOpenCommand(subsystemList, .3));
         // buttonBoard.button(3).onTrue(new ClawCloseCommand(subsystemList, 0.06));
-        // buttonBoard.button(2).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 85, 1));
-        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 10, .5));
+        // buttonBoard.button(2).onTrue(new ArmPivotCommand(subsystemList, subsystemType.CLAW_ARM, 85, 1));
+        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, subsystemType.CLAW_ARM, 10, .5));
         // buttonBoard.button(8).onTrue(new WristPivotCommand(subsystemList, 70, 1));
         // buttonBoard.button(7).onTrue(new WristPivotCommand(subsystemList, 0, 1));
         // buttonBoard.button(6).onTrue(new ClawStopCommand(subsystemList));
-        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
+        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, subsystemType.CLAW_ARM));
 
-        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.grabber, 30, .3));
-        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.grabber, 0, .30));
-        // buttonBoard.button(8).onTrue(new ArmExtensionStopCommand(subsystemList, armType.claw));
+        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, subsystemType.GRABBER_ARM, 30, .3));
+        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, subsystemType.GRABBER_ARM, 0, .30));
+        // buttonBoard.button(8).onTrue(new ArmExtensionStopCommand(subsystemList, subsystemType.CLAW_ARM));
 
         // // buttonBoard.button(4).onTrue(new WristPivotCommand(subsystemList,120, 1));
         // // buttonBoard.button(3).onTrue(new WristPivotCommand(subsystemList, 40, 1));
@@ -183,18 +183,18 @@ public class RobotContainer {
         // buttonBoard.button(8).onTrue(new AlgaeNetCommand(subsystemList));
         // buttonBoard.button(7).onTrue(new AlgaeShootCommand(subsystemList, 1.00));
         // buttonBoard.button(1).onTrue(new AlgaeStowCommand(subsystemList));
-        // // buttonBoard.button(6).onTrue(new ArmTuningPivot(subsystemList, armType.grabber, 90, 1));
+        // // buttonBoard.button(6).onTrue(new ArmTuningPivot(subsystemList, subsystemType.GRABBER_ARM, 90, 1));
         // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
 
         //buttonBoard.button(2).onTrue(new ServoUnlockCommand(subsystemList));
         //buttonBoard.button(1).onTrue(new ServoLockCommand(subsystemList));
 
         // buttonBoard.button(5).onTrue(new ServoUnlockCommand(subsystemList));
-        // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 85, 1));
-        // buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 13, 1));
+        // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, subsystemType.GRABBER_ARM, 85, 1));
+        // buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, subsystemType.GRABBER_ARM, 13, 1));
         //buttonBoard.button(1).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .05).raceWith(new WaitCommand(.5)))));
         // buttonBoard.button(1).onTrue((new GrabberIntakeCommand(subsystemList, .40).raceWith(new AlgaeDetectionCommand(subsystemList))).andThen(new ServoLockCommand(subsystemList)).andThen(new WaitCommand(0.5)).andThen(new GrabberStopCommand(subsystemList)).andThen(new ServoUnlockCommand(subsystemList)));
-        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.grabber));
+        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, subsystemType.GRABBER_ARM));
         // buttonBoard.button(7).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .6).raceWith(new WaitCommand(.5)))));
         // buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
 

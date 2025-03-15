@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.motor.PairedMotors;
 import frc.robot.Constants;
+import frc.robot.Constants.subsystemType;
 
 public class ClimbSubsystem extends SubsystemBase {
 
@@ -17,7 +18,7 @@ public class ClimbSubsystem extends SubsystemBase {
 
     public ClimbSubsystem() {
 
-        setName("climb");
+        setName(subsystemType.CLIMB.name());
 
         motor = new PairedMotors(Constants.Climb, Constants.ClimbSlave);
         rotationActive = false;

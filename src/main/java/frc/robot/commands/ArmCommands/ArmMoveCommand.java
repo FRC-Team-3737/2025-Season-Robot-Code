@@ -1,11 +1,8 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
-import frc.robot.subsystems.ClawArmSubsystem;
-import frc.robot.subsystems.GrabberArmSubsystem;
+import frc.robot.Constants.subsystemType;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.utils.SubsystemList;
 
 public class ArmMoveCommand extends Command {
@@ -22,13 +19,9 @@ public class ArmMoveCommand extends Command {
      * @param extension The extension setpoint in inches
      * @param speed The speed of the extension
      */
-    public ArmMoveCommand(SubsystemList subsystems, armType type, double extension, double speed) {
+    public ArmMoveCommand(SubsystemList subsystems, subsystemType type, double extension, double speed) {
 
-        if (type == armType.claw) {
-            arm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
-        } else {
-            arm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
-        }
+        arm = (ArmSubsystem) subsystems.getSubsystem(type.name());
 
         desiredExtension = extension;
         extensionSpeed = speed;

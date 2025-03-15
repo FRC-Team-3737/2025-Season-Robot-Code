@@ -41,10 +41,6 @@ public class ArmSubsystem extends SubsystemBase {
     protected double upperMechanismLength; // Set per arm
     protected double lowerMechanismLength; // Set per arm
 
-    public enum armType {
-        claw, grabber;
-    }
-
     /** 
      * Set the motors and PIDs for the arm.
      * 
@@ -56,8 +52,9 @@ public class ArmSubsystem extends SubsystemBase {
      * @param m_pivotFeedforward The feedforward values for the pivot
      * @param m_extensionPID The PID values for the extension
      */
-    public ArmSubsystem(MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_pivotFeedforward, double[] m_extensionPID) {
+    public ArmSubsystem(String subsystemName, MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_pivotFeedforward, double[] m_extensionPID) {
 
+        setName(subsystemName);
         pivotMotor = new Motors(pivotID, encoder, inverted); // Both pivot motors have a through bore encoder on it. One, both or none could be inverted.
         extensionMotor = new Motors(extensionID);
         //pivotPID = new PID(getName(), m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
