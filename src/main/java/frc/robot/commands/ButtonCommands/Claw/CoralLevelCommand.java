@@ -15,7 +15,7 @@ public class CoralLevelCommand extends SequentialCommandGroup {
 
     public CoralLevelCommand(SubsystemList subsystems, int reefLevel) {
 
-        ClawArmSubsystem arm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
+        ClawArmSubsystem arm = (ClawArmSubsystem) subsystems.getSubsystem(subsystemType.CLAW_ARM.name());
 
         switch (reefLevel) {
             case 1:

@@ -2,6 +2,7 @@ package frc.robot.commands.GrabberCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.utils.SubsystemList;
+import frc.robot.Constants.subsystemType;
 import frc.robot.subsystems.GrabberSubsystem;
 
 public class ServoLockCommand extends Command {
@@ -10,7 +11,7 @@ public class ServoLockCommand extends Command {
 
     public ServoLockCommand(SubsystemList subsystems) {
 
-        grabber = (GrabberSubsystem) subsystems.getSubsystem("grabber");
+        grabber = (GrabberSubsystem) subsystems.getSubsystem(subsystemType.GRABBER.name());
         
     }
 

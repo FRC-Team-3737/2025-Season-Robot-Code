@@ -1,7 +1,7 @@
 package frc.robot.commands.ClawCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
+import frc.robot.Constants.subsystemType;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.utils.SubsystemList;
 
@@ -12,7 +12,7 @@ public class WristPivotCommand extends Command {
 
     public WristPivotCommand(SubsystemList subsystems, double angle, double tolerance) {
 
-        claw = (ClawSubsystem) subsystems.getSubsystem("claw");
+        claw = (ClawSubsystem) subsystems.getSubsystem(subsystemType.CLAW.name());
         deadzone = tolerance;
         desiredAngle = angle;
 

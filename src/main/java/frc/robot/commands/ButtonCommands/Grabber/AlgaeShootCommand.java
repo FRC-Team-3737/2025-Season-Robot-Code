@@ -14,7 +14,7 @@ public class AlgaeShootCommand extends SequentialCommandGroup {
 
     public AlgaeShootCommand(SubsystemList subsystems) {
 
-        GrabberArmSubsystem grabberArm = (GrabberArmSubsystem) subsystems.getSubsystem("grabberArm");
+        GrabberArmSubsystem grabberArm = (GrabberArmSubsystem) subsystems.getSubsystem(subsystemType.GRABBER_ARM.name());
 
         addCommands(
             new GrabberIntakeCommand(subsystems, .25).raceWith(

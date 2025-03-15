@@ -3,6 +3,7 @@ package frc.robot.commands.GrabberCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.utils.SubsystemList;
+import frc.robot.Constants.subsystemType;
 import frc.robot.subsystems.GrabberSubsystem;
 
 public class GrabberShootCommand extends Command{
@@ -12,7 +13,7 @@ public class GrabberShootCommand extends Command{
 
     public GrabberShootCommand(SubsystemList subsystems, double speed) {
 
-        grabber = (GrabberSubsystem) subsystems.getSubsystem("grabber");
+        grabber = (GrabberSubsystem) subsystems.getSubsystem(subsystemType.GRABBER.name());
         motorSpeed = speed;
 
         addRequirements(grabber);

@@ -23,7 +23,7 @@ public class StowCommand extends SequentialCommandGroup {
 
     public StowCommand(SubsystemList subsystems, subsystemType type) {
 
-        GrabberSubsystem grabber = (GrabberSubsystem) subsystems.getSubsystem("grabber");
+        GrabberSubsystem grabber = (GrabberSubsystem) subsystems.getSubsystem(subsystemType.GRABBER.name());
 
         switch (type) {
 

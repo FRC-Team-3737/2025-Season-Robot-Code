@@ -3,6 +3,7 @@ package frc.robot.commands.ClawCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.utils.SubsystemList;
+import frc.robot.Constants.subsystemType;
 import frc.robot.subsystems.ClawSubsystem;
 
 public class ClawOpenCommand extends Command {
@@ -11,7 +12,7 @@ public class ClawOpenCommand extends Command {
 
     public ClawOpenCommand(SubsystemList subsystems, double speed) {
 
-        claw = (ClawSubsystem) subsystems.getSubsystem("claw");
+        claw = (ClawSubsystem) subsystems.getSubsystem(subsystemType.CLAW.name());
         motorSpeed = speed;
 
         addRequirements(claw);

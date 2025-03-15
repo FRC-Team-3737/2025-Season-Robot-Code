@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.utils.VectorR;
-
+import frc.robot.Constants.subsystemType;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.utils.SubsystemList;
 
@@ -15,7 +15,7 @@ public class TeleopMoveCommand extends Command {
 
     public TeleopMoveCommand(SubsystemList subsystems, XboxController m_controller) {
 
-        drive = (DriveSubsystem) subsystems.getSubsystem("drive");
+        drive = (DriveSubsystem) subsystems.getSubsystem(subsystemType.DRIVE.name());
         controller = m_controller;
 
         addRequirements(drive);

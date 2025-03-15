@@ -3,7 +3,7 @@ package frc.robot.commands.DriveCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.utils.VectorR;
-
+import frc.robot.Constants.subsystemType;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.utils.SubsystemList;
 
@@ -31,7 +31,7 @@ public class AutoMoveCommand extends Command {
      */
     public AutoMoveCommand(SubsystemList subsystems, double m_distance, double m_angle, double m_magnitude, double m_turnSpeed, double m_desiredAngle) {
 
-        drive = (DriveSubsystem) subsystems.getSubsystem("drive");
+        drive = (DriveSubsystem) subsystems.getSubsystem(subsystemType.DRIVE.name());
         moveSpeed = new VectorR();
         desiredPosition = m_distance * 100; // 100 is a placeholder conversion (feet -> encoder value)
         angle = m_angle;
