@@ -3,7 +3,6 @@ package frc.robot.commands.ButtonCommands.Claw;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import frc.robot.utils.SubsystemList;
-import frc.robot.subsystems.ClawArmSubsystem;
 import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 import frc.robot.commands.ArmCommands.ArmMoveCommand;
@@ -14,8 +13,6 @@ import frc.robot.commands.ClawCommands.WristPivotCommand;
 public class CoralLevelCommand extends SequentialCommandGroup {
 
     public CoralLevelCommand(SubsystemList subsystems, int reefLevel) {
-
-        ClawArmSubsystem arm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
 
         switch (reefLevel) {
             case 1:

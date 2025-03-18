@@ -214,14 +214,16 @@ public class ArmSubsystem extends SubsystemBase {
 
         if (GetCurrentAngle() <= minAngle) {
             pivotMotor.Spin(-0.05*pivotDirection);
-        }else if (GetCurrentAngle() >= maxAngle) {
+            return;
+        } else if (GetCurrentAngle() >= maxAngle) {
             pivotMotor.Spin(0.05*pivotDirection);
+            return;
         }
 
         double pidVal = pivotPID.calculate(GetCurrentAngle()*radianConversion, desiredAngle*radianConversion);
-
         double pid = Math.signum(pidVal)*MathUtil.clamp(Math.abs(pidVal), minSpeedClamp, maxSpeedClamp);
         double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianConversion, 0.1*((desiredAngle-GetCurrentAngle())*radianConversion));
+
         pivotMotor.Spin(pid*pivotDirection + feedforward);
         
     }
@@ -231,6 +233,11 @@ public class ArmSubsystem extends SubsystemBase {
         double radianConversion = 3.14159/180;
 
         if (!pivotActive) return;
+
+        if (Math.abs(desiredAngle-GetCurrentAngle()) >= 0.5) {
+            pivotMotor.Spin(0.02*((desiredAngle-GetCurrentAngle())/Math.max(1, Math.pow(2, Math.abs(desiredAngle-GetCurrentAngle())/4)))*pivotDirection);
+            return;
+        }
 
         double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianConversion, 0.5*((desiredAngle-GetCurrentAngle())*radianConversion)*pivotDirection);
 
@@ -265,19 +272,17 @@ public class ArmSubsystem extends SubsystemBase {
         //     return;
         // }
 
-        if (extensionMotor.motor.getPosition(false) < desiredExtension - 1.5) {
+        if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.25) {
             extensionMotor.Spin(Math.abs(speed)); 
-        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 1.5) {
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.25) {
             extensionMotor.Spin(-Math.abs(speed));
+        } else if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.1) {
+            extensionMotor.Spin(Math.abs(speed/8)); 
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.1) {
+            extensionMotor.Spin(-Math.abs(speed/8));
         } else {
             ExtensionStop();
         }
-
-        // else if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.25) {
-        //     extensionMotor.Spin(Math.abs(speed/2)); 
-        // } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.25) {
-        //     extensionMotor.Spin(-Math.abs(speed/2));
-        // }
 
     }
 

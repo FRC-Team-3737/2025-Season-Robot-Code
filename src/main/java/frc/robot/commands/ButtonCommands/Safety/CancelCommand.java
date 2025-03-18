@@ -1,10 +1,7 @@
 package frc.robot.commands.ButtonCommands.Safety;
 
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.PurgeSchedulerCommand;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
-import frc.robot.commands.ClawCommands.ClawStopCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;
 import frc.robot.commands.ClimbCommands.ClimbStopCommand;
 import frc.robot.commands.GrabberCommands.GrabberStopCommand;
@@ -20,8 +17,7 @@ public class CancelCommand extends SequentialCommandGroup {
                 new ArmFullStopCommand(subsystems, armType.grabber),
                 new ClimbStopCommand(subsystems),
                 new WristStopCommand(subsystems),
-                new GrabberStopCommand(subsystems),
-                new PurgeSchedulerCommand()
+                new GrabberStopCommand(subsystems)
             )
         );
 

@@ -9,13 +9,10 @@ import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 import frc.robot.commands.ClawCommands.WristStopCommand;
 import frc.robot.commands.GrabberCommands.GrabberStopCommand;
-import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
 import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
-import frc.robot.commands.ArmCommands.ArmPivotMoveCommand;
-import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
 
 import frc.robot.subsystems.ArmSubsystem.armType;
 

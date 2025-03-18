@@ -8,7 +8,6 @@ import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
 import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
-import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 
 import frc.robot.subsystems.ArmSubsystem.armType;

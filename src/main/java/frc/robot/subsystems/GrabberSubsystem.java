@@ -21,7 +21,7 @@ public class GrabberSubsystem extends SubsystemBase {
         
         motor = new Motors(Constants.Grabber);
 
-        microswitch = new DigitalInput(1);
+        microswitch = new DigitalInput(Constants.GrabberSwitch);
 
         servo = new Servo(Constants.GrabberServo);
 

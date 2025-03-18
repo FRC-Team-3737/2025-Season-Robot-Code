@@ -53,7 +53,7 @@ public final class Constants {
     public static final int GrabberArmExtID = 18;  
 
     // DIO
-    public static final int CoralSwitch = 0;
+    public static final int BucketSwitch = 0;
     public static final int GrabberSwitch = 1;
 
     // PWM

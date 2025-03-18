@@ -2,7 +2,6 @@ package frc.robot.commands.ButtonCommands.Grabber;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
 import frc.robot.commands.GrabberCommands.GrabberIntakeCommand;
 import frc.robot.commands.GrabberCommands.GrabberShootCommand;

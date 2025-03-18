@@ -57,14 +57,14 @@ public class RobotContainer {
 
     /*  Subsystem and SubsystemList Declarations  */
 
-    LEDSubsystem led = new LEDSubsystem(32, 19); // 60 and 10 are placeholders
+    LEDSubsystem led = new LEDSubsystem(32);
     DriveSubsystem drive = new DriveSubsystem();
     GrabberSubsystem grabber = new GrabberSubsystem();
     ClawArmSubsystem clawArm = new ClawArmSubsystem();
     ClimbSubsystem climb = new ClimbSubsystem();
     ClawSubsystem claw = new ClawSubsystem();
     GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
-    SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber, claw, climb };
+    SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber, claw, climb, led };
     SubsystemList subsystemList = new SubsystemList(subsystems);
   
     /*  Controller Declarations  */
@@ -127,86 +127,6 @@ public class RobotContainer {
         lowerButtonBoard.button(8).onTrue(new ClimbRaiseCommand(subsystemList));
         lowerButtonBoard.button(9).onTrue(new StowCommand(subsystemList, armType.grabber));
         lowerButtonBoard.button(10).onTrue(new CancelCommand(subsystemList));
-
-        // CLAW
-
-        // buttonBoard.button(1).onTrue(new WristTuningPivot(subsystemList, 90, 0.5));
-        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
-
-        // buttonBoard.button(1).onTrue(new CoralLevelCommand(subsystemList, 4));
-        // buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
-        // buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
-        // buttonBoard.button(4).onTrue(new CoralFeederPrepCommand(subsystemList));
-        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
-        // buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
-        // buttonBoard.button(7).onTrue(new StowCommand(subsystemList, armType.claw));
-        // buttonBoard.button(8).onTrue(new CoralFeederIntakeCommand(subsystemList));
-
-        // buttonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 3));
-        // buttonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
-        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
-        // buttonBoard.button(6).onTrue(new OpenClawCommand(subsystemList));
-
-        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 115, 1)).alongWith(new WristPivotCommand(subsystemList, 160, 0.5)).raceWith(new WaitCommand(1)).andThen(new ArmPivotHoldCommand(subsystemList, armType.claw).alongWith(new ArmMoveCommand(subsystemList, armType.claw, 150, 0.5))));
-        // buttonBoard.button(2).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 90, 1)).alongWith(new WristPivotCommand(subsystemList, 95, 0.5)));
-        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 40, 1)).alongWith(new WristPivotCommand(subsystemList, 5, 0.5)));
-        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 105, 1)).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)));
-        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
-        // buttonBoard.button(6).onTrue(new ClawOpenCommand(subsystemList, 0.30).andThen(new WaitCommand(0.25).andThen(new ClawCloseCommand(subsystemList, 0.06))));
-        // buttonBoard.button(7).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)).andThen(new ArmPivotCommand(subsystemList, armType.claw, 5, 1).raceWith(new WaitCommand(0.5))).andThen(new ArmPivotStopCommand(subsystemList, armType.claw)));
-        // buttonBoard.button(8).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 7, 1)).alongWith(new WristPivotCommand(subsystemList, 120, 0.5)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 9, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 0, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)))));
-
-        // buttonBoard.button(4).onTrue(new ClawOpenCommand(subsystemList, .3));
-        // buttonBoard.button(3).onTrue(new ClawCloseCommand(subsystemList, 0.06));
-        // buttonBoard.button(2).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 85, 1));
-        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 10, .5));
-        // buttonBoard.button(8).onTrue(new WristPivotCommand(subsystemList, 70, 1));
-        // buttonBoard.button(7).onTrue(new WristPivotCommand(subsystemList, 0, 1));
-        // buttonBoard.button(6).onTrue(new ClawStopCommand(subsystemList));
-        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
-
-        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.grabber, 30, .3));
-        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.grabber, 0, .30));
-        // buttonBoard.button(8).onTrue(new ArmExtensionStopCommand(subsystemList, armType.claw));
-
-        // // buttonBoard.button(4).onTrue(new WristPivotCommand(subsystemList,120, 1));
-        // // buttonBoard.button(3).onTrue(new WristPivotCommand(subsystemList, 40, 1));
-        // // buttonBoard.button(2).onTrue(new WristStopCommand(subsystemList));
-
-        // GRABBER
-
-        // buttonBoard.button(4).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
-        // buttonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
-        // // buttonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "floor"));
-        // buttonBoard.button(6).onTrue(new ServoUnlockCommand(subsystemList));
-
-        // buttonBoard.button(8).onTrue(new AlgaeNetCommand(subsystemList));
-        // buttonBoard.button(7).onTrue(new AlgaeShootCommand(subsystemList, 1.00));
-        // buttonBoard.button(1).onTrue(new AlgaeStowCommand(subsystemList));
-        // // buttonBoard.button(6).onTrue(new ArmTuningPivot(subsystemList, armType.grabber, 90, 1));
-        // buttonBoard.button(5).onTrue(new CancelCommand(subsystemList));
-
-        //buttonBoard.button(2).onTrue(new ServoUnlockCommand(subsystemList));
-        //buttonBoard.button(1).onTrue(new ServoLockCommand(subsystemList));
-
-        // buttonBoard.button(5).onTrue(new ServoUnlockCommand(subsystemList));
-        // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 85, 1));
-        // buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 13, 1));
-        //buttonBoard.button(1).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .05).raceWith(new WaitCommand(.5)))));
-        // buttonBoard.button(1).onTrue((new GrabberIntakeCommand(subsystemList, .40).raceWith(new AlgaeDetectionCommand(subsystemList))).andThen(new ServoLockCommand(subsystemList)).andThen(new WaitCommand(0.5)).andThen(new GrabberStopCommand(subsystemList)).andThen(new ServoUnlockCommand(subsystemList)));
-        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.grabber));
-        // buttonBoard.button(7).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .6).raceWith(new WaitCommand(.5)))));
-        // buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
-
-        // CLIMB
-
-        // buttonBoard.button(4).onTrue(new ClimbRotateCommand(subsystemList, .30, -30, .25));
-        // buttonBoard.button(3).onTrue(new ClimbRotateCommand(subsystemList, .15, 13, .25));
-        // buttonBoard.button(2).onTrue(new ClimbRotateCommand(subsystemList, .30, 13, .25));
-
-        // SAFETY
-
-        // LED Triggers
      
         displayDashboard();
 

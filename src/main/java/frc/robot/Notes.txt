@@ -64,9 +64,9 @@ Button Board (top down)
             1: Algae Floor Intake
             2: Algae Lower Intake
             3: Algae Upper Intake
-            4: Processor Shoot
-            5: Net Shoot
-            6: Nothing
+            4: Processor
+            5: Net
+            6: Shoot
             7: Climb Prep
             8: Climb Execute
             9: Algae Stow

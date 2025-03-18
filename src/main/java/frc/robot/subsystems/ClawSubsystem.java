@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,6 +19,7 @@ public class ClawSubsystem extends SubsystemBase {
     private final PIDController wristPID;
     private final ArmFeedforward wristFeedforward;
     private final Motors clawMotor;
+    private final DigitalInput microswitch;
     private double tolerance;
     private double desiredAngle;
     private boolean rotationActive;
@@ -32,6 +34,8 @@ public class ClawSubsystem extends SubsystemBase {
         clawMotor = new Motors(Constants.Claw);
         wristPID = new PIDController(0.4, 0.015, 0);
         wristFeedforward = new ArmFeedforward(0, -0.01, 1);
+
+        microswitch = new DigitalInput(Constants.BucketSwitch);
 
     }
 
@@ -56,6 +60,18 @@ public class ClawSubsystem extends SubsystemBase {
     public void SetDesiredAngle(double angle) {
 
         desiredAngle = angle;
+
+    }
+
+    public Boolean GetCoralIn() {
+
+        return !microswitch.get();
+
+    }
+
+    public Boolean GetCoralOut() {
+
+        return microswitch.get();
 
     }
 
