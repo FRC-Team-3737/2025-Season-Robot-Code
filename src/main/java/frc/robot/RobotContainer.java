@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
+import frc.robot.commands.ArmCommands.ArmIdleCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralFeederIntakeCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralFeederPrepCommand;
 import frc.robot.commands.ButtonCommands.Claw.CoralLevelCommand;
@@ -83,6 +84,8 @@ public class RobotContainer {
     public RobotContainer() {
 
         drive.setDefaultCommand(new DriveStopCommand(subsystemList));
+        clawArm.setDefaultCommand(new ArmIdleCommand(subsystemList, armType.claw));
+        grabberArm.setDefaultCommand(new ArmIdleCommand(subsystemList, armType.grabber));
 
         configureBindings();
 

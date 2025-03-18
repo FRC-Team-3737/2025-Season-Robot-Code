@@ -45,8 +45,6 @@ public class ArmSubsystem extends SubsystemBase {
         claw, grabber;
     }
 
-    private double stopIncrement = 0;
-
     /** 
      * Set the motors and PIDs for the arm.
      * 
@@ -235,7 +233,7 @@ public class ArmSubsystem extends SubsystemBase {
         if (!pivotActive) return;
 
         if (Math.abs(desiredAngle-GetCurrentAngle()) >= 0.5) {
-            pivotMotor.Spin(0.02*((desiredAngle-GetCurrentAngle())/Math.max(1, Math.pow(2, Math.abs(desiredAngle-GetCurrentAngle())/4)))*pivotDirection);
+            pivotMotor.Spin(0.02*(desiredAngle-GetCurrentAngle())*pivotDirection);
             return;
         }
 
@@ -250,7 +248,6 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void PivotStop() {
 
-        stopIncrement++;
         pivotActive = false;
         pivotPID.reset();
         pivotMotor.Spin(0);
@@ -307,7 +304,6 @@ public class ArmSubsystem extends SubsystemBase {
         tab.addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
         tab.addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 3);
         tab.addBoolean("reached angle", () -> GetIsReady());
-        tab.addDouble("stop increment", () -> stopIncrement);
 
     }
 
