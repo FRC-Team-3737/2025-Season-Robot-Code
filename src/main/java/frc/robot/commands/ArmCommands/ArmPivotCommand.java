@@ -64,7 +64,6 @@ public class ArmPivotCommand extends Command {
     public void end(boolean interrupted) {
 
         arm.PivotStop();
-        
 
     }
     

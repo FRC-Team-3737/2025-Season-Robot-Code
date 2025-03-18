@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.utils.SubsystemList;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
+import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
 import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
 import frc.robot.commands.GrabberCommands.AlgaeDetectionCommand;
@@ -22,6 +23,7 @@ public class AlgaeIntakeCommand extends SequentialCommandGroup {
 
             case "lower":
                 addCommands(
+                    new ArmMoveCommand(subsystems, armType.grabber, 0, 1.0),
                     new ArmPivotCommand(subsystems, armType.grabber, 96, 1.0),
                     new GrabberIntakeCommand(subsystems, 0.4).alongWith(
                         new ArmPivotHoldCommand(subsystems, armType.grabber)).raceWith(
@@ -35,6 +37,7 @@ public class AlgaeIntakeCommand extends SequentialCommandGroup {
 
             case "upper":
                 addCommands(
+                    new ArmMoveCommand(subsystems, armType.grabber, 0, 1.0),
                     new ArmPivotCommand(subsystems, armType.grabber, 125, 1.0),
                     new GrabberIntakeCommand(subsystems, 0.4).alongWith(
                         new ArmPivotHoldCommand(subsystems, armType.grabber)).raceWith(
@@ -48,6 +51,7 @@ public class AlgaeIntakeCommand extends SequentialCommandGroup {
 
             case "floor":
                 addCommands(
+                    new ArmMoveCommand(subsystems, armType.grabber, 0, 1.0),
                     new ArmPivotCommand(subsystems, armType.grabber, 55, 1.0),
                     new GrabberIntakeCommand(subsystems, 0.4).alongWith(
                         new ArmPivotHoldCommand(subsystems, armType.grabber)).raceWith(

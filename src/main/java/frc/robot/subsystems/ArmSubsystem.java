@@ -45,6 +45,8 @@ public class ArmSubsystem extends SubsystemBase {
         claw, grabber;
     }
 
+    private double stopIncrement = 0;
+
     /** 
      * Set the motors and PIDs for the arm.
      * 
@@ -210,9 +212,10 @@ public class ArmSubsystem extends SubsystemBase {
 
         if (!pivotActive) return;
 
-        if (GetCurrentAngle() <= minAngle || GetCurrentAngle() >= maxAngle) {
-            PivotStop();
-            return;
+        if (GetCurrentAngle() <= minAngle) {
+            pivotMotor.Spin(-0.05*pivotDirection);
+        }else if (GetCurrentAngle() >= maxAngle) {
+            pivotMotor.Spin(0.05*pivotDirection);
         }
 
         double pidVal = pivotPID.calculate(GetCurrentAngle()*radianConversion, desiredAngle*radianConversion);
@@ -240,6 +243,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void PivotStop() {
 
+        stopIncrement++;
         pivotActive = false;
         pivotPID.reset();
         pivotMotor.Spin(0);
@@ -265,13 +269,15 @@ public class ArmSubsystem extends SubsystemBase {
             extensionMotor.Spin(Math.abs(speed)); 
         } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 1.5) {
             extensionMotor.Spin(-Math.abs(speed));
-        } else if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.25) {
-            extensionMotor.Spin(Math.abs(speed/2)); 
-        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.25) {
-            extensionMotor.Spin(-Math.abs(speed/2));
         } else {
             ExtensionStop();
         }
+
+        // else if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.25) {
+        //     extensionMotor.Spin(Math.abs(speed/2)); 
+        // } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.25) {
+        //     extensionMotor.Spin(-Math.abs(speed/2));
+        // }
 
     }
 
@@ -296,6 +302,7 @@ public class ArmSubsystem extends SubsystemBase {
         tab.addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
         tab.addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 3);
         tab.addBoolean("reached angle", () -> GetIsReady());
+        tab.addDouble("stop increment", () -> stopIncrement);
 
     }
 
