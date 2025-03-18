@@ -1,6 +1,5 @@
 package frc.robot.commands.ButtonCommands.Grabber;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.utils.SubsystemList;
@@ -70,11 +69,6 @@ public class AlgaeIntakeCommand extends SequentialCommandGroup {
 
         }
 
-    }
-
-    private Command ServoUnlockCommand(SubsystemList subsystems) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'ServoUnlockCommand'");
     }
 
 }
