@@ -12,7 +12,7 @@ public class LeaveAutoRoutine extends SequentialCommandGroup {
         setName("Leave Auto");
 
         addCommands(
-            new AutoMoveCommand(subsystems, 5, 270, .5, 0, 0)
+            new AutoMoveCommand(subsystems, 0.2, 90, .25, 0, 0)
         );
     }
 

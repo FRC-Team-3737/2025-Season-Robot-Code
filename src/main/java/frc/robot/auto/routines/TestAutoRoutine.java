@@ -10,10 +10,12 @@ public class TestAutoRoutine extends SequentialCommandGroup {
 
     public TestAutoRoutine(SubsystemList subsystems) {
 
+        setName("Test Auto");
+
         addCommands(
             
-            new AutoMoveCommand(subsystems, 5, 270, .5, 0, 0),
-            new CoralLevelAutoCommand(subsystems, 3),
+            new AutoMoveCommand(subsystems, 0.475, 90, .25, 0, 0).alongWith(
+                new CoralLevelAutoCommand(subsystems, 3)),
             new ClawOpenAutoCommand(subsystems)
 
         );
