@@ -45,7 +45,7 @@ public class ArmPivotHoldCommand extends Command {
     @Override
     public boolean isFinished() {
 
-        return true;
+        return Math.abs(arm.GetCurrentExtension() - arm.GetDesiredExtension()) < 0.5 && arm.GetIsReady();
 
     }
 

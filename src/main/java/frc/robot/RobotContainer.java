@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+
 // Informational Imports
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
@@ -58,7 +59,7 @@ public class RobotContainer {
 
     /*  Subsystem and SubsystemList Declarations  */
 
-    LEDSubsystem led = new LEDSubsystem(32);
+    LEDSubsystem led = new LEDSubsystem(62);
     DriveSubsystem drive = new DriveSubsystem();
     GrabberSubsystem grabber = new GrabberSubsystem();
     ClawArmSubsystem clawArm = new ClawArmSubsystem();
