@@ -49,6 +49,7 @@ import frc.robot.subsystems.ClimbSubsystem;
 
 // Utility Imports
 import frc.robot.utils.AutoPicker;
+import frc.robot.utils.LEDTriggerManager;
 import frc.robot.utils.SubsystemList;
 
 // Dashboard Imports
@@ -134,6 +135,8 @@ public class RobotContainer {
         lowerButtonBoard.button(10).onTrue(new CancelCommand(subsystemList));
      
         displayDashboard();
+
+        new LEDTriggerManager(subsystemList);
 
     }
 

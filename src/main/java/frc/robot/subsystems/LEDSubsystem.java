@@ -98,7 +98,7 @@ public class LEDSubsystem extends SubsystemBase {
      * @return The LED Pattern to use
      * @see <a href="https://docs.wpilib.org/en/stable/docs/software/hardware-apis/misc/addressable-leds.html">LED Patterns</a>
      */
-    public LEDPattern SetPattern(Color[] colors, patternType pattern) {
+    public LEDPattern SetPattern(patternType pattern, Color... colors) {
 
         LEDPattern selectedPattern;
 
