@@ -5,13 +5,12 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.motor.Motors;
 import frc.robot.motor.Motor.encoderType;
-import frc.robot.utils.PID;
 
 public class ClawSubsystem extends SubsystemBase {
 
@@ -23,6 +22,7 @@ public class ClawSubsystem extends SubsystemBase {
     private double tolerance;
     private double desiredAngle;
     private boolean rotationActive;
+    private boolean isCoralIn;
     private double minSpeedClamp = 0.03;
     private double maxSpeedClamp = 0.30;
     
@@ -36,6 +36,8 @@ public class ClawSubsystem extends SubsystemBase {
         wristFeedforward = new ArmFeedforward(0, -0.01, 1);
 
         microswitch = new DigitalInput(Constants.BucketSwitch);
+
+        new Trigger(() -> !microswitch.get()).onTrue(new InstantCommand(() -> SetCoralState(true)));
 
     }
 
@@ -51,6 +53,12 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
+    public void SetCoralState(boolean isIn) {
+
+        isCoralIn = isIn;
+
+    }
+
     public void SetTolerance(double m_tolerance) {
 
         tolerance = m_tolerance;
@@ -63,15 +71,9 @@ public class ClawSubsystem extends SubsystemBase {
 
     }
 
-    public Boolean GetCoralIn() {
+    public Boolean GetCoralState() {
 
-        return !microswitch.get();
-
-    }
-
-    public Boolean GetCoralOut() {
-
-        return microswitch.get();
+        return isCoralIn;
 
     }
 

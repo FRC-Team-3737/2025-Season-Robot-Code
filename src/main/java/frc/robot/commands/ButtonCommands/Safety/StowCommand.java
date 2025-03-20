@@ -29,8 +29,8 @@ public class StowCommand extends SequentialCommandGroup {
                     new ArmMoveCommand(subsystems, type, 0, 1.00).alongWith(
                         new GrabberStopCommand(subsystems)),
                     new ArmPivotCommand(subsystems, type, 55, 1.0),
-                    new ArmPivotHoldCommand(subsystems, type).unless(() -> grabber.GetAlgeaOut()),
-                    new ArmFullStopCommand(subsystems, type).unless(() -> grabber.GetAlgeaIn())
+                    new ArmPivotHoldCommand(subsystems, type).unless(() -> grabber.GetAlgaeState() == false),
+                    new ArmFullStopCommand(subsystems, type).unless(() -> grabber.GetAlgaeState() == true)
                 );
 
             case claw:
