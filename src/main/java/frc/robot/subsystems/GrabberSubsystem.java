@@ -1,7 +1,8 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.motor.Motors;
@@ -14,6 +15,7 @@ public class GrabberSubsystem extends SubsystemBase {
     private final Motors motor;
     private final DigitalInput microswitch;
     private final Servo servo;
+    private boolean isAlgaeIn;
 
     public GrabberSubsystem() {
 
@@ -25,17 +27,19 @@ public class GrabberSubsystem extends SubsystemBase {
 
         servo = new Servo(Constants.GrabberServo);
 
-    }
-
-    public Boolean GetAlgeaIn() {
-
-        return !microswitch.get();
+        new Trigger(() -> !microswitch.get()).onTrue(new InstantCommand(() -> SetAlgaeState(true)));
 
     }
 
-    public Boolean GetAlgeaOut() {
+    public void SetAlgaeState(boolean isIn) {
 
-        return microswitch.get();
+        isAlgaeIn = isIn;
+
+    }
+
+    public Boolean GetAlgaeState() {
+
+        return isAlgaeIn;
 
     }
     
@@ -67,7 +71,7 @@ public class GrabberSubsystem extends SubsystemBase {
     
     public void DisplayDebuggingInfo() {
 
-        Shuffleboard.getTab(getName()).addBoolean("algae in", () -> GetAlgeaIn());
+        Shuffleboard.getTab(getName()).addBoolean("algae in", () -> GetAlgaeState());
         Shuffleboard.getTab(getName()).addNumber("temp", () -> motor.GetTemperature());
 
     }

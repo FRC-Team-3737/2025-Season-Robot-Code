@@ -67,8 +67,6 @@ public class LEDSubsystem extends SubsystemBase {
         ledBuffer = new AddressableLEDBuffer(leds);
         led.setLength(ledBuffer.getLength());
 
-        LEDPattern.solid(new Color("#00FF00")).applyTo(ledBuffer);
-
         led.setData(ledBuffer);
         led.start();
 
@@ -99,7 +97,7 @@ public class LEDSubsystem extends SubsystemBase {
      * @return The LED Pattern to use
      * @see <a href="https://docs.wpilib.org/en/stable/docs/software/hardware-apis/misc/addressable-leds.html">LED Patterns</a>
      */
-    public LEDPattern SetPattern(patternType pattern, Color... colors) {
+    public LEDPattern SetPattern(Color[] colors, patternType pattern) {
 
         LEDPattern selectedPattern;
 
@@ -171,5 +169,11 @@ public class LEDSubsystem extends SubsystemBase {
         return new InstantCommand(() -> pattern.applyTo(ledBuffer));
 
     }
-    
+
+    public void Default() {
+
+        LEDPattern.solid(new Color("#00FF00")).applyTo(ledBuffer);
+
+    }
+
 }
