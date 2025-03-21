@@ -8,6 +8,7 @@ import frc.robot.commands.ArmCommands.ArmFullStopCommand;
 import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
 import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
+import frc.robot.commands.ClawCommands.CoralGrabbed;
 import frc.robot.commands.ClawCommands.WristPivotCommand;
 
 import frc.robot.subsystems.ArmSubsystem.armType;
@@ -20,8 +21,9 @@ public class CoralFeederIntakeCommand extends SequentialCommandGroup {
             new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
             new ArmPivotCommand(subsystems, armType.claw, 49, 1).alongWith(
                 new WristPivotCommand(subsystems, 105, 0.5)),
-            new ArmMoveCommand(subsystems, armType.claw, 17, 0.5).raceWith(
-                new ArmPivotHoldCommand(subsystems, armType.claw)),
+            new ArmMoveCommand(subsystems, armType.claw, 17, 0.5).alongWith(
+                new ArmPivotHoldCommand(subsystems, armType.claw),
+                new CoralGrabbed(subsystems)),
             new ArmMoveCommand(subsystems, armType.claw, 0, 0.5),
             new ArmFullStopCommand(subsystems, armType.claw)
         );

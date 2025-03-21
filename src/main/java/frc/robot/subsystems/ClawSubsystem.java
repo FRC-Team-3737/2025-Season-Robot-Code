@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -21,6 +22,7 @@ public class ClawSubsystem extends SubsystemBase {
     private final DigitalInput microswitch;
     private double tolerance;
     private double desiredAngle;
+    private boolean coralInClaw;
     private boolean rotationActive;
     private boolean isCoralIn;
     private double minSpeedClamp = 0.03;
@@ -37,7 +39,9 @@ public class ClawSubsystem extends SubsystemBase {
 
         microswitch = new DigitalInput(Constants.BucketSwitch);
 
-        new Trigger(() -> !microswitch.get()).onTrue(new InstantCommand(() -> SetCoralState(true)));
+        new Trigger(() -> !microswitch.get()).onTrue(new InstantCommand(() -> isCoralIn = true)).debounce(5, DebounceType.kRising).onTrue(new InstantCommand(() -> isCoralIn = false));
+        new Trigger(() -> coralInClaw).onTrue(new InstantCommand(() -> isCoralIn = true)).onFalse(new InstantCommand(() -> isCoralIn = false));
+        new Trigger(() -> isCoralIn).onTrue(new InstantCommand(() -> SetCoralState(true))).onFalse(new InstantCommand(() -> SetCoralState(false)));
 
     }
 
@@ -50,6 +54,12 @@ public class ClawSubsystem extends SubsystemBase {
     private double GetCurrentPosition() {
         
         return clawMotor.motor.getPosition(false);
+
+    }
+
+    public void CoralGrabbed() {
+
+        coralInClaw = true;
 
     }
 
@@ -144,6 +154,7 @@ public class ClawSubsystem extends SubsystemBase {
     public void Open(double speed) {
 
         double maxPull = 4.5;
+        coralInClaw = false;
 
         if (GetCurrentPosition() >= maxPull) {
             clawMotor.Spin(0);
