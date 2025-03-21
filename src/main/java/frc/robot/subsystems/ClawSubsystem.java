@@ -121,6 +121,11 @@ public class ClawSubsystem extends SubsystemBase {
 
         if (!rotationActive) return;
 
+        if (Math.abs(desiredAngle-GetCurrentAngle()) >= 0.5) {
+            wristMotor.Spin(0.02*(desiredAngle-GetCurrentAngle()));
+            return;
+        }
+
         double feedforward = wristFeedforward.calculate((desiredAngle-90)*radianConversion, 0.3*((desiredAngle-GetCurrentAngle())*radianConversion));
 
         wristMotor.Spin(feedforward);

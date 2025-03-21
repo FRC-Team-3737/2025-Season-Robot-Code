@@ -226,7 +226,7 @@ public class ArmSubsystem extends SubsystemBase {
         
     }
 
-    public void Hold() {
+    public void PivotHold() {
 
         double radianConversion = 3.14159/180;
 
@@ -269,14 +269,26 @@ public class ArmSubsystem extends SubsystemBase {
         //     return;
         // }
 
-        if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.5) {
+        if (extensionMotor.motor.getPosition(false) < desiredExtension - 1.5) {
             extensionMotor.Spin(Math.abs(speed)); 
-        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.5) {
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 1.5) {
             extensionMotor.Spin(-Math.abs(speed));
-        } else if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.1) {
+        } else if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.5) {
             extensionMotor.Spin(Math.abs(speed/8)); 
-        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.1) {
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.5) {
             extensionMotor.Spin(-Math.abs(speed/8));
+        } else {
+            ExtensionStop();
+        }
+
+    }
+
+    public void ExtensionHold() {
+
+        if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.25) {
+            extensionMotor.Spin(Math.abs(0.03)); 
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.25) {
+            extensionMotor.Spin(-Math.abs(0.03));
         } else {
             ExtensionStop();
         }

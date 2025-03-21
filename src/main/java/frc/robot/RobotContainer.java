@@ -36,7 +36,7 @@ import frc.robot.commands.ButtonCommands.Grabber.AlgaeProcessorCommand;
 import frc.robot.commands.ButtonCommands.Grabber.AlgaeShootCommand;
 import frc.robot.commands.ButtonCommands.Safety.CancelCommand;
 import frc.robot.commands.ButtonCommands.Safety.StowCommand;
-
+import frc.robot.commands.ClawCommands.WristIdleCommand;
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -87,6 +87,7 @@ public class RobotContainer {
         drive.setDefaultCommand(new DriveStopCommand(subsystemList));
         clawArm.setDefaultCommand(new ArmIdleCommand(subsystemList, armType.claw));
         grabberArm.setDefaultCommand(new ArmIdleCommand(subsystemList, armType.grabber));
+        claw.setDefaultCommand(new WristIdleCommand(subsystemList));
 
         configureBindings();
 

@@ -33,7 +33,8 @@ public class ArmIdleCommand extends Command {
     @Override
     public void execute() {
 
-        arm.Hold();
+        arm.PivotHold();
+        arm.ExtensionHold();
 
     }
 

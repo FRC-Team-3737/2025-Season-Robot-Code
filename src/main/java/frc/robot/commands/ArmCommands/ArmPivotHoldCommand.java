@@ -38,7 +38,7 @@ public class ArmPivotHoldCommand extends Command {
     @Override
     public void execute() {
 
-        arm.Hold();
+        arm.PivotHold();
 
     }
 
