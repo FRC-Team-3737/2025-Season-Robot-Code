@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.PWM;
@@ -66,6 +67,8 @@ public class LEDSubsystem extends SubsystemBase {
 
         ledBuffer = new AddressableLEDBuffer(leds);
         led.setLength(ledBuffer.getLength());
+
+        LEDPattern.solid(new Color("#00ff00")).applyTo(ledBuffer);
 
         led.setData(ledBuffer);
         led.start();
@@ -172,7 +175,7 @@ public class LEDSubsystem extends SubsystemBase {
 
     public void Default() {
 
-        LEDPattern.solid(new Color("#00FF00")).applyTo(ledBuffer);
+        LEDPattern.solid(new Color("#00FF00"));
 
     }
 

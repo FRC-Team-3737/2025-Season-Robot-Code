@@ -27,7 +27,7 @@ public class GrabberSubsystem extends SubsystemBase {
 
         servo = new Servo(Constants.GrabberServo);
 
-        new Trigger(() -> !microswitch.get()).onTrue(new InstantCommand(() -> SetAlgaeState(true)));
+        new Trigger(() -> !microswitch.get()).onTrue(new InstantCommand(() -> SetAlgaeState(true))).onFalse(new InstantCommand(() -> SetAlgaeState(false)));
 
     }
 

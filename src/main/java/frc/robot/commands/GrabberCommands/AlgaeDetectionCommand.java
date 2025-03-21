@@ -16,7 +16,9 @@ public class AlgaeDetectionCommand extends Command {
 
     @Override
     public boolean isFinished() {
+
         return grabber.GetAlgaeState();
+        
     }
 
 }
