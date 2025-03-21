@@ -2,9 +2,11 @@ package frc.robot.utils;
 
 import java.util.function.BooleanSupplier;
 
+import edu.wpi.first.units.measure.Dimensionless;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -31,6 +33,8 @@ public class LEDTriggerManager {
     
     public void setupLEDTriggers() {
 
+        defaultTrigger();
+
         // Match State
         autoStartTrigger();
 
@@ -42,6 +46,30 @@ public class LEDTriggerManager {
         // Battery
 
         // Errors
+
+    }
+
+    private void defaultTrigger() {
+
+        new Trigger(defaultSupplier()).onFalse(defaultCommand());
+
+    }
+
+    private BooleanSupplier defaultSupplier() {
+
+        return () -> (grabber.GetAlgaeState() || claw.GetCoralState());
+
+    }
+
+    private Command defaultCommand() {
+
+        return led.RunPattern(defaultPattern());
+
+    }
+
+    private LEDPattern defaultPattern() {
+
+        return led.SetPattern(led.SetColors("#00FF00"), patternType.solid);
 
     }
 
@@ -79,7 +107,7 @@ public class LEDTriggerManager {
 
     private BooleanSupplier bothAcquiredSupplier() {
 
-        return () -> grabber.GetAlgaeState() && claw.GetCoralState();
+        return () -> (grabber.GetAlgaeState() && claw.GetCoralState());
 
     }
 
@@ -109,13 +137,13 @@ public class LEDTriggerManager {
 
     private LEDPattern algaeAcquiredPattern() {
 
-        return led.SetPattern(led.SetColors("#00E073"), patternType.solid);
+        return led.SetPattern(led.SetColors("#00E053"), patternType.solid);
 
     }
 
     private LEDPattern bothAcquiredPattern() {
 
-        return led.SetPattern(led.SetColors("#00E073", "#FFFFFF"), patternType.steps);
+        return led.SetPattern(led.SetColors("#00E053", "#FFFFFF"), patternType.steps);
 
     }
 
