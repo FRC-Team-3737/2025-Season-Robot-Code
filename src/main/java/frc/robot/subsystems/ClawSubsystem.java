@@ -39,7 +39,7 @@ public class ClawSubsystem extends SubsystemBase {
 
         microswitch = new DigitalInput(Constants.BucketSwitch);
 
-        new Trigger(() -> !microswitch.get()).onTrue(new InstantCommand(() -> isCoralIn = true)).debounce(5, DebounceType.kRising).onTrue(new InstantCommand(() -> isCoralIn = false));
+        new Trigger(() -> !microswitch.get()).onTrue(new InstantCommand(() -> isCoralIn = true)).debounce(3, DebounceType.kRising).onTrue(new InstantCommand(() -> isCoralIn = false).unless(() -> coralInClaw));
         new Trigger(() -> coralInClaw).onTrue(new InstantCommand(() -> isCoralIn = true)).onFalse(new InstantCommand(() -> isCoralIn = false));
         new Trigger(() -> isCoralIn).onTrue(new InstantCommand(() -> SetCoralState(true))).onFalse(new InstantCommand(() -> SetCoralState(false)));
 
