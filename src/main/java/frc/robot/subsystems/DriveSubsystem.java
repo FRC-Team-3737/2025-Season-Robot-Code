@@ -141,6 +141,18 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
 
+    public VectorR getLeftStrafe(double magnitude) {
+
+        return VectorR.fromPolar(magnitude, getYawDegrees() + 90);
+
+    }
+
+    public VectorR getRightStrafe(double magnitude) {
+
+        return VectorR.fromPolar(magnitude, getYawDegrees() - 90);
+
+    }
+
     public void DisplayDebuggingInfo() {
 
         SmartDashboard.putNumber("gyro", gyro.getYaw());
