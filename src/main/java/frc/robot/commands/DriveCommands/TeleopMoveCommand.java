@@ -26,18 +26,24 @@ public class TeleopMoveCommand extends Command {
     public void execute() {
 
         VectorR leftJoystick = VectorR.fromCartesian(controller.getLeftX()*0.5, controller.getLeftY()*0.5);
-        double turnSpeed;
+        double turnSpeed = 0;
 
         if (controller.getRightTriggerAxis() > 0.1) {
-            turnSpeed = 0.25;
-        } else if (controller.getLeftTriggerAxis() > 0.1) {
-            turnSpeed = -0.25;
-        } else if (controller.getRightBumper()) {
-            turnSpeed = 0.125;
-        } else if (controller.getLeftBumper()) {
-            turnSpeed = -0.125;
-        } else {
-            turnSpeed = 0;
+            turnSpeed += controller.getRightTriggerAxis() / 2;
+        }
+
+        if (controller.getLeftTriggerAxis() > 0.1) {
+            turnSpeed -= controller.getLeftTriggerAxis() / 2;
+        }
+
+        if (controller.getRightBumperButton()) {
+            // turnSpeed += 0.125;
+            leftJoystick.add(drive.getRightStrafe(0.2));
+        }
+
+        if (controller.getLeftBumperButton()) {
+            // turnSpeed += -0.125;
+            leftJoystick.add(drive.getLeftStrafe(0.2));
         }
 
         drive.move(leftJoystick, turnSpeed, controller.getAButton(), controller.getStartButton());
