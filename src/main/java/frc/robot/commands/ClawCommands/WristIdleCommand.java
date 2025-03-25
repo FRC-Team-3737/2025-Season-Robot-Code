@@ -10,7 +10,7 @@ public class WristIdleCommand extends Command {
 
     public WristIdleCommand(SubsystemList subsystems) {
 
-        claw = (ClawSubsystem) subsystems.getSubsystem("clawArm");
+        claw = (ClawSubsystem) subsystems.getSubsystem("claw");
 
         addRequirements(claw);
 

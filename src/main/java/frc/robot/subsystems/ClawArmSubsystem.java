@@ -21,7 +21,7 @@ public class ClawArmSubsystem extends ArmSubsystem {
         /*  Following values in degrees and inches  */
 
         minAngle = 44; // Resting position
-        maxAngle = 180; // Max rotation needed
+        maxAngle = 210; // Max rotation needed
         pivotDirection = 1; // Which direction the arm moves
         maxSpeedClamp = 0.35; // Max speed of pivot
         minSpeedClamp = 0.05; // Min speed of pivot

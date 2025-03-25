@@ -210,13 +210,13 @@ public class ArmSubsystem extends SubsystemBase {
 
         if (!pivotActive) return;
 
-        if (GetCurrentAngle() <= minAngle) {
-            pivotMotor.Spin(-0.05*pivotDirection);
-            return;
-        } else if (GetCurrentAngle() >= maxAngle) {
-            pivotMotor.Spin(0.05*pivotDirection);
-            return;
-        }
+        // if (GetCurrentAngle() <= minAngle) {
+        //     pivotMotor.Spin(-0.05*pivotDirection);
+        //     return;
+        // } else if (GetCurrentAngle() >= maxAngle) {
+        //     pivotMotor.Spin(0.05*pivotDirection);
+        //     return;
+        // }
 
         double pidVal = pivotPID.calculate(GetCurrentAngle()*radianConversion, desiredAngle*radianConversion);
         double pid = Math.signum(pidVal)*MathUtil.clamp(Math.abs(pidVal), minSpeedClamp, maxSpeedClamp);
@@ -286,9 +286,9 @@ public class ArmSubsystem extends SubsystemBase {
     public void ExtensionHold() {
 
         if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.25) {
-            extensionMotor.Spin(Math.abs(0.03)); 
+            extensionMotor.Spin(Math.abs(0.10)); 
         } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.25) {
-            extensionMotor.Spin(-Math.abs(0.03));
+            extensionMotor.Spin(-Math.abs(0.10));
         } else {
             ExtensionStop();
         }
