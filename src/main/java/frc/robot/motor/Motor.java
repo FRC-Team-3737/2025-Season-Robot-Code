@@ -106,7 +106,7 @@ public class Motor {
      */
     public double getAnalogAngle() {
         
-        return getAnalogRawAngle() + info.ReferenceAngle;
+        return (getAnalogRawAngle() + info.ReferenceAngle)%360;
 
     }
 
@@ -128,7 +128,7 @@ public class Motor {
      */
     public double getAbsoluteAngle() {
 
-        return getAbsoluteRawAngle() + info.ReferenceAngle;
+        return (getAbsoluteRawAngle() + info.ReferenceAngle)%360;
 
     }
 

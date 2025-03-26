@@ -1,5 +1,6 @@
 package frc.robot.utils;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -73,6 +74,20 @@ public class PID {
         /*  Calculates the PID value needed and then gets absoluted and given a sign based on the direction we need it to go.  */
 
         double pidValue = pid.calculate(currentPosition, desiredPosition);
+
+        if (desiredPosition >= currentPosition) {
+            return Math.abs(pidValue);
+        } else {
+            return -Math.abs(pidValue);
+        }
+
+    }
+
+    public double GetPIDValue(double currentPosition, double desiredPosition, double limit) {
+
+        /*  Calculates the PID value needed and then gets absoluted and given a sign based on the direction we need it to go.  */
+
+        double pidValue = MathUtil.clamp(pid.calculate(currentPosition, desiredPosition), -Math.abs(limit), Math.abs(limit));
 
         if (desiredPosition >= currentPosition) {
             return Math.abs(pidValue);

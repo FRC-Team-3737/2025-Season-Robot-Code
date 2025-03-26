@@ -8,25 +8,21 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.utils.SubsystemList;
 
-public class ArmPivotMoveCommand extends Command {
+public class ArmTuningPivot extends Command {
 
     final ArmSubsystem arm;
     double desiredAngle;
-    double desiredExtension;
-    double extensionSpeed;
     double deadzone;
 
     /**
-     * Roatates and extends/retracts the arm based on all inputted variables.
+     * Makes the arm pivot through a PID.
      * 
      * @param subsystems The SubsystemList
      * @param type The armType
-     * @param angle The angle setpoint of the arm
-     * @param tolerance The angle tolerance of the arm
-     * @param extension The extension setpoint of the arm
-     * @param speed The extension speed of the arm
+     * @param angle The angle setpoint
+     * @param tolerance The tolerance the pivot
      */
-    public ArmPivotMoveCommand(SubsystemList subsystems, armType type, double angle, double tolerance, double extension, double speed) {
+    public ArmTuningPivot(SubsystemList subsystems, armType type, double angle, double tolerance) {
 
         if (type == armType.claw) {
             arm = (ClawArmSubsystem) subsystems.getSubsystem("clawArm");
@@ -35,8 +31,6 @@ public class ArmPivotMoveCommand extends Command {
         }
 
         desiredAngle = angle;
-        desiredExtension = extension;
-        extensionSpeed = speed;
         deadzone = tolerance;
 
         addRequirements(arm);
@@ -49,7 +43,6 @@ public class ArmPivotMoveCommand extends Command {
         arm.ActivatePivot();
         arm.SetTolerance(deadzone);
         arm.SetDesiredAngle(desiredAngle);
-        arm.SetDesiredExtension(desiredExtension);
 
     }
 
@@ -57,23 +50,6 @@ public class ArmPivotMoveCommand extends Command {
     public void execute() {
 
         arm.Pivot();
-        arm.Move(extensionSpeed);
 
     }
-
-    @Override
-    public boolean isFinished() {
-
-        return Math.abs(arm.GetCurrentExtension() - arm.GetDesiredExtension()) < 0.5 && arm.GetIsReady();
-
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-
-        arm.PivotStop();
-        arm.ExtensionStop();
-
-    }
-    
 }

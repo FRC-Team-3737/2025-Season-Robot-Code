@@ -82,9 +82,9 @@ public class ClimbSubsystem extends SubsystemBase {
         // Holds a steady velocity so that the motor doesn't become jerky
         // if (Math.abs(motor.GetVelocity()) < 100) {
         //     if (motorSpeed > 0) {
-        //         ++motorSpeed;
+        //         motorSpeed = motorSpeed + 0.01;
         //     } else if (motorSpeed < 0) {
-        //         --motorSpeed;
+        //         motorSpeed = motorSpeed - 0.01;
         //     }
         // }
 

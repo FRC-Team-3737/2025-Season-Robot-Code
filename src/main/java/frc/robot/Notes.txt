@@ -1,23 +1,25 @@
 Driver Controller
-    Start | Double Speed
+    Port: 1
+    Start: Double Speed
     Back 
-    A | Half Speed
+    A: Half Speed
     B
     X
     Y
-    LB | Slow Rotate Counter-Clockwise
-    LT | Fast Rotate Counter-Clockwise
-    RB | Slow Rotate Clockwise
-    RT | Fast Rotate Clockwise
-    Left Joystick
-        Up/Down | Drive Forward/Back
-        Left/Right | Drive Left/Right
-    Right Joystick
+    LB: Slow Rotate Counter-Clockwise
+    LT: Fast Rotate Counter-Clockwise
+    RB: Slow Rotate Clockwise
+    RT: Fast Rotate Clockwise
+    Left Joystick:
+        Up/Down: Drive Forward/Back
+        Left/Right: Drive Left/Right
+    Right Joystick:
         Up/Down 
         Left/Right 
 
 
 Operator Controller 
+    Port: 2
     Start
     Back
     A
@@ -28,45 +30,55 @@ Operator Controller
     LT 
     RB
     RT 
-    Left Joystick
+    Left Joystick:
         Up/Down
         Left/Right
-    Right Joystick
+    Right Joystick:
         Up/Down 
         Left/Right 
 
 
 Button Board (top down)
-    1  2  3  4  5 
-    6  7  8  9  10
-    11 12 13 14 15
-    16 17 18 19 20
+    Upper:
+        Port: 3
+        1  2  3  4  5 
+        6  7  8  9  10
+    Lower:
+        Port: 4
+        1  2  3  4  5 
+        6  7  8  9  10
 
-    1
-    2
-    3
-    4
-    5
-    6
-    7
-    8
-    9
-    10
-    11
-    12
-    13
-    14
-    15
-    16
-    17
-    18
-    19
-    20
+    Mappings:
+        Upper:
+            1: Coral Feeder Prep
+            2: Reef Level 1
+            3: Reef Level 2
+            4: Reef Level 3
+            5: Reef Level 4
+            6: Coral Feeder Grab
+            7: Coral Floor Prep
+            8: Coral Floor Grab
+            9: Coral Stow
+            10: Claw Open
+        Lower:
+            1: Algae Floor Intake
+            2: Algae Lower Intake
+            3: Algae Upper Intake
+            4: Processor
+            5: Net
+            6: Shoot
+            7: Climb Prep
+            8: Climb Execute
+            9: Algae Stow
+            10: Cancel  
+
+
+EVERYTHING BELOW NEEDS TO BE UPDATED
 
 
 Conversion Factors
-    (Both) Arm extension to inches = 6.6496 rotations per inch
-    Climb rotation to degrees = .2778 rotations per degree
+    {Both} Arm extension to inches = 6.8441 rotations per inch (0.1461 inches per rotation)
+    Climb rotation to degrees = .3472 rotations per degree (2.88 degrees per rotation)
 
 
 Grabber

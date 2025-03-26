@@ -8,7 +8,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
+
 // Informational Imports
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
@@ -22,26 +23,20 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 // Command Imports
 import frc.robot.commands.DriveCommands.DriveStopCommand;
 import frc.robot.commands.DriveCommands.TeleopMoveCommand;
-import frc.robot.commands.GrabberCommands.ServoLockCommand;
-import frc.robot.commands.GrabberCommands.ServoUnlockCommand;
-import frc.robot.commands.GrabberCommands.AlgaeDetectionCommand;
-import frc.robot.commands.GrabberCommands.GrabberIntakeCommand;
-import frc.robot.commands.GrabberCommands.GrabberShootCommand;
-import frc.robot.commands.GrabberCommands.GrabberStopCommand;
-import frc.robot.commands.ClimbCommands.ClimbRotateCommand;
-import frc.robot.commands.ClimbCommands.ClimbStopCommand;
-import frc.robot.commands.ClawCommands.ClawStopCommand;
-import frc.robot.commands.ClawCommands.ClawOpenCommand;
-import frc.robot.commands.ClawCommands.ClawCloseCommand;
-import frc.robot.commands.ClawCommands.WristPivotCommand;
-import frc.robot.commands.ClawCommands.WristStopCommand;
-import frc.robot.commands.ArmCommands.ArmExtensionStopCommand;
-import frc.robot.commands.ArmCommands.ArmFullStopCommand;
-import frc.robot.commands.ArmCommands.ArmMoveCommand;
-import frc.robot.commands.ArmCommands.ArmPivotCommand;
-import frc.robot.commands.ArmCommands.ArmPivotHoldCommand;
-import frc.robot.commands.ArmCommands.ArmPivotStopCommand;
-
+import frc.robot.commands.ArmCommands.ArmIdleCommand;
+import frc.robot.commands.ButtonCommands.Claw.CoralFeederIntakeCommand;
+import frc.robot.commands.ButtonCommands.Claw.CoralFeederPrepCommand;
+import frc.robot.commands.ButtonCommands.Claw.CoralLevelCommand;
+import frc.robot.commands.ButtonCommands.Claw.OpenClawCommand;
+import frc.robot.commands.ButtonCommands.Climb.ClimbGrabCommand;
+import frc.robot.commands.ButtonCommands.Climb.ClimbRaiseCommand;
+import frc.robot.commands.ButtonCommands.Grabber.AlgaeIntakeCommand;
+import frc.robot.commands.ButtonCommands.Grabber.AlgaeNetCommand;
+import frc.robot.commands.ButtonCommands.Grabber.AlgaeProcessorCommand;
+import frc.robot.commands.ButtonCommands.Grabber.AlgaeShootCommand;
+import frc.robot.commands.ButtonCommands.Safety.CancelCommand;
+import frc.robot.commands.ButtonCommands.Safety.StowCommand;
+import frc.robot.commands.ClawCommands.WristIdleCommand;
 // Subsystem Imports
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -64,14 +59,14 @@ public class RobotContainer {
 
     /*  Subsystem and SubsystemList Declarations  */
 
-    LEDSubsystem led = new LEDSubsystem(32, 19); // 60 and 10 are placeholders
+    LEDSubsystem led = new LEDSubsystem(62);
     DriveSubsystem drive = new DriveSubsystem();
     GrabberSubsystem grabber = new GrabberSubsystem();
     ClawArmSubsystem clawArm = new ClawArmSubsystem();
     ClimbSubsystem climb = new ClimbSubsystem();
     ClawSubsystem claw = new ClawSubsystem();
     GrabberArmSubsystem grabberArm = new GrabberArmSubsystem();
-    SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber, claw, climb };
+    SubsystemBase[] subsystems = { drive, clawArm, grabberArm, grabber, claw, climb, led };
     SubsystemList subsystemList = new SubsystemList(subsystems);
   
     /*  Controller Declarations  */
@@ -82,13 +77,17 @@ public class RobotContainer {
     CommandXboxController commandOperatorController = new CommandXboxController(Constants.OperatorControllerPort);
     XboxController operatorController = new XboxController(Constants.OperatorControllerPort);
 
-    CommandGenericHID buttonBoard = new CommandGenericHID(Constants.ButtonBoardPort);
+    CommandGenericHID upperButtonBoard = new CommandGenericHID(Constants.UpperButtonBoardPort);
+    CommandGenericHID lowerButtonBoard = new CommandGenericHID(Constants.LowerButtonBoardPort);
 
     AutoPicker autoPicker = new AutoPicker(subsystemList);
 
     public RobotContainer() {
 
         drive.setDefaultCommand(new DriveStopCommand(subsystemList));
+        clawArm.setDefaultCommand(new ArmIdleCommand(subsystemList, armType.claw));
+        grabberArm.setDefaultCommand(new ArmIdleCommand(subsystemList, armType.grabber));
+        claw.setDefaultCommand(new WristIdleCommand(subsystemList));
 
         configureBindings();
 
@@ -99,8 +98,7 @@ public class RobotContainer {
         SmartDashboard.putData("Reset Gyro", new InstantCommand(()->{DriveSubsystem.resetGyro(0);}));
 
         // Driver Triggers
-    // LED Triggers
-
+    
         commandDriverController.axisGreaterThan(0, 0.1)
             .or(commandDriverController.axisLessThan(0, -0.1))
             .or(commandDriverController.axisGreaterThan(1, 0.1))
@@ -113,52 +111,28 @@ public class RobotContainer {
 
         // Operator Triggers
 
+        upperButtonBoard.button(1).onTrue(new CoralFeederPrepCommand(subsystemList));
+        upperButtonBoard.button(2).onTrue(new CoralLevelCommand(subsystemList, 1));
+        upperButtonBoard.button(3).onTrue(new CoralLevelCommand(subsystemList, 2));
+        upperButtonBoard.button(4).onTrue(new CoralLevelCommand(subsystemList, 3));
+        upperButtonBoard.button(5).onTrue(new CoralLevelCommand(subsystemList, 4));
+        upperButtonBoard.button(6).onTrue(new CoralFeederIntakeCommand(subsystemList));
+        upperButtonBoard.button(7).onTrue(new CancelCommand(subsystemList)); // Coral floor prep
+        upperButtonBoard.button(8).onTrue(new CancelCommand(subsystemList)); // Coral floor grab
+        upperButtonBoard.button(9).onTrue(new StowCommand(subsystemList, armType.claw));
+        upperButtonBoard.button(10).onTrue(new OpenClawCommand(subsystemList));
 
-        // CLAW
-
-        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 115, 1)).alongWith(new WristPivotCommand(subsystemList, 160, 0.5)).raceWith(new WaitCommand(1)).andThen(new ArmPivotHoldCommand(subsystemList, armType.claw).alongWith(new ArmMoveCommand(subsystemList, armType.claw, 150, 0.5))));
-        // buttonBoard.button(2).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 90, 1)).alongWith(new WristPivotCommand(subsystemList, 95, 0.5)));
-        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 40, 1)).alongWith(new WristPivotCommand(subsystemList, 5, 0.5)));
-        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 105, 1)).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)));
-        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
-        // buttonBoard.button(6).onTrue(new ClawOpenCommand(subsystemList, 0.30).andThen(new WaitCommand(0.25).andThen(new ClawCloseCommand(subsystemList, 0.06))));
-        // buttonBoard.button(7).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).alongWith(new WristPivotCommand(subsystemList, 90, 0.5)).andThen(new ArmPivotCommand(subsystemList, armType.claw, 5, 1).raceWith(new WaitCommand(0.5))).andThen(new ArmPivotStopCommand(subsystemList, armType.claw)));
-        // buttonBoard.button(8).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 0, 0.5).andThen(new ArmPivotCommand(subsystemList, armType.claw, 7, 1)).alongWith(new WristPivotCommand(subsystemList, 120, 0.5)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 9, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)).raceWith(new WaitCommand(0.5)).andThen(new ArmMoveCommand(subsystemList, armType.claw, 0, .5).alongWith(new ArmPivotHoldCommand(subsystemList, armType.claw)))));
-
-        // buttonBoard.button(4).onTrue(new ClawOpenCommand(subsystemList, .3));
-        // buttonBoard.button(3).onTrue(new ClawCloseCommand(subsystemList, 0.06));
-        // buttonBoard.button(2).onTrue(new ArmPivotCommand(subsystemList, armType.claw, 85, 1));
-        // buttonBoard.button(1).onTrue(new ArmMoveCommand(subsystemList, armType.claw, 10, .5));
-        // buttonBoard.button(8).onTrue(new WristPivotCommand(subsystemList, 70, 1));
-        // buttonBoard.button(7).onTrue(new WristPivotCommand(subsystemList, 0, 1));
-        // buttonBoard.button(6).onTrue(new ClawStopCommand(subsystemList));
-        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.claw));
-
-        // buttonBoard.button(4).onTrue(new ArmMoveCommand(subsystemList, armType.grabber, 30, .3));
-        // buttonBoard.button(3).onTrue(new ArmMoveCommand(subsystemList, armType.grabber, 0, .30));
-        // buttonBoard.button(8).onTrue(new ArmExtensionStopCommand(subsystemList, armType.claw));
-
-        // // buttonBoard.button(4).onTrue(new WristPivotCommand(subsystemList,120, 1));
-        // // buttonBoard.button(3).onTrue(new WristPivotCommand(subsystemList, 40, 1));
-        // // buttonBoard.button(2).onTrue(new WristStopCommand(subsystemList));
-
-        // GRABBER
-
-        // buttonBoard.button(5).onTrue(new ServoUnlockCommand(subsystemList));
-        // buttonBoard.button(4).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 85, 1));
-        // buttonBoard.button(3).onTrue(new ArmPivotCommand(subsystemList, armType.grabber, 13, 1));
-        // buttonBoard.button(2).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .05).raceWith(new WaitCommand(.5)))));
-        // buttonBoard.button(1).onTrue((new GrabberIntakeCommand(subsystemList, .40).raceWith(new AlgaeDetectionCommand(subsystemList))).andThen(new ServoLockCommand(subsystemList)).andThen(new WaitCommand(0.5)).andThen(new GrabberStopCommand(subsystemList)).andThen(new ServoUnlockCommand(subsystemList)));
-        // buttonBoard.button(5).onTrue(new ArmFullStopCommand(subsystemList, armType.grabber));
-        // buttonBoard.button(7).onTrue((new GrabberIntakeCommand(subsystemList, .25).raceWith(new WaitCommand(.1))).andThen(new GrabberStopCommand(subsystemList)).andThen((new GrabberShootCommand(subsystemList, .6).raceWith(new WaitCommand(.5)))));
-        // buttonBoard.button(6).onTrue(new GrabberStopCommand(subsystemList));
-
-        // CLIMB
-
-        // buttonBoard.button(4).onTrue(new ClimbRotateCommand(subsystemList, .30, -30, .25));
-        // buttonBoard.button(3).onTrue(new ClimbRotateCommand(subsystemList, .15, 13, .25));
-        // buttonBoard.button(2).onTrue(new ClimbRotateCommand(subsystemList, .30,13, .25));
-
+        lowerButtonBoard.button(1).onTrue(new CancelCommand(subsystemList));
+        lowerButtonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
+        lowerButtonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
+        lowerButtonBoard.button(4).onTrue(new AlgaeProcessorCommand(subsystemList));
+        lowerButtonBoard.button(5).onTrue(new AlgaeNetCommand(subsystemList));
+        lowerButtonBoard.button(6).onTrue(new AlgaeShootCommand(subsystemList));
+        lowerButtonBoard.button(7).onTrue(new ClimbGrabCommand(subsystemList));
+        lowerButtonBoard.button(8).onTrue(new ClimbRaiseCommand(subsystemList));
+        lowerButtonBoard.button(9).onTrue(new StowCommand(subsystemList, armType.grabber));
+        lowerButtonBoard.button(10).onTrue(new CancelCommand(subsystemList));
+     
         displayDashboard();
 
     }
@@ -173,7 +147,17 @@ public class RobotContainer {
 
         clawArm.DisplayDebuggingInfo();
         claw.DisplayDebuggingInfo();
+        grabberArm.DisplayDebuggingInfo();
+        grabber.DisplayDebuggingInfo();
         drive.DisplayDebuggingInfo();
+
+    }
+
+
+
+    public SubsystemList getSubsystemList() {
+
+        return subsystemList;
 
     }
 

@@ -30,7 +30,8 @@ public final class Constants {
     // Controller Port
     public static final int DriveControllerPort = 0;
     public static final int OperatorControllerPort = 1;
-    public static final int ButtonBoardPort = 2;
+    public static final int UpperButtonBoardPort = 2;
+    public static final int LowerButtonBoardPort= 3;
 
     // Motor ID
     public static final int FrontRightDriveID = 2;
@@ -52,7 +53,7 @@ public final class Constants {
     public static final int GrabberArmExtID = 18;  
 
     // DIO
-    public static final int CoralSwitch = 0;
+    public static final int BucketSwitch = 0;
     public static final int GrabberSwitch = 1;
 
     // PWM

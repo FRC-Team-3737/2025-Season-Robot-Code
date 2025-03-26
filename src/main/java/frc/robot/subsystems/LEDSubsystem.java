@@ -57,7 +57,7 @@ public class LEDSubsystem extends SubsystemBase {
      * 
      * @param leds amount of LEDs in the strip
      */
-    public LEDSubsystem(int leds, int ledDensity) {
+    public LEDSubsystem(int leds) {
 
         setName("led");
 

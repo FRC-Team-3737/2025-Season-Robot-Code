@@ -11,16 +11,12 @@ import frc.robot.utils.SubsystemList;
 public class ArmPivotHoldCommand extends Command {
 
     final ArmSubsystem arm;
-    double desiredAngle;
-    double deadzone;
 
     /**
      * Makes the arm pivot through a PID.
      * 
      * @param subsystems The SubsystemList
      * @param type The armType
-     * @param angle The angle setpoint
-     * @param tolerance The tolerance the pivot
      */
     public ArmPivotHoldCommand(SubsystemList subsystems, armType type) {
 
@@ -33,16 +29,23 @@ public class ArmPivotHoldCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
 
-        arm.Pivot();
+        arm.ActivatePivot();
 
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void execute() {
 
-        arm.PivotStop();
+        arm.PivotHold();
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return Math.abs(arm.GetCurrentExtension() - arm.GetDesiredExtension()) < 0.5 && arm.GetIsReady();
 
     }
 

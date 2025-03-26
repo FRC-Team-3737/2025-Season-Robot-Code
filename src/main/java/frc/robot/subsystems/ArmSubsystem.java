@@ -1,12 +1,15 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.LayoutType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardComponent;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.motor.MotorInfo;
@@ -17,7 +20,7 @@ import frc.robot.utils.PID;
 public class ArmSubsystem extends SubsystemBase {
 
     private final Motors pivotMotor;
-    private final PID pivotPID;
+    private final PIDController pivotPID;
     private final ArmFeedforward pivotFeedforward;
     private double desiredAngle;
     private double tolerance;
@@ -25,6 +28,8 @@ public class ArmSubsystem extends SubsystemBase {
     protected double minAngle; // Set per arm
     protected double maxAngle; // Set per arm
     protected double pivotDirection; // Set per arm
+    protected double maxSpeedClamp; // Set per arm
+    protected double minSpeedClamp; // Set per arm
 
     private final Motors extensionMotor;
     private final PID extensionPID;
@@ -48,14 +53,15 @@ public class ArmSubsystem extends SubsystemBase {
      * @param encoder The encoder type used
      * @param inverted Whether the encoder is inverted
      * @param m_pivotPID The PID values for the pivot
-     * @param m_pivotFeedforward
+     * @param m_pivotFeedforward The feedforward values for the pivot
      * @param m_extensionPID The PID values for the extension
      */
     public ArmSubsystem(MotorInfo pivotID, MotorInfo extensionID, encoderType encoder, boolean inverted, double[] m_pivotPID, double[] m_pivotFeedforward, double[] m_extensionPID) {
 
         pivotMotor = new Motors(pivotID, encoder, inverted); // Both pivot motors have a through bore encoder on it. One, both or none could be inverted.
         extensionMotor = new Motors(extensionID);
-        pivotPID = new PID(getName(), m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
+        //pivotPID = new PID(getName(), m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]); // Each arm will have seperate PID so we require it as the parameter.
+        pivotPID = new PIDController(m_pivotPID[0], m_pivotPID[1], m_pivotPID[2]);
         pivotFeedforward = new ArmFeedforward(m_pivotFeedforward[0], m_pivotFeedforward[1], m_pivotFeedforward[2]);
         extensionPID = new PID(getName() + "Extension", m_extensionPID[0], m_extensionPID[1], m_extensionPID[2]); // For part of the safety check. PID will only run on retracting the arm during rotation when above limit.
 
@@ -114,6 +120,7 @@ public class ArmSubsystem extends SubsystemBase {
     public void SetTolerance(double m_tolerance) {
 
         tolerance = m_tolerance;
+        pivotPID.setTolerance(m_tolerance);
 
     }
 
@@ -179,7 +186,7 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public boolean GetIsReady() {
 
-        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 100;
+        return (GetCurrentAngle() > desiredAngle - tolerance && GetCurrentAngle() < desiredAngle + tolerance) && pivotMotor.GetVelocity() < 1000 && pivotPID.atSetpoint();
 
     }
 
@@ -199,19 +206,41 @@ public class ArmSubsystem extends SubsystemBase {
      */
     public void Pivot() {
 
-        double radianCoversion = 3.14159/180;
-        double armOffset = 45;
+        double radianConversion = 3.14159/180;
 
         if (!pivotActive) return;
 
-        if (GetCurrentAngle() <= minAngle || GetCurrentAngle() >= maxAngle) {
-            pivotMotor.Spin(0);
+        // if (GetCurrentAngle() <= minAngle) {
+        //     pivotMotor.Spin(-0.05*pivotDirection);
+        //     return;
+        // } else if (GetCurrentAngle() >= maxAngle) {
+        //     pivotMotor.Spin(0.05*pivotDirection);
+        //     return;
+        // }
+
+        double pidVal = pivotPID.calculate(GetCurrentAngle()*radianConversion, desiredAngle*radianConversion);
+        double pid = Math.signum(pidVal)*MathUtil.clamp(Math.abs(pidVal), minSpeedClamp, maxSpeedClamp);
+        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianConversion, 0.1*((desiredAngle-GetCurrentAngle())*radianConversion));
+
+        pivotMotor.Spin(pid*pivotDirection + feedforward);
+        
+    }
+
+    public void PivotHold() {
+
+        double radianConversion = 3.14159/180;
+
+        if (!pivotActive) return;
+
+        if (Math.abs(desiredAngle-GetCurrentAngle()) >= 0.5) {
+            pivotMotor.Spin(0.02*(desiredAngle-GetCurrentAngle())*pivotDirection);
             return;
         }
 
-        double pidVal = pivotPID.GetPIDValue(GetCurrentAngle()*radianCoversion, desiredAngle*radianCoversion);
-        pivotMotor.Spin(pivotDirection*pidVal + pivotFeedforward.calculate((desiredAngle-armOffset)*radianCoversion, pivotMotor.GetVelocity()));
-        
+        double feedforward = pivotFeedforward.calculate((desiredAngle-90)*radianConversion, 0.5*((desiredAngle-GetCurrentAngle())*radianConversion)*pivotDirection);
+
+        pivotMotor.Spin(feedforward);
+
     }
 
     /**
@@ -220,6 +249,7 @@ public class ArmSubsystem extends SubsystemBase {
     public void PivotStop() {
 
         pivotActive = false;
+        pivotPID.reset();
         pivotMotor.Spin(0);
 
     }
@@ -239,10 +269,26 @@ public class ArmSubsystem extends SubsystemBase {
         //     return;
         // }
 
-        if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.5) {
+        if (extensionMotor.motor.getPosition(false) < desiredExtension - 1.5) {
             extensionMotor.Spin(Math.abs(speed)); 
-        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.5) {
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 1.5) {
             extensionMotor.Spin(-Math.abs(speed));
+        } else if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.5) {
+            extensionMotor.Spin(Math.abs(speed/8)); 
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.5) {
+            extensionMotor.Spin(-Math.abs(speed/8));
+        } else {
+            ExtensionStop();
+        }
+
+    }
+
+    public void ExtensionHold() {
+
+        if (extensionMotor.motor.getPosition(false) < desiredExtension - 0.25) {
+            extensionMotor.Spin(Math.abs(0.10)); 
+        } else if (extensionMotor.motor.getPosition(false) > desiredExtension + 0.25) {
+            extensionMotor.Spin(-Math.abs(0.10));
         } else {
             ExtensionStop();
         }
@@ -264,13 +310,10 @@ public class ArmSubsystem extends SubsystemBase {
     public void DisplayDebuggingInfo() {
 
         ShuffleboardTab tab = Shuffleboard.getTab(getName());
-        ShuffleboardLayout PID = tab.getLayout("PID", BuiltInLayouts.kList).withSize(3, 3);
         tab.addDouble("desired extension", () -> desiredExtension);
         tab.addDouble("current extension", () -> extensionMotor.motor.getPosition(false));
         tab.addDouble("desired angle", () -> desiredAngle);
         tab.addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
-        PID.addDouble("desired angle", () -> desiredAngle);
-        PID.addDouble("current angle", () -> pivotMotor.motor.getAbsoluteAngle());
         tab.addBoolean("reached extension", () -> Math.abs(GetCurrentExtension() - GetDesiredExtension()) < 3);
         tab.addBoolean("reached angle", () -> GetIsReady());
 
