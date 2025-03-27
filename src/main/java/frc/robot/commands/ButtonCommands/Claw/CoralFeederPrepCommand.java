@@ -13,9 +13,9 @@ public class CoralFeederPrepCommand extends SequentialCommandGroup {
     public CoralFeederPrepCommand(SubsystemList subsystems) {
 
         addCommands(
-            new ArmMoveCommand(subsystems, armType.claw, 0, 1.0).alongWith(
+            new ArmMoveCommand(subsystems, armType.claw, 0, 1.0),
+            new ArmPivotCommand(subsystems, armType.claw, 140, 1).alongWith(
                 new WristPivotCommand(subsystems, 90, 0.5)),
-            new ArmPivotCommand(subsystems, armType.claw, 140, 1),
             new ArmPivotHoldCommand(subsystems, armType.claw)
         );
 
