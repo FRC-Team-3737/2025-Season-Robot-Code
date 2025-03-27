@@ -50,15 +50,17 @@ public class AlgaeIntakeCommand extends SequentialCommandGroup {
 
             case "floor":
                 addCommands(
-                    new ArmMoveCommand(subsystems, armType.grabber, 0, 1.0),
+                    new ArmMoveCommand(subsystems, armType.grabber, 0, 1.00),
                     new ArmPivotCommand(subsystems, armType.grabber, 55, 1.0),
-                    new GrabberIntakeCommand(subsystems, 0.4).alongWith(
+                    new ArmMoveCommand(subsystems, armType.grabber, 20, 1.00).alongWith(
+                        new GrabberIntakeCommand(subsystems, 0.4),
                         new ArmPivotHoldCommand(subsystems, armType.grabber)).raceWith(
                         new AlgaeDetectionCommand(subsystems)),
                     new ServoLockCommand(subsystems).alongWith(
                         new WaitCommand(0.5)),
                     new GrabberStopCommand(subsystems).alongWith(
-                        new ServoUnlockCommand(subsystems))
+                        new ServoUnlockCommand(subsystems),
+                        new ArmMoveCommand(subsystems, armType.grabber, 0, 1.00))
                 );
                 break;
 

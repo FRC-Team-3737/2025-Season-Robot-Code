@@ -122,7 +122,7 @@ public class RobotContainer {
         upperButtonBoard.button(9).onTrue(new StowCommand(subsystemList, armType.claw));
         upperButtonBoard.button(10).onTrue(new OpenClawCommand(subsystemList));
 
-        lowerButtonBoard.button(1).onTrue(new CancelCommand(subsystemList));
+        lowerButtonBoard.button(1).onTrue(new AlgaeIntakeCommand(subsystemList, "floor"));
         lowerButtonBoard.button(2).onTrue(new AlgaeIntakeCommand(subsystemList, "lower"));
         lowerButtonBoard.button(3).onTrue(new AlgaeIntakeCommand(subsystemList, "upper"));
         lowerButtonBoard.button(4).onTrue(new AlgaeProcessorCommand(subsystemList));
