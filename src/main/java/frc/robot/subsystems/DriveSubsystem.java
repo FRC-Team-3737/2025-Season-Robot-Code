@@ -143,13 +143,13 @@ public class DriveSubsystem extends SubsystemBase {
 
     public VectorR getLeftStrafe(double magnitude) {
 
-        return VectorR.fromPolar(magnitude, getYawDegrees() + 90);
+        return VectorR.fromPolar(magnitude, getYawDegrees() + 180);
 
     }
 
     public VectorR getRightStrafe(double magnitude) {
 
-        return VectorR.fromPolar(magnitude, getYawDegrees() - 90);
+        return VectorR.fromPolar(magnitude, getYawDegrees());
 
     }
 

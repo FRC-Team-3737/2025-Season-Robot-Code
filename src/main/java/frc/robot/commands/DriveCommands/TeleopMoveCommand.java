@@ -37,13 +37,11 @@ public class TeleopMoveCommand extends Command {
         }
 
         if (controller.getRightBumperButton()) {
-            // turnSpeed += 0.125;
-            leftJoystick.add(drive.getRightStrafe(0.2));
+            leftJoystick.add(drive.getRightStrafe(0.1));
         }
 
         if (controller.getLeftBumperButton()) {
-            // turnSpeed += -0.125;
-            leftJoystick.add(drive.getLeftStrafe(0.2));
+            leftJoystick.add(drive.getLeftStrafe(0.1));
         }
 
         drive.move(leftJoystick, turnSpeed, controller.getAButton(), controller.getStartButton());
