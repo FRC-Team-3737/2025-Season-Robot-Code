@@ -1,6 +1,8 @@
 package frc.robot.commands.DriveCommands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.MathUtil;
 
 import frc.robot.utils.VectorR;
 
@@ -9,15 +11,15 @@ import frc.robot.utils.SubsystemList;
 
 public class AutoMoveCommand extends Command {
     
-    final DriveSubsystem drive;
+    private final DriveSubsystem drive;
     private VectorR moveSpeed;
+    private final PIDController turnPID;
     private double position;
     private double desiredPosition; 
     private double startPosition;
     private double angle;
     private double magnitude;
     private double turnSpeed;
-    // private boolean turning;
     private double desiredAngle;
 
     /**
@@ -32,6 +34,9 @@ public class AutoMoveCommand extends Command {
     public AutoMoveCommand(SubsystemList subsystems, double m_distance, double m_angle, double m_magnitude, double m_turnSpeed, double m_desiredAngle) {
 
         drive = (DriveSubsystem) subsystems.getSubsystem("drive");
+        turnPID = new PIDController(0.01, 0, 0);
+        turnPID.enableContinuousInput(0, 360);
+        
         moveSpeed = new VectorR();
         desiredPosition = m_distance * 100; // 100 is a placeholder conversion (feet -> encoder value)
         angle = m_angle;
@@ -54,7 +59,9 @@ public class AutoMoveCommand extends Command {
     @Override
     public void execute() {
 
-        if (Math.abs(drive.GetGyro() - desiredAngle) < 1) {
+        if (Math.abs(drive.GetGyro() - desiredAngle) > 0.5) {
+            turnSpeed = turnPID.calculate(MathUtil.inputModulus(drive.GetGyro() + 180, 0, 360), MathUtil.inputModulus(desiredAngle + 180, 0, 360));
+        } else {
             turnSpeed = 0;
         }
         
