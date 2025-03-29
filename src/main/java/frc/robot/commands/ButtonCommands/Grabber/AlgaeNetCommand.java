@@ -17,7 +17,7 @@ public class AlgaeNetCommand extends SequentialCommandGroup {
             
             new ArmMoveCommand(subsystems, armType.grabber, 0, 1.00),
             new ArmPivotCommand(subsystems, armType.grabber, 177, 1),
-            new ArmMoveCommand(subsystems, armType.grabber, 55, 1.00).alongWith(
+            new ArmMoveCommand(subsystems, armType.grabber, 55, 1.00).raceWith(
                 new ArmPivotHoldCommand(subsystems, armType.grabber))
 
         );

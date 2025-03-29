@@ -13,9 +13,7 @@ public class CoralFeederIntakePrepAutoCommand extends SequentialCommandGroup {
 
         addCommands(
             
-            new ArmPivotCommand(subsystems, armType.claw, 135, 1),
-            new ArmPivotHoldCommand(subsystems, armType.claw)
-
+            new ArmPivotCommand(subsystems, armType.claw, 135, 1)
         );
 
     }

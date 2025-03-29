@@ -20,7 +20,7 @@ public class CoralLevelCommand extends SequentialCommandGroup {
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
                     new ArmPivotCommand(subsystems, armType.claw, 80, 1.0).alongWith(
                         new WristPivotCommand(subsystems, 135, 0.5)),
-                    new ArmMoveCommand(subsystems, armType.claw, 40, 1.00).alongWith(
+                    new ArmMoveCommand(subsystems, armType.claw, 40, 1.00).raceWith(
                         new ArmPivotHoldCommand(subsystems, armType.claw))
                 );
                 break;
@@ -29,8 +29,7 @@ public class CoralLevelCommand extends SequentialCommandGroup {
                 addCommands(
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
                     new ArmPivotCommand(subsystems, armType.claw, 79.5, 1.0).alongWith(
-                        new WristPivotCommand(subsystems, 12.5, 0.5)),
-                    new ArmPivotHoldCommand(subsystems, armType.claw)
+                        new WristPivotCommand(subsystems, 12.5, 0.5))
                 );
                 break;
 
@@ -39,7 +38,7 @@ public class CoralLevelCommand extends SequentialCommandGroup {
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
                     new ArmPivotCommand(subsystems, armType.claw, 131, 1).alongWith(
                         new WristPivotCommand(subsystems, 105, 0.5)),
-                    new ArmMoveCommand(subsystems, armType.claw, 5, 1.00).alongWith(
+                    new ArmMoveCommand(subsystems, armType.claw, 5, 1.00).raceWith(
                         new ArmPivotHoldCommand(subsystems, armType.claw))
                 );
                 break;
@@ -47,9 +46,9 @@ public class CoralLevelCommand extends SequentialCommandGroup {
             case 4:
                 addCommands(
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
-                    new ArmPivotCommand(subsystems, armType.claw, 158, 1.0).alongWith(
+                    new ArmPivotCommand(subsystems, armType.claw, 157.5, 1.0).alongWith(
                         new WristPivotCommand(subsystems, 137, 0.5)),
-                    new ArmMoveCommand(subsystems, armType.claw, 135, 1.00).alongWith(
+                    new ArmMoveCommand(subsystems, armType.claw, 135, 1.00).raceWith(
                         new ArmPivotHoldCommand(subsystems, armType.claw))
                 );
                 break;

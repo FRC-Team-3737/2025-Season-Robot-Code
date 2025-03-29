@@ -20,7 +20,7 @@ public class CoralFeederIntakeAutoCommand extends SequentialCommandGroup {
             new ArmMoveCommand(subsystems, armType.claw, 0, 1),
             new ArmPivotCommand(subsystems, armType.claw, 51, 1).alongWith(
                 new WristPivotCommand(subsystems, 105, 0.5)),
-            new ArmMoveCommand(subsystems, armType.claw, 10, 0.5).alongWith(
+            new ArmMoveCommand(subsystems, armType.claw, 10, 0.5).raceWith(
                 new ArmPivotHoldCommand(subsystems, armType.claw)),
             new ArmMoveCommand(subsystems, armType.claw, 0, 0.5),
             new ArmFullStopCommand(subsystems, null)

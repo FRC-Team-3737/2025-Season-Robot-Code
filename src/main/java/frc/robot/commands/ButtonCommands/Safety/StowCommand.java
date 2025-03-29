@@ -29,17 +29,16 @@ public class StowCommand extends SequentialCommandGroup {
                     new ArmMoveCommand(subsystems, type, 0, 1.00).alongWith(
                         new GrabberStopCommand(subsystems)),
                     new ArmPivotCommand(subsystems, type, 55, 1.0),
-                    new ArmPivotHoldCommand(subsystems, type).unless(() -> grabber.GetAlgeaOut()),
                     new ArmFullStopCommand(subsystems, type).unless(() -> grabber.GetAlgeaIn())
                 );
 
             case claw:
                 addCommands(
-                    new ArmMoveCommand(subsystems, type, 0, 1.00).alongWith(
-                        new WristPivotCommand(subsystems, 100, 0.5)),
+                    new ArmMoveCommand(subsystems, type, 0, 1.00),
                     new ArmPivotCommand(subsystems, type, 55, 1.0).alongWith(
-                        new WristStopCommand(subsystems)),
-                    new ArmFullStopCommand(subsystems, type)
+                        new WristPivotCommand(subsystems, 100, 0.5)),
+                    new ArmFullStopCommand(subsystems, type).alongWith(
+                        new WristStopCommand(subsystems))
                 );
 
             default:
