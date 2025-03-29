@@ -95,13 +95,13 @@ public class LEDTriggerManager {
 
     private BooleanSupplier coralAcquiredSupplier() {
 
-        return () -> claw.GetCoralState();
+        return () -> claw.GetCoralState() && !grabber.GetAlgaeState();
 
     }
 
     private BooleanSupplier algaeAcquiredSupplier() {
 
-        return () -> grabber.GetAlgaeState();
+        return () -> grabber.GetAlgaeState() && !claw.GetCoralState();
 
     }
 
@@ -143,7 +143,7 @@ public class LEDTriggerManager {
 
     private LEDPattern bothAcquiredPattern() {
 
-        return led.SetPattern(led.SetColors("#00E053", "#FFFFFF"), patternType.steps);
+        return led.SetAlternatingStepPattern(led.SetColors("#00E053", "#FFFFFF"), 2);
 
     }
 

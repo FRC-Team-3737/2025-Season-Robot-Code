@@ -28,7 +28,7 @@ public class LEDSubsystem extends SubsystemBase {
     private AddressableLEDBuffer ledBuffer;
 
     public enum patternType {
-        solid, gradient, discontgradient, steps
+        solid, gradient, discontgradient
     }
 
     /**
@@ -110,17 +110,32 @@ public class LEDSubsystem extends SubsystemBase {
             selectedPattern = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, colors);
         } else if (pattern == patternType.discontgradient) {
             selectedPattern = LEDPattern.gradient(LEDPattern.GradientType.kDiscontinuous, colors);
-        } else if (pattern == patternType.steps) {
-            Map<Number, Color> data = new HashMap<>();
-            for (int i = 0; i < colors.length; i++) {
-                data.put(i*(1/(double)colors.length), colors[i]);
-            }
-            selectedPattern = LEDPattern.steps(data);
         } else {
             selectedPattern = LEDPattern.solid(new Color(0, 0, 0));
         }
 
         return selectedPattern;
+
+    }
+
+    public LEDPattern SetEvenStepPattern(Color[] colors) {
+
+            Map<Number, Color> data = new HashMap<>();
+            for (int i = 0; i < colors.length; i++) {
+                data.put(i/(double)colors.length, colors[i]);
+            }
+            return LEDPattern.steps(data);
+
+    }
+
+    public LEDPattern SetAlternatingStepPattern(Color[] colors, double ledPerAlternate) {
+
+        double subsetLength = ledBuffer.getLength()/ledPerAlternate;
+        Map<Number, Color> data = new HashMap<>();
+        for (int i = 0; i < subsetLength; i++) {
+            data.put(i/subsetLength, colors[i % colors.length]);
+        }
+        return LEDPattern.steps(data);
 
     }
 
