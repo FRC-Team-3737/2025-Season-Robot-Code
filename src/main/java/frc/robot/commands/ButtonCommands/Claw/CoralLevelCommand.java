@@ -1,7 +1,7 @@
 package frc.robot.commands.ButtonCommands.Claw;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.utils.SubsystemList;
 import frc.robot.subsystems.ArmSubsystem.armType;
 import frc.robot.commands.ArmCommands.ArmFullStopCommand;
@@ -29,7 +29,9 @@ public class CoralLevelCommand extends SequentialCommandGroup {
                 addCommands(
                     new ArmMoveCommand(subsystems, armType.claw, 0, 1.00),
                     new ArmPivotCommand(subsystems, armType.claw, 79.5, 1.0).alongWith(
-                        new WristPivotCommand(subsystems, 12.5, 0.5))
+                        new WristPivotCommand(subsystems, 12.5, 0.5)),
+                    new ArmPivotHoldCommand(subsystems, armType.claw).alongWith(
+                        new WaitCommand(0.5))
                 );
                 break;
 

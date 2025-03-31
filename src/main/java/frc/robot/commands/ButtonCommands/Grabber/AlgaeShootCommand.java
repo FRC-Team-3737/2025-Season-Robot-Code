@@ -19,7 +19,8 @@ public class AlgaeShootCommand extends SequentialCommandGroup {
         addCommands(
             new GrabberIntakeCommand(subsystems, .25).raceWith(
                     new WaitCommand(.25)),
-            new GrabberStopCommand(subsystems),
+            new GrabberStopCommand(subsystems).raceWith(
+                new ArmPivotHoldCommand(subsystems, armType.grabber)),
             new GrabberShootCommand(subsystems, 0.05).raceWith(
                 new WaitCommand(.5)).unless(
                 () -> grabberArm.GetCurrentAngle() > 90),

@@ -1,7 +1,7 @@
 package frc.robot.commands.ButtonCommands.Grabber;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.utils.SubsystemList;
 import frc.robot.commands.ArmCommands.ArmMoveCommand;
 import frc.robot.commands.ArmCommands.ArmPivotCommand;
@@ -14,7 +14,9 @@ public class AlgaeProcessorCommand extends SequentialCommandGroup {
 
         addCommands(
             new ArmMoveCommand(subsystems, armType.grabber, 0, 1.0),
-            new ArmPivotCommand(subsystems, armType.grabber, 55, 1)
+            new ArmPivotCommand(subsystems, armType.grabber, 55, 1),
+            new ArmPivotHoldCommand(subsystems, armType.grabber).alongWith(
+                new WaitCommand(0.5))
         );
 
     }

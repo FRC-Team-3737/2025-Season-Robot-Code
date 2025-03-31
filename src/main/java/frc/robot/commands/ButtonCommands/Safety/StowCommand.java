@@ -1,7 +1,7 @@
 package frc.robot.commands.ButtonCommands.Safety;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.utils.SubsystemList;
 
 import frc.robot.subsystems.GrabberSubsystem;
@@ -29,6 +29,8 @@ public class StowCommand extends SequentialCommandGroup {
                     new ArmMoveCommand(subsystems, type, 0, 1.00).alongWith(
                         new GrabberStopCommand(subsystems)),
                     new ArmPivotCommand(subsystems, type, 55, 1.0),
+                    new ArmPivotHoldCommand(subsystems, type).alongWith(
+                        new WaitCommand(0.5)).unless(() -> grabber.GetAlgeaOut()),
                     new ArmFullStopCommand(subsystems, type).unless(() -> grabber.GetAlgeaIn())
                 );
 
