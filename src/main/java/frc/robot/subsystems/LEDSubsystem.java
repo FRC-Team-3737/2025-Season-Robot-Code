@@ -188,6 +188,12 @@ public class LEDSubsystem extends SubsystemBase {
 
     }
 
+    public Command RunAnimation(LEDPattern pattern) {
+
+        return new RunCommand(() -> pattern.applyTo(ledBuffer));
+
+    }
+
     public void Default() {
 
         LEDPattern.solid(new Color("#00FF00"));

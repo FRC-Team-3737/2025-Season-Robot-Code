@@ -191,37 +191,37 @@ public class LEDTriggerManager {
 
     private Command autoStartCommand() {
 
-        return led.RunPattern(autoStartPattern());
+        return led.RunAnimation(autoStartPattern());
 
     }
 
     private Command teleopStartCommand() {
 
-        return led.RunPattern(teleopStartPattern());
+        return led.RunAnimation(teleopStartPattern());
 
     }
 
     private Command endgameStartCommand() {
 
-        return led.RunPattern(endgameStartPattern());
+        return led.RunAnimation(endgameStartPattern());
 
     }
 
     private LEDPattern autoStartPattern() {
 
-        return led.SetPattern(led.SetColors("#E06000", "E03000"), patternType.gradient).scrollAtAbsoluteSpeed(led.SetVelocity(2), led.GetLEDLength(19));
+        return led.SetPattern(led.SetColors("#F05000", "#F03000", "#F05000"), patternType.gradient).scrollAtAbsoluteSpeed(led.SetVelocity(12), led.GetLEDLength(19));
 
     }
 
     private LEDPattern teleopStartPattern() {
 
-        return led.SetPattern(led.SetColors("#00FF00", "#00AA00"), patternType.gradient).scrollAtAbsoluteSpeed(led.SetVelocity(2), led.GetLEDLength(19));
+        return led.SetPattern(led.SetColors("#00FF00", "#005500", "#00FF00"), patternType.gradient).scrollAtAbsoluteSpeed(led.SetVelocity(12), led.GetLEDLength(19));
 
     }
 
     private LEDPattern endgameStartPattern() {
 
-        return led.SetPattern(led.SetColors("#0090FF", "#0060FF", "0030FF"), patternType.gradient).scrollAtAbsoluteSpeed(led.SetVelocity(2), led.GetLEDLength(19));
+        return led.SetPattern(led.SetColors("#70B0F0", "#30C080", "#2080C0", "#105090", "#2080C0", "#30C080"), patternType.gradient).scrollAtAbsoluteSpeed(led.SetVelocity(12), led.GetLEDLength(19));
 
     }
 
