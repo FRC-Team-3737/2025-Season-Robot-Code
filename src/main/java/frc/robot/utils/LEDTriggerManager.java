@@ -37,6 +37,8 @@ public class LEDTriggerManager {
 
         // Match State
         autoStartTrigger();
+        teleopStartTrigger();
+        endgameStartTrigger();
 
         // Gameplay
         coralAcquiredTrigger();
@@ -149,11 +151,23 @@ public class LEDTriggerManager {
 
     //#endregion Gamepieces
 
-    //#region AutoStart
+    //#region Match State
 
     private void autoStartTrigger() {
 
         new Trigger(autoStartSupplier()).onTrue(autoStartCommand());
+
+    }
+
+    private void teleopStartTrigger() {
+
+        new Trigger(teleopStartSupplier()).onTrue(teleopStartCommand());
+
+    }
+
+    private void endgameStartTrigger() {
+
+        new Trigger(endgameStartSupplier()).onTrue(endgameStartCommand());
 
     }
 
@@ -163,18 +177,54 @@ public class LEDTriggerManager {
 
     }
 
+    private BooleanSupplier teleopStartSupplier() {
+
+        return () -> DriverStation.isTeleopEnabled();
+
+    }
+
+    private BooleanSupplier endgameStartSupplier() {
+
+        return () -> DriverStation.isTeleopEnabled() && DriverStation.getMatchTime() <= 20;
+
+    }
+
     private Command autoStartCommand() {
 
         return led.RunPattern(autoStartPattern());
 
     }
 
-    private LEDPattern autoStartPattern() {
+    private Command teleopStartCommand() {
 
-        return led.SetPattern(led.SetColors("#E06000"), patternType.solid);
+        return led.RunPattern(teleopStartPattern());
 
     }
 
-    //#endregion AutoStart
+    private Command endgameStartCommand() {
+
+        return led.RunPattern(endgameStartPattern());
+
+    }
+
+    private LEDPattern autoStartPattern() {
+
+        return led.SetPattern(led.SetColors("#E06000", "E03000"), patternType.gradient).scrollAtAbsoluteSpeed(led.SetVelocity(2), led.GetLEDLength(19));
+
+    }
+
+    private LEDPattern teleopStartPattern() {
+
+        return led.SetPattern(led.SetColors("#00FF00", "#00AA00"), patternType.gradient).scrollAtAbsoluteSpeed(led.SetVelocity(2), led.GetLEDLength(19));
+
+    }
+
+    private LEDPattern endgameStartPattern() {
+
+        return led.SetPattern(led.SetColors("#0090FF", "#0060FF", "0030FF"), patternType.gradient).scrollAtAbsoluteSpeed(led.SetVelocity(2), led.GetLEDLength(19));
+
+    }
+
+    //#endregion Match State
 
 }
