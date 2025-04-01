@@ -9,18 +9,31 @@ import frc.robot.auto.routines.TestAutoRoutine;
 public class AutoPicker {
     
     private final SendableChooser<Command> sendableChooser = new SendableChooser<>();
+    private final SendableChooser<AutoDivider> categoryChooser = new SendableChooser<>();
 
     public AutoPicker(SubsystemList subsystems) {
 
         sendableChooser.setDefaultOption("Choose Auto", null);
-        Command[] autoRoutines = {
+        categoryChooser.setDefaultOption("Choose Category", null);
+
+        categoryChooser.addOption("Cage", new AutoDivider( 
+            new TestAutoRoutine(subsystems)
+        ));
+        categoryChooser.addOption("Center", new AutoDivider(
             new LeaveAutoRoutine(subsystems),
             new TestAutoRoutine(subsystems)
-        };
+        ));
+        categoryChooser.addOption("Processor", new AutoDivider( 
+            new TestAutoRoutine(subsystems)
+        ));
+        categoryChooser.addOption("Alternate", new AutoDivider( 
+            new TestAutoRoutine(subsystems)
+        ));
 
-        this.SetAutoRoutines(autoRoutines);
-
+        SmartDashboard.putData(categoryChooser);
         SmartDashboard.putData(sendableChooser);
+
+        SetAutoRoutines();
 
     }
 
@@ -30,10 +43,12 @@ public class AutoPicker {
 
     }
 
-    private void SetAutoRoutines(Command[] routines) {
-        for (Command routine : routines) {
-            String name = routine.getName();
-            sendableChooser.addOption(name, routine);
+    private void SetAutoRoutines() {
+
+        for () {
+            if (routineGroup == categoryChooser.getSelected()) {
+                routineGroup.populateCommands(sendableChooser);
+            }   
         }
     }
 
