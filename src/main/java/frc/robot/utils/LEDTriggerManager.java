@@ -36,9 +36,9 @@ public class LEDTriggerManager {
         defaultTrigger();
 
         // Match State
-        autoStartTrigger();
-        teleopStartTrigger();
-        endgameStartTrigger();
+        //autoStartTrigger();
+        //teleopStartTrigger();
+        //endgameStartTrigger();
 
         // Gameplay
         coralAcquiredTrigger();
