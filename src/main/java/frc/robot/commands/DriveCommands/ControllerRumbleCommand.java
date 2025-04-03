@@ -11,18 +11,20 @@ public class ControllerRumbleCommand extends Command {
 
     private final XboxController controller;
     private final Timer rumbleEnd;
+    private final RumbleType rumbleType;
     
-    public ControllerRumbleCommand(XboxController driveController) {
+    public ControllerRumbleCommand(XboxController driveController, RumbleType rumble) {
 
         controller = driveController;
         rumbleEnd = new Timer();
+        rumbleType = rumble;
 
     }
 
     @Override
     public void initialize() {
         
-        controller.setRumble(RumbleType.kBothRumble, 1);
+        controller.setRumble(rumbleType, 1);
         rumbleEnd.start();
 
     }
@@ -32,7 +34,7 @@ public class ControllerRumbleCommand extends Command {
 
         if (rumbleEnd.get() >= 1.25) {
             rumbleEnd.stop();
-            controller.setRumble(RumbleType.kBothRumble,0);
+            controller.setRumble(rumbleType,0);
             rumbleEnd.reset();
         }
 

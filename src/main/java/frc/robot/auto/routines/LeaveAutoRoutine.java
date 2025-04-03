@@ -10,7 +10,6 @@ public class LeaveAutoRoutine extends SequentialCommandGroup {
     public LeaveAutoRoutine(SubsystemList subsystems) {
 
         setName("Leave Auto");
-
         addCommands(
             new AutoMoveCommand(subsystems, 0.2, 90, .25, 0, 0)
         );

@@ -134,7 +134,7 @@ public class ClawSubsystem extends SubsystemBase {
         if (!rotationActive) return;
 
         if (Math.abs(desiredAngle-GetCurrentAngle()) >= 0.5) {
-            wristMotor.Spin(0.15*(desiredAngle-GetCurrentAngle()));
+            wristMotor.Spin(0.25*(desiredAngle-GetCurrentAngle()));
             return;
         }
 

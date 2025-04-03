@@ -34,7 +34,7 @@ public class AutoMoveCommand extends Command {
     public AutoMoveCommand(SubsystemList subsystems, double m_distance, double m_angle, double m_magnitude, double m_turnSpeed, double m_desiredAngle) {
 
         drive = (DriveSubsystem) subsystems.getSubsystem("drive");
-        turnPID = new PIDController(0.01, 0, 0);
+        turnPID = new PIDController(0.015, 0, 0);
         turnPID.enableContinuousInput(0, 360);
         
         moveSpeed = new VectorR();
@@ -60,7 +60,7 @@ public class AutoMoveCommand extends Command {
     public void execute() {
 
         if (Math.abs(drive.GetGyro() - desiredAngle) > 0.5) {
-            turnSpeed = turnPID.calculate(MathUtil.inputModulus(drive.GetGyro() + 180, 0, 360), MathUtil.inputModulus(desiredAngle + 180, 0, 360));
+            turnSpeed = MathUtil.clamp(turnPID.calculate(MathUtil.inputModulus(drive.GetGyro(), 0, 360), MathUtil.inputModulus(desiredAngle + 180, 0, 360)), -0.25, 0.25);
         } else {
             turnSpeed = 0;
         }
